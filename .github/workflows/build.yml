@@ -31,7 +31,7 @@ jobs:
         run: python build/lint_md.py
 
       - name: Build per-chapter PDFs + full book PDF + TeX project + merged MD
-        run: python build/update_all.py
+        run: python build/update_all.py --no-tex-compile
 
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4

@@ -25,11 +25,14 @@ def run(cmd, name):
 
 
 def main():
+    argv = sys.argv[1:]
+    no_compile = '--no-tex-compile' in argv
     codes = []
     codes.append(run([sys.executable, 'build/gen_manifest.py'], '1) 生成各章 pdf_manifest.txt'))
     codes.append(run([sys.executable, 'build/pdf_build.py'], '2) 每章 PDF'))
     codes.append(run([sys.executable, 'build/texbook.py', '--full'], '3) 全书 PDF'))
-    codes.append(run([sys.executable, 'build/emit_tex.py', '--compile'], '4) 可编译 TeX 工程'))
+    tex_cmd = [sys.executable, 'build/emit_tex.py'] + ([] if no_compile else ['--compile'])
+    codes.append(run(tex_cmd, '4) 可编译 TeX 工程' + ('（仅生成，不编译）' if no_compile else '')))
     codes.append(run([sys.executable, 'build/merge_md.py'], '5) 合并整体 MD'))
     print()
     print('ALL DONE  exit_codes=', codes)

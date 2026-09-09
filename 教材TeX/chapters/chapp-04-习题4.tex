@@ -1,0 +1,192 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{习题4 参考答案}\label{ux4e60ux98984-ux53c2ux8003ux7b54ux6848}
+
+\begin{quote}
+说明：第4章（解析函数的级数表示法）主要习题与参考答案（经典教材整理）。
+\end{quote}
+
+\section{习题}\label{ux4e60ux9898-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  下列数列 \(\{\alpha_n\}\) 是否收敛？若收敛，求出极限：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\alpha_n=\dfrac{1+ni}{1-ni}\)； (2)
+    \(\alpha_n=\left(\dfrac{1-i}{2}\right)^n\)；
+  \item
+    \(\alpha_n=(-1)^n+\dfrac{i}{n+1}\)； (4) \(\alpha_n=e^{-in\pi/2}\)；
+    (5) \(\alpha_n=\dfrac1n\,e^{-in\pi/2}\)。
+  \end{enumerate}
+\item
+  证明：\(\lim_{n\to\infty}\alpha^n=\begin{cases}0,&|\alpha|<1\\1,&\alpha=1\\\text{不存在},&|\alpha|=1,\alpha\neq1\\\infty,&|\alpha|>1.\end{cases}\)
+\item
+  判断下列级数的绝对收敛性与收敛性：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\sum_{n=1}^\infty\dfrac{i^n}{n}\)； (2)
+    \(\sum_{n=2}^\infty\dfrac{i^n}{\ln n}\)；
+  \item
+    \(\sum_{n=1}^\infty\dfrac{(6+5i)^n}{8^n}\)； (4)
+    \(\sum_{n=1}^\infty\dfrac{\cos in}{2^n}\)。
+  \end{enumerate}
+\item
+  下列说法是否正确？为什么？
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    每一个幂级数在它的收敛圆周上处处收敛；
+  \item
+    每一个幂级数的和函数在收敛圆内可能有奇点；
+  \item
+    每一个在 \(z_0\) 连续的函数一定可以在 \(z_0\) 邻域内展开成 Taylor
+    级数。
+  \end{enumerate}
+\item
+  幂级数 \(\sum_{n=0}^\infty c_n(z-2)^n\) 能否在 \(z=0\) 收敛而在
+  \(z=3\) 发散？
+\item
+  求下列幂级数的收敛半径：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\sum_{n=1}^\infty\dfrac{z^n}{n^p}\)（\(p\) 为正整数）； (2)
+    \(\sum_{n=1}^\infty\dfrac{n!}{n^n}z^n\)；
+  \item
+    \(\sum_{n=0}^\infty(1+i)^n z^n\)； (4)
+    \(\sum_{n=1}^\infty e^{in\pi}z^n\)；
+  \item
+    \(\sum_{n=1}^\infty\left(\dfrac{i}{n-1}\right)^n z^n\)?； (6)
+    \(\sum_{n=1}^\infty\dfrac{\ln i}{n}z^n\)。
+  \end{enumerate}
+\item
+  将 \(f(z)=\dfrac{1}{(z-1)(z-2)}\) 在下列圆环内展开为洛朗级数：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(0<|z|<1\)； (2) \(1<|z|<2\)； (3) \(2<|z|<+\infty\)； (4)
+    \(|z-1|>1\)。
+  \end{enumerate}
+\item
+  求 \(f(z)=\dfrac{\sin z}{z^6}\) 在 \(z=0\)
+  处洛朗级数的负幂部分，并说明 \(z=0\) 的类型。
+\item
+  判断下列奇点的类型（可去、极点、本性），若为极点指出级数：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(z=0\) 处 \(f(z)=\dfrac{\sin z}{z^3}\)；
+  \item
+    \(z=0\) 处 \(f(z)=\dfrac{1}{z^2}e^{1/z}\)；
+  \item
+    \(z=\infty\) 处 \(f(z)=\dfrac{z^2}{z^2+3}\)。
+  \end{enumerate}
+\end{enumerate}
+
+\section{参考答案}\label{ux53c2ux8003ux7b54ux6848-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\alpha_n=\dfrac{n^2-1+2ni}{n^2+1}\to-1+0i=-1\)；
+  \item
+    \(\left|\dfrac{1-i}{2}\right|=\dfrac{\sqrt2}{2}<1\)，故
+    \(\alpha_n\to0\)；
+  \item
+    实部 \((-1)^n\) 发散，故数列发散；
+  \item
+    \(\alpha_n=\cos\frac{n\pi}{2}-i\sin\frac{n\pi}{2}\) 在 \(1,-1,i,-i\)
+    间循环，发散；
+  \item
+    \(\left|\dfrac1n\right|\to0\)，故 \(\alpha_n\to0\)。
+  \end{enumerate}
+\item
+  直接按模与辐角讨论。
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\sum i^n/n\) 收敛（交错型），但 \(\sum|i^n/n|=\sum1/n\)
+    发散，故\textbf{条件收敛}；
+  \item
+    同 (1) 方法，条件收敛；
+  \item
+    \(|(6+5i)/8|=\sqrt{61}/8<1\)，故\textbf{绝对收敛}；
+  \item
+    \(\cos in=\cosh n\)，通项不趋于 \(0\)，发散。
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    不对，如 \(\sum z^n\) 在 \(|z|=1\) 上不收敛；
+  \item
+    不对，幂级数和函数在收敛圆内解析，不能在收敛圆内有奇点；
+  \item
+    不对，如 \(f(z)=\bar z\)（实部虚部相关）连续但处处不可展开为
+    Taylor（解析性才是充要条件）。
+  \end{enumerate}
+\item
+  不能。若 \(z=0\) 收敛，则由 Abel 定理收敛圆半径至少
+  \(|0-2|=2\)，\(|3-2|=1<2\) 必收敛，与假设矛盾。
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(R=1\)； (2) 用比值法：\(R=e\)； (3)
+    \(|1+i|=\sqrt2\)，\(R=1/\sqrt2\)； (4) \(|e^{in\pi}|=1\)，\(R=1\)；
+    (5)(6) 酌情化简，一般化为后项比值判断。
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(0<|z|<1\)：\(\dfrac1{z-2}-\dfrac1{z-1}=-\dfrac12\sum_{n=0}^\infty\dfrac{z^n}{2^n}+\sum_{n=0}^\infty z^n\)；
+  \item
+    \(1<|z|<2\)：\(\dfrac1{z-2}=-\dfrac12\sum_{n=0}^\infty\dfrac{z^n}{2^n}\)，\(\dfrac1{z-1}=\dfrac1z\sum_{n=0}^\infty\dfrac1{z^n}\)；
+  \item
+    \(|z|>2\)：两个部分均按 \(\dfrac1z\) 幂展开；
+  \item
+    \(|z-1|>1\)：令 \(w=z-1\)，\(\dfrac1{(z-1)(z-2)}=\dfrac1{w(w-1)}\)
+    展开。
+  \end{enumerate}
+\item
+  \(\dfrac{\sin z}{z^6}=\dfrac1{z^5}-\dfrac{1}{3!z^3}+\dfrac{1}{5!z}-\cdots\)，故
+  \(z=0\) 是\textbf{五阶极点}。
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\sin z/z^3\) 在
+    \(z=0\)：\(\sin z/z^3=1/z^2-\dfrac1{6}+\cdots\)，二阶极点；
+  \item
+    \(e^{1/z}/z^2\) 在 \(z=0\) 有无限多负幂项，\textbf{本性奇点}；
+  \item
+    \(z=\infty\)：令 \(t=1/z\)，\(f(1/t)=\dfrac{1}{1+3t^2}\) 在 \(t=0\)
+    解析，故 \(z=\infty\) 为\textbf{可去奇点}。
+  \end{enumerate}
+\end{enumerate}

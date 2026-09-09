@@ -1,0 +1,7 @@
+# 第 1 章 PDF 合订清单（build/pdf_build.py 读取）
+TITLE: 复数和复平面
+README.md
+01-复数.md
+02-复平面点集.md
+03-扩充复平面及其球面表示.md
+04-本章小结与教学建议.md

@@ -1,0 +1,57 @@
+name: Build Book (Complex Functions Course)
+
+on:
+  push:
+    paths:
+      - 'chapters/**'
+      - '附录/**'
+      - 'build/**'
+      - '.github/workflows/build.yml'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LaTeX / pandoc / CJK fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-lang-chinese texlive-latex-extra latexmk fonts-noto-cjk
+
+      - name: Install Python deps
+        run: pip install pypdf pyyaml pillow
+
+      - name: Lint Markdown / LaTeX safety checks
+        run: python build/lint_md.py
+
+      - name: Build per-chapter PDFs + full book PDF + TeX project + merged MD
+        run: python build/update_all.py
+
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: curriculum-pdfs
+          path: |
+            教材PDF/*.pdf
+          if-no-files-found: error
+
+      - name: Upload editable TeX project + merged MD
+        uses: actions/upload-artifact@v4
+        with:
+          name: tex-project-and-merged-md
+          path: |
+            教材TeX/main.tex
+            教材TeX/cover.tex
+            教材TeX/chapters/
+            教材TeX/figures/
+            教材TeX/user_style.tex
+            教材TeX/user_meta.yaml
+            教材TeX/README.md
+            复变函数与积分变换_教案.md
+          if-no-files-found: error

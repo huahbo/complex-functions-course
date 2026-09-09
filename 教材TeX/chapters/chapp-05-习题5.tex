@@ -1,0 +1,130 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{习题5 参考答案}\label{ux4e60ux98985-ux53c2ux8003ux7b54ux6848}
+
+\begin{quote}
+说明：第5章（留数理论及其应用）主要习题与参考答案（经典教材整理）。
+\end{quote}
+
+\section{习题}\label{ux4e60ux9898-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  下列函数有些什么奇点？若是极点，指出其级：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(f(z)=\dfrac{1}{z^2(z^2+1)}\)； (2) \(f(z)=\dfrac{\sin z}{z^3}\)；
+  \item
+    \(f(z)=\dfrac{1}{z^3-z^2-z+1}\)； (4) \(f(z)=\dfrac{\ln(z+1)}{z}\)；
+  \item
+    \(f(z)=\dfrac{1}{z(e^z+1)}\)； (6) \(f(z)=e^{1/(z-1)}\)；
+  \item
+    \(f(z)=\dfrac{1}{z^2(e^z-1)}\)； (8)
+    \(f(z)=\dfrac{1}{1+z^n}\)（\(n\) 正整数）。
+  \end{enumerate}
+\item
+  证明：若 \(z_0\) 是 \(f(z)\) 的 \(m\)（\(m>1\)）级零点，则 \(z_0\) 是
+  \(f'(z)\) 的 \(m-1\) 级零点。
+\item
+  验证 \(z=\dfrac{i\pi}{2}\) 是 \(\cosh z\) 的一级零点。
+\item
+  求 \(f(z)=\sin z+\sinh z-2z\) 在 \(z=0\) 处零点的阶数。
+\item
+  若 \(f(z)\) 与 \(g(z)\) 是以 \(z_0\) 为零点且不恒为零的解析函数，证明
+  \[
+  \lim_{z\to z_0}\frac{f(z)}{g(z)}=\lim_{z\to z_0}\frac{f'(z)}{g'(z)}
+  \] （或两端均为 \(\infty\)）。
+\item
+  求下列积分的值（\(C\) 取正向）：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\oint_C\dfrac{z^2-5z+2}{z(z-1)}dz\)，\(C:|z|=2\)；
+  \item
+    \(\int_C\dfrac{dz}{z^2-2z+2}\)，\(C:|z-1|=\dfrac32\)；
+  \item
+    \(\int_0^\infty\dfrac{x^2}{x^4+1}dx\)；
+  \item
+    \(\int_0^\infty\dfrac{\sin x}{x}dx\)；
+  \item
+    \(\int_{-\infty}^{+\infty}\dfrac{\cos x}{x^2+4x+5}dx\)；
+  \item
+    \(\int_0^{2\pi}\dfrac{d\theta}{1+\cos^2\theta}\)。
+  \end{enumerate}
+\end{enumerate}
+
+\section{参考答案}\label{ux53c2ux8003ux7b54ux6848-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(z=0\) 二级极点，\(z=\pm i\) 一级极点；
+  \item
+    \(z=0\) 二级极点（\(\sin z/z^3=1/z^2-1/6+\cdots\)）；
+  \item
+    \(z=1\) 二级极点，\(z=-1\) 一级极点；
+  \item
+    \(z=0\) 可去奇点（\(\ln(1+z)/z\to1\)）；
+  \item
+    \(z=0\) 一级极点；\(z=(2k+1)\pi i\) 一级极点（\(k\neq0\)）；
+  \item
+    \(z=1\) 本性奇点；
+  \item
+    \(z=0\) 三级极点（\(e^z-1=z(1+z/2+\cdots)\)，故 \(z^2(e^z-1)\) 是
+    \(z\)
+    的三级零点，倒数三级极点），\(z=2k\pi i\)（\(k\neq0\)）一级极点；
+  \item
+    \(z\) 为 \(1+z^n=0\) 的 \(n\) 个根，均为一级极点。
+  \end{enumerate}
+\item
+  设 \(f(z)=(z-z_0)^m\varphi(z)\)，\(\varphi(z_0)\neq0\)，则
+  \(f'(z)=(z-z_0)^{m-1}[m\varphi(z)+(z-z_0)\varphi'(z)]\)，括号在
+  \(z_0\) 不为零，故为 \(m-1\) 级零点。
+\item
+  \(\cosh z=\cos(iz)\)；\(\cosh\dfrac{i\pi}{2}=\cos\dfrac{\pi}{2}=0\)；\(\sinh\dfrac{i\pi}{2}=i\sin\dfrac{\pi}{2}=i\neq0\)，故一级零点。
+\item
+  计算导数：\(f(0)=0,\ f'(0)=0,\ f''(0)=0,\ f'''(0)=0,\ f^{(4)}(0)=0\)?
+  实际上 \(\sin z+\sinh z-2z\)
+  前几项：\(z-\frac{z^3}{6}+z+\frac{z^3}{6}-2z=0+\frac{-z^3}{6}+\frac{z^3}{6}=0\)，需继续展开：\(\sin z+\sinh z=2z+\frac{z^5}{60}+\cdots\)（奇数幂），故
+  \(f(z)=\frac{z^5}{60}+\cdots\)，从而 \(z=0\) 是五级零点。
+\item
+  设
+  \(f(z)=(z-z_0)\varphi(z)\)，\(g(z)=(z-z_0)\psi(z)\)，\(\varphi,\psi\)
+  在 \(z_0\) 解析且非零，则
+  \(\dfrac{f}{g}=\dfrac{\varphi}{\psi}\)，\(\dfrac{f'}{g'}\) 也趋
+  \(\dfrac{\varphi}{\psi}\)；由洛必达形式可得结论。
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(z=0\) 与 \(z=1\) 在 \(|z|=2\) 内：留数法
+    \(=2\pi i\left(\lim_{z\to0}zf(z)+\lim_{z\to1}(z-1)f(z)\right)=2\pi i(2-4)=-4\pi i\)；
+  \item
+    \(z=1\pm i\) 为极点，\(|z-1|=3/2\)
+    内两者都在？\(|i|=1<3/2\)，\(|-i|=1<3/2\)，留数和为 \(0\)，故积分为
+    \(0\)；
+  \item
+    \(\dfrac{x^2}{x^4+1}\) 上半平面极点在
+    \(e^{i\pi/4},e^{i3\pi/4}\)，留数法得 \(\dfrac{\pi}{\sqrt2}\)；
+  \item
+    \(\int_0^\infty\dfrac{\sin x}{x}dx=\dfrac{\pi}{2}\)（利用
+    \(\dfrac{e^{iz}}{z}\) 的围道积分）；
+  \item
+    \(R(z)=\dfrac{1}{z^2+4z+5}\) 上半平面仅 \(z=-2+i\)
+    一阶极点，\(\int_{-\infty}^\infty\dfrac{\cos x}{x^2+4x+5}dx=\dfrac{\pi}{e}\cos2\)；
+  \item
+    令
+    \(z=e^{i\theta}\)，\(\cos\theta=\dfrac{z+z^{-1}}{2}\)，化为单位圆内留数，得
+    \(\int_0^{2\pi}\dfrac{d\theta}{1+\cos^2\theta}=\sqrt2\,\pi\)。
+  \end{enumerate}
+\end{enumerate}

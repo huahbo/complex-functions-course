@@ -1,0 +1,1230 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{第 8 章 ·
+拉普拉斯变换}\label{ux7b2c-8-ux7ae0-ux62c9ux666eux62c9ux65afux53d8ux6362}
+
+\section{8.1
+拉普拉斯变换的定义}\label{ux62c9ux666eux62c9ux65afux53d8ux6362ux7684ux5b9aux4e49}
+
+\begin{quote}
+本节目标：从傅里叶变换的适用条件出发，理解引入衰减因子的动机，掌握拉普拉斯变换的定义、原函数存在定理与收敛域，会由定义计算基本初等函数的象函数，熟记基本变换表。
+重点：拉普拉斯变换的定义；原函数（分段连续 +
+指数型增长）存在定理；收敛域的概念。
+难点：收敛坐标的确定；傅里叶变换与拉普拉斯变换的联系。
+\end{quote}
+
+\subsection{8.1.1
+从傅里叶变换到拉普拉斯变换}\label{ux4eceux5085ux91ccux53f6ux53d8ux6362ux5230ux62c9ux666eux62c9ux65afux53d8ux6362}
+
+傅里叶变换要求函数 \(f(t)\)
+在整个实轴上绝对可积，这使许多工程与物理中常见的函数（如
+\(e^{at} (a>0)\)、\(t\)、阶跃函数等）不能直接使用傅里叶变换。另一方面，许多实际问题更关注``只发生在
+\(t\ge 0\) 以后''的因果信号，以及带初始条件的常微分方程。
+
+解决办法是：对 \(f(t)\) 先乘上一个衰减因子 \(e^{-\sigma t}\)（\(\sigma\)
+为实常数），使增长函数变为衰减函数，再作傅里叶变换。设 \(t<0\) 时
+\(f(t)=0\)，则
+
+\[
+\underbrace{\int_{-\infty}^{\infty} f(t)e^{-\sigma t}e^{-i\omega t}\,dt}_{\text{傅里叶变换}}
+= \int_{0}^{\infty} f(t)e^{-(\sigma+i\omega)t}\,dt .
+\]
+
+令复变量
+
+\[
+s = \sigma + i\omega,\qquad \sigma,\omega \in \mathbb{R},
+\]
+
+则上面的积分变为关于复变量 \(s\) 的积分，这就是\textbf{拉普拉斯变换}。当
+\(\sigma>0\) 时衰减因子 \(e^{-\sigma t}\)
+使原来不收敛的积分变为收敛，从而扩大了可变换函数的范围。
+
+\subsection{8.1.2
+拉普拉斯变换的定义}\label{ux62c9ux666eux62c9ux65afux53d8ux6362ux7684ux5b9aux4e49-1}
+
+\textbf{定义 8.1（拉普拉斯变换）} 设函数 \(f(t)\) 在 \(t\ge 0\)
+上有定义（当 \(t<0\) 时规定 \(f(t)=0\)），\(s=\sigma+i\omega\)
+为复参变量。若广义积分
+
+\[
+\mathcal{L}[f(t)] = F(s) = \int_{0}^{\infty} f(t)e^{-st}\,dt
+\]
+
+在 \(s\) 的某个区域内收敛，则称该积分为 \(f(t)\)
+的\textbf{拉普拉斯变换}，记作 \(F(s)=\mathcal{L}[f(t)]\)，其中 \(F(s)\)
+称为 \(f(t)\) 的\textbf{象函数}，\(f(t)\) 称为 \(F(s)\)
+的\textbf{原函数}。
+
+\textbf{说明}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  拉普拉斯变换是\textbf{单边变换}，只涉及 \(t\ge 0\) 上的信息；对
+  \(t<0\) 的取值不影响结果（通常规定为 \(0\)）。
+\item
+  当函数含冲激（\(\delta\) 函数）时，积分下限常取为 \(0^{-}\)，即
+  \(\displaystyle\mathcal{L}[f(t)]=\int_{0^-}^{\infty} f(t)e^{-st}dt\)，以包含原点处的冲激。
+\item
+  拉普拉斯变换是一个线性算子；它在复平面上的存在区域一般是一个\textbf{右半平面}
+  \(\operatorname{Re}s>\sigma_c\)。
+\item
+  常用记号：\(f(t)\doteq F(s)\) 或
+  \(F(s)\doteq f(t)\)，表示二者是一对拉普拉斯变换对。
+\end{enumerate}
+
+\subsection{8.1.3
+原函数存在定理}\label{ux539fux51fdux6570ux5b58ux5728ux5b9aux7406}
+
+\textbf{定理 8.1（原函数存在定理）} 设函数 \(f(t)\) 满足：
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  在 \(t\ge 0\)
+  的任一有限闭区间上\textbf{分段连续}（只有有限个第一类间断点）；
+\item
+  \(f(t)\) 是\textbf{指数型增长}的：存在常数 \(M>0\) 与
+  \(\sigma_0\ge 0\)，使得
+\end{enumerate}
+
+\[
+|f(t)| \le M e^{\sigma_0 t},\qquad t\ge 0 .
+\]
+
+则 \(f(t)\) 的拉普拉斯变换 \(F(s)\) 在右半平面
+
+\[
+\operatorname{Re}s = \sigma > \sigma_0
+\]
+
+上存在，并且在此半平面内是解析函数。\(\sigma_0\)
+称为\textbf{收敛坐标}，\(\operatorname{Re}s>\sigma_0\)
+称为\textbf{收敛域}。
+
+\textbf{证明思路} 当 \(\operatorname{Re}s=\sigma>\sigma_0\) 时，
+
+\[
+\bigl|f(t)e^{-st}\bigr| \le M e^{\sigma_0 t}\,e^{-\sigma t} = M e^{-(\sigma-\sigma_0)t},
+\]
+
+于是
+
+\[
+\int_0^{\infty}\bigl|f(t)e^{-st}\bigr|dt
+\le \int_0^{\infty} M e^{-(\sigma-\sigma_0)t}dt
+= \frac{M}{\sigma-\sigma_0} < \infty .
+\]
+
+故积分绝对收敛（因而收敛）。再由含参变量积分理论，被积函数关于 \(s\)
+解析且积分在 \(\operatorname{Re}s\ge\sigma_1>\sigma_0\) 上一致收敛，因此
+\(F(s)\) 在 \(\operatorname{Re}s>\sigma_0\) 内解析。\(\square\)
+
+\begin{quote}
+配图：建议绘制 \(t f(t)\) 与指数上界 \(M e^{\sigma_0 t}\)
+的对照图，直观展现``分段连续 + 指数型增长''两条条件。 配图：建议绘制
+\(s\) 平面，标出收敛坐标 \(\sigma_0\)、收敛域右半平面
+\(\operatorname{Re}s>\sigma_0\) 与积分路径（沿竖直直线
+\(\operatorname{Re}s=\sigma\)）。
+\end{quote}
+
+\subsection{8.1.4
+基本函数的拉普拉斯变换}\label{ux57faux672cux51fdux6570ux7684ux62c9ux666eux62c9ux65afux53d8ux6362}
+
+下面用定义直接计算几个常用函数的拉普拉斯变换。
+
+\textbf{例 8.1} 求 \(\mathcal{L}[1]\)（即 \(f(t)=1,\ t\ge 0\)）。
+
+\textbf{解} 由定义
+
+\[
+F(s) = \int_0^{\infty} e^{-st}dt
+= \lim_{R\to\infty}\left[-\frac{1}{s}e^{-st}\right]_0^{R}
+= \frac{1}{s},\qquad \operatorname{Re}s>0 .
+\]
+
+\textbf{例 8.2} 求 \(\mathcal{L}[t]\)。
+
+\textbf{解} 分部积分（或利用 \(\mathcal{L}[t^n]\) 一般公式），
+
+\[
+F(s)=\int_0^{\infty} t e^{-st}dt
+=\left[-\frac{t}{s}e^{-st}\right]_0^{\infty}+\frac{1}{s}\int_0^{\infty}e^{-st}dt
+=0+\frac{1}{s}\cdot\frac{1}{s}
+=\frac{1}{s^2},\qquad \operatorname{Re}s>0 .
+\]
+
+更一般地，对正整数 \(n\) 有（例 8.4 之后给出推导）
+
+\[
+\mathcal{L}[t^n]=\frac{n!}{s^{n+1}},\qquad \operatorname{Re}s>0 .
+\]
+
+\textbf{例 8.3} 求 \(\mathcal{L}[e^{at}]\)（\(a\) 为实常数）。
+
+\textbf{解}
+
+\[
+F(s)=\int_0^{\infty} e^{at}e^{-st}dt=\int_0^{\infty} e^{-(s-a)t}dt
+=\frac{1}{s-a},\qquad \operatorname{Re}s>a .
+\]
+
+\textbf{例 8.4} 求 \(\mathcal{L}[\sin\omega t]\) 与
+\(\mathcal{L}[\cos\omega t]\)（\(\omega>0\)）。
+
+\textbf{解} 由 \(e^{i\omega t}=\cos\omega t+i\sin\omega t\)，
+
+\[
+\mathcal{L}[e^{i\omega t}]=\int_0^{\infty}e^{-(s-i\omega)t}dt
+=\frac{1}{s-i\omega}
+=\frac{s+i\omega}{s^2+\omega^2},\qquad \operatorname{Re}s>0 .
+\]
+
+比较实部与虚部，得
+
+\[
+\mathcal{L}[\cos\omega t]=\frac{s}{s^2+\omega^2},\qquad
+\mathcal{L}[\sin\omega t]=\frac{\omega}{s^2+\omega^2},\qquad \operatorname{Re}s>0 .
+\]
+
+\textbf{常用变换表}（均取 \(t\ge 0\)，\(a,\omega\)
+为实常数，收敛域见各表达式）：
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+原函数 \(f(t)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+象函数 \(F(s)\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(1\) & \(\dfrac{1}{s},\ \operatorname{Re}s>0\) \\
+\(t\) & \(\dfrac{1}{s^2},\ \operatorname{Re}s>0\) \\
+\(t^n\ (n\in\mathbb{Z}_{\ge0})\) &
+\(\dfrac{n!}{s^{n+1}},\ \operatorname{Re}s>0\) \\
+\(e^{at}\) & \(\dfrac{1}{s-a},\ \operatorname{Re}s>a\) \\
+\(\sin\omega t\) &
+\(\dfrac{\omega}{s^2+\omega^2},\ \operatorname{Re}s>0\) \\
+\(\cos\omega t\) & \(\dfrac{s}{s^2+\omega^2},\ \operatorname{Re}s>0\) \\
+\(\operatorname{sh} at\) &
+\(\dfrac{a}{s^2-a^2},\ \operatorname{Re}s>|a|\) \\
+\(\operatorname{ch} at\) &
+\(\dfrac{s}{s^2-a^2},\ \operatorname{Re}s>|a|\) \\
+\(e^{at}\sin\omega t\) &
+\(\dfrac{\omega}{(s-a)^2+\omega^2},\ \operatorname{Re}s>a\) \\
+\(e^{at}\cos\omega t\) &
+\(\dfrac{s-a}{(s-a)^2+\omega^2},\ \operatorname{Re}s>a\) \\
+\end{longtable}
+}
+
+\subsection{8.1.5
+拉普拉斯变换与傅里叶变换的关系}\label{ux62c9ux666eux62c9ux65afux53d8ux6362ux4e0eux5085ux91ccux53f6ux53d8ux6362ux7684ux5173ux7cfb}
+
+当 \(f(t)\) 在 \((-\infty,+\infty)\) 上绝对可积时，把 \(s=i\omega\)
+代入拉普拉斯变换，就得到傅里叶变换：
+
+\[
+\mathcal{L}[f(t)]\bigr|_{s=i\omega}=\int_0^{\infty} f(t)e^{-i\omega t}dt .
+\]
+
+若再取 \(\sigma=0\) 并使 \(f(t)\)
+为双边定义，则二者形式上一致。因此，拉普拉斯变换可看作傅里叶变换在 \(s\)
+平面上的``推广''，而傅里叶变换是拉普拉斯变换在虚轴上的特殊情况（当收敛域包含虚轴时）。
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-21}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{漏掉收敛域}：\(\mathcal{L}[e^{at}]=\frac{1}{s-a}\) 只有在
+  \(\operatorname{Re}s>a\) 时成立；不同函数的收敛域不同，不能省略。
+\item
+  \textbf{单边 vs 双边}：本书采用单边拉普拉斯变换，默认 \(t<0\) 时
+  \(f(t)=0\)；对 \(t<0\) 的信息不敏感。
+\item
+  \textbf{分段连续与指数型增长}：两条是存在定理的``充分''条件；并非所有可变换函数都必须满足，但常用函数都满足。
+\item
+  \textbf{积分下限}：含冲激时取 \(0^-\)；常规函数取 \(0\) 或 \(0^+\)
+  结果相同。
+\item
+  \textbf{复变量 \(s\)}：\(s\) 不是实数而是复变量
+  \(s=\sigma+i\omega\)，收敛域是 \(s\) 平面上的右半平面。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-21}
+
+\begin{itemize}
+\tightlist
+\item
+  动机：傅里叶变换要求绝对可积，引入衰减因子 \(e^{-\sigma t}\) 得到
+  \(s=\sigma+i\omega\) 的单边积分。
+\item
+  定义：\(F(s)=\mathcal{L}[f(t)]=\int_0^{\infty}f(t)e^{-st}dt\)，\(F(s)\)
+  为象函数，\(f(t)\) 为原函数。
+\item
+  存在定理：分段连续 + 指数型增长 \(\Rightarrow\) 在
+  \(\operatorname{Re}s>\sigma_0\) 内存在且解析。
+\item
+  基本变换：\(1,\ t,\ t^n,\ e^{at},\ \sin\omega t,\ \cos\omega t\)
+  等的象函数须熟记。
+\end{itemize}
+
+\section{8.2
+拉普拉斯变换的性质}\label{ux62c9ux666eux62c9ux65afux53d8ux6362ux7684ux6027ux8d28}
+
+\begin{quote}
+本节目标：掌握拉普拉斯变换的主要运算性质（线性、微分、积分、位移、延迟、相似、初值与终值、卷积、周期函数），能利用这些性质快速求象函数，并理解性质成立的条件。
+重点：微分性质、位移性质、卷积定理、初值与终值定理。
+难点：微分性质中``初始条件的嵌入''与 \(n\)
+阶导数公式；终值定理的适用条件；时间延迟性质中单位阶跃函数的作用。
+\end{quote}
+
+\subsection{8.2.1 线性性质}\label{ux7ebfux6027ux6027ux8d28-1}
+
+\textbf{性质 8.1（线性性质）} 设
+\(\mathcal{L}[f(t)]=F(s)\)，\(\mathcal{L}[g(t)]=G(s)\)，\(\alpha,\beta\)
+为常数，则
+
+\[
+\mathcal{L}[\alpha f(t)+\beta g(t)] = \alpha F(s)+\beta G(s),
+\]
+
+且拉普拉斯逆变换同样具有线性性。
+
+\textbf{证明} 由积分线性和显然：
+
+\[
+\mathcal{L}[\alpha f+\beta g]=\int_0^{\infty}(\alpha f+\beta g)e^{-st}dt
+=\alpha\int_0^{\infty}fe^{-st}dt+\beta\int_0^{\infty}ge^{-st}dt
+=\alpha F(s)+\beta G(s). \square
+\]
+
+\subsection{8.2.2 微分性质}\label{ux5faeux5206ux6027ux8d28-1}
+
+\textbf{性质 8.2（微分性质）} 设 \(f(t)\)
+与其各阶导数均满足原函数存在定理条件，\(\mathcal{L}[f(t)]=F(s)\)。则
+
+\[
+\mathcal{L}[f'(t)] = sF(s)-f(0^+),
+\]
+
+更一般地，对 \(n\) 阶导数有
+
+\[
+\mathcal{L}[f^{(n)}(t)] = s^{n}F(s)-s^{n-1}f(0)-s^{n-2}f'(0)-\cdots-f^{(n-1)}(0),
+\]
+
+其中各初始值均取 \(0^+\) 右极限。
+
+\textbf{证明（一阶）} 由分部积分
+
+\[
+\mathcal{L}[f'(t)]=\int_0^{\infty}f'(t)e^{-st}dt
+=\Bigl[f(t)e^{-st}\Bigr]_0^{+\infty}+s\int_0^{\infty}f(t)e^{-st}dt .
+\]
+
+当 \(\operatorname{Re}s>\sigma_0\) 时
+\(\lim_{t\to\infty}f(t)e^{-st}=0\)，于是
+
+\[
+\mathcal{L}[f'(t)]=0-f(0^+)+sF(s)=sF(s)-f(0^+). \square
+\]
+
+\textbf{说明} 微分性质把微分运算转化为代数运算（乘 \(s\)
+并减去初始条件），这是拉普拉斯变换能用于解微分方程的核心原因。若
+\(f(0)=f'(0)=\cdots=0\)，则 \(\mathcal{L}[f^{(n)}(t)]=s^nF(s)\)。
+
+\subsection{8.2.3 积分性质}\label{ux79efux5206ux6027ux8d28-1}
+
+\textbf{性质 8.3（积分性质）} 设 \(\mathcal{L}[f(t)]=F(s)\)，则
+
+\[
+\mathcal{L}\left[\int_0^{t}f(\tau)\,d\tau\right] = \frac{F(s)}{s},\qquad \operatorname{Re}s>\max(0,\sigma_0).
+\]
+
+\textbf{证明} 令 \(g(t)=\int_0^t f(\tau)d\tau\)，则
+\(g'(t)=f(t)\)，\(g(0)=0\)。由微分性质：
+
+\[
+\mathcal{L}[g'(t)]=s\mathcal{L}[g(t)]-g(0)=s\mathcal{L}[g(t)]=F(s),
+\]
+
+故 \(\mathcal{L}[g(t)]=\dfrac{F(s)}{s}\)。反复使用可得
+\(\mathcal{L}\left[\int_0^t\int_0^{\tau}\cdots\right]=F(s)/s^n\)。\(\square\)
+
+\subsection{\texorpdfstring{8.2.4 位移性质（\(s\)
+域平移）}{8.2.4 位移性质（s 域平移）}}\label{ux4f4dux79fbux6027ux8d28s-ux57dfux5e73ux79fb}
+
+\textbf{性质 8.4（位移性质）} 设 \(\mathcal{L}[f(t)]=F(s)\)，\(a\)
+为常数（通常为实常数，也可为复常数），则
+
+\[
+\mathcal{L}[e^{at}f(t)] = F(s-a),
+\]
+
+即象函数在 \(s\) 平面上平移。收敛域相应变为
+\(\operatorname{Re}(s-a)>\sigma_0\)。
+
+\textbf{证明}
+
+\[
+\mathcal{L}[e^{at}f(t)]=\int_0^{\infty}e^{at}f(t)e^{-st}dt
+=\int_0^{\infty}f(t)e^{-(s-a)t}dt=F(s-a). \square
+\]
+
+\begin{quote}
+位移性质与``延迟性质''方向相反：位移性质是 \(t\) 域乘 \(e^{at}\)
+\(\Leftrightarrow\) \(s\) 域平移；延迟性质是 \(t\) 域平移
+\(\Leftrightarrow\) \(s\) 域乘 \(e^{-as}\)。
+\end{quote}
+
+\subsection{\texorpdfstring{8.2.5 延迟性质（\(t\)
+域平移）}{8.2.5 延迟性质（t 域平移）}}\label{ux5ef6ux8fdfux6027ux8d28t-ux57dfux5e73ux79fb}
+
+\textbf{性质 8.5（延迟性质）} 设 \(a\ge 0\)，\(t<0\) 时
+\(f(t)=0\)，\(\mathcal{L}[f(t)]=F(s)\)，\(u(t)\) 为单位阶跃函数，则
+
+\[
+\mathcal{L}[f(t-a)\,u(t-a)] = e^{-as}F(s).
+\]
+
+\textbf{证明} 当 \(t<a\) 时 \(f(t-a)u(t-a)=0\)。令 \(\tau=t-a\)，则
+
+\[
+\mathcal{L}[f(t-a)u(t-a)]=\int_a^{\infty}f(t-a)e^{-st}dt
+=\int_0^{\infty}f(\tau)e^{-s(\tau+a)}d\tau=e^{-as}F(s). \square
+\]
+
+\textbf{说明} 单位阶跃函数
+
+\[
+u(t)=\begin{cases}0,&t<0,\\1,&t\ge 0\end{cases}
+\]
+
+的作用是``开启''函数。延迟性质表明：时间延迟 \(a\) 对应象函数乘
+\(e^{-as}\)，这与位移性质（\(s\) 域平移）不同，务必区分。
+
+\subsection{8.2.6
+相似性质（尺度变换）}\label{ux76f8ux4f3cux6027ux8d28ux5c3aux5ea6ux53d8ux6362-1}
+
+\textbf{性质 8.6（相似性质）} 设 \(a>0\)，\(\mathcal{L}[f(t)]=F(s)\)，则
+
+\[
+\mathcal{L}[f(at)] = \frac{1}{a}F\left(\frac{s}{a}\right).
+\]
+
+\textbf{证明} 令 \(\tau=at\)，则 \(t=\tau/a\)，\(dt=d\tau/a\)，
+
+\[
+\mathcal{L}[f(at)]=\int_0^{\infty}f(at)e^{-st}dt
+=\frac{1}{a}\int_0^{\infty}f(\tau)e^{-(s/a)\tau}d\tau
+=\frac{1}{a}F\left(\frac{s}{a}\right). \square
+\]
+
+\subsection{8.2.7 初值定理}\label{ux521dux503cux5b9aux7406}
+
+\textbf{性质 8.7（初值定理）} 设 \(f(t)\) 与 \(f'(t)\)
+满足原函数存在定理条件，且 \(\lim_{s\to\infty}sF(s)\) 存在，则
+
+\[
+f(0^+)=\lim_{t\to 0^+}f(t)=\lim_{s\to\infty}sF(s).
+\]
+
+\textbf{说明} 由微分性质 \(\mathcal{L}[f'(t)]=sF(s)-f(0^+)\)，当
+\(s\to\infty\) 时 \(f'(t)\) 的象函数趋于 \(0\)（因 \(f'\) 指数型增长且
+\(e^{-st}\) 快速衰减），故
+\(\lim_{s\to\infty}[sF(s)-f(0^+)]=0\)，即得初值定理。初值定理无需知道
+\(f(t)\) 的完整表达式，只要知道 \(F(s)\) 即可求出 \(f(0^+)\)。
+
+\begin{quote}
+配图：建议绘制 \(sF(s)\) 在 \(s\to\infty\) 与 \(f(t)\) 在 \(t\to 0^+\)
+的``对偶''示意图。
+\end{quote}
+
+\subsection{8.2.8 终值定理}\label{ux7ec8ux503cux5b9aux7406}
+
+\textbf{性质 8.8（终值定理）} 设 \(f(t)\) 与 \(f'(t)\)
+满足原函数存在定理条件，并且 \(sF(s)\) 在 \(\operatorname{Re}s\ge 0\)
+上解析（即 \(sF(s)\) 的全体奇点位于左半平面
+\(\operatorname{Re}s<0\)，原点处的简单极点除外），则
+
+\[
+\lim_{t\to\infty}f(t)=\lim_{s\to 0}sF(s),
+\]
+
+其中右端极限存在。
+
+\textbf{说明} 终值定理常用于在控制系统稳态分析中，不求出 \(f(t)\)
+就能得到稳态值。\textbf{注意}：若 \(sF(s)\) 在虚轴或右半平面有奇点（如
+\(\sin\omega t\) 的象函数 \(sF(s)=\frac{s\omega}{s^2+\omega^2}\) 在
+\(s=\pm i\omega\) 有极点），则终值不存在，不能用终值定理。
+
+\subsection{8.2.9 卷积定理}\label{ux5377ux79efux5b9aux7406-1}
+
+\textbf{性质 8.9（卷积定理）} 设
+\(\mathcal{L}[f(t)]=F(s)\)，\(\mathcal{L}[g(t)]=G(s)\)，定义卷积
+
+\[
+(f*g)(t)=\int_0^{t}f(\tau)g(t-\tau)\,d\tau,
+\]
+
+则
+
+\[
+\mathcal{L}[(f*g)(t)] = F(s)G(s).
+\]
+
+\textbf{证明} 由定义并交换积分次序，令 \(u=t-\tau\)：
+
+\[
+\begin{aligned}
+\mathcal{L}[(f*g)(t)]
+&=\int_0^{\infty}e^{-st}\int_0^{t}f(\tau)g(t-\tau)d\tau\,dt\\[2pt]
+&=\int_0^{\infty}f(\tau)e^{-s\tau}\int_0^{\infty}g(u)e^{-su}du\,d\tau
+= F(s)G(s). \square
+\end{aligned}
+\]
+
+\textbf{说明} 卷积满足交换律
+\(f*g=g*f\)、结合律与分配律。卷积定理把``两个函数的卷积''转化为``两个象函数相乘''，也是求拉普拉斯逆变换的有力工具。
+
+\subsection{8.2.10
+周期函数的拉普拉斯变换}\label{ux5468ux671fux51fdux6570ux7684ux62c9ux666eux62c9ux65afux53d8ux6362}
+
+\textbf{性质 8.10（周期函数）} 设 \(f(t)\) 在 \([0,+\infty)\) 上以
+\(T>0\) 为周期，且满足原函数存在定理条件，则
+
+\[
+\mathcal{L}[f(t)]=\frac{1}{1-e^{-sT}}\int_0^{T}f(t)e^{-st}dt,\qquad \operatorname{Re}s>0 .
+\]
+
+\textbf{证明思路} 把 \([0,+\infty)\) 分成 \([nT,(n+1)T]\)，令
+\(t=\tau+nT\)：
+
+\[
+\int_0^{\infty}f(t)e^{-st}dt=\sum_{n=0}^{\infty}e^{-nsT}\int_0^{T}f(\tau)e^{-s\tau}d\tau
+=\frac{1}{1-e^{-sT}}\int_0^{T}f(\tau)e^{-s\tau}d\tau . \square
+\]
+
+\subsection{8.2.11 综合例题}\label{ux7efcux5408ux4f8bux9898}
+
+\textbf{例 8.5} 求 \(\mathcal{L}[e^{2t}t^2]\)。
+
+\textbf{解} 由
+\(\mathcal{L}[t^2]=\dfrac{2}{s^3}\)，再用位移性质（\(a=2\)）：
+
+\[
+\mathcal{L}[e^{2t}t^2]=\frac{2}{(s-2)^3},\qquad \operatorname{Re}s>2 .
+\]
+
+\textbf{例 8.6} 求 \(\mathcal{L}[e^{-3t}\cos 2t]\)。
+
+\textbf{解} 由 \(\mathcal{L}[\cos 2t]=\dfrac{s}{s^2+4}\)，取
+\(a=-3\)（即乘 \(e^{-3t}\)），位移性质得
+
+\[
+\mathcal{L}[e^{-3t}\cos 2t]=\frac{s+3}{(s+3)^2+4},\qquad \operatorname{Re}s>-3 .
+\]
+
+\textbf{例 8.7} 设 \(\mathcal{L}[f(t)]=\dfrac{1}{s(s+1)}\)，不用求
+\(f(t)\)，用初值定理与终值定理求 \(f(0^+)\) 与 \(f(\infty)\)。
+
+\textbf{解} 由于
+
+\[
+sF(s)=\frac{1}{s+1}
+\]
+
+在 \(\operatorname{Re}s\ge 0\) 上解析，可分别用初值定理与终值定理：
+
+\[
+f(0^+)=\lim_{s\to\infty}sF(s)=\lim_{s\to\infty}\frac{1}{s+1}=0,\qquad
+f(\infty)=\lim_{s\to 0}sF(s)=\lim_{s\to 0}\frac{1}{s+1}=1 .
+\]
+
+（事实上 \(f(t)=1-e^{-t}\)，符合 \(f(0^+)=0,\ f(\infty)=1\)。）
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-22}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{微分性质的正负号}：\(\mathcal{L}[f']=sF(s)-f(0)\)，不要漏减
+  \(f(0)\) 或写错符号；\(n\) 阶导数要逐项减去各阶初始值。
+\item
+  \textbf{位移 vs 延迟}：\(\mathcal{L}[e^{at}f(t)]=F(s-a)\)（\(s\)
+  域平移）；\(\mathcal{L}[f(t-a)u(t-a)]=e^{-as}F(s)\)（\(t\)
+  域延迟）。两者不能混用。
+\item
+  \textbf{延迟性质需要阶跃函数}：\(f(t-a)\) 单独取变换并不等于
+  \(e^{-as}F(s)\)，必须是 \(f(t-a)u(t-a)\)。
+\item
+  \textbf{终值定理条件}：只有 \(sF(s)\)
+  在右半平面及虚轴（原点简单极点除外）解析时才能用；对振荡函数（如
+  \(\sin\omega t\)）不能滥用。
+\item
+  \textbf{卷积定义}：卷积是对 \(t\) 从 \(0\) 到 \(t\)
+  的积分，\(\int_0^t f(\tau)g(t-\tau)d\tau\)，注意变量替换后 \(f\) 与
+  \(g\) 的地位。
+\item
+  \textbf{积分性质的收敛域}：\(\frac{F(s)}{s}\) 需要同时满足
+  \(\operatorname{Re}s>0\) 与 \(F(s)\) 的收敛域，否则 \(s=0\)
+  处可能引入额外奇点。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-22}
+
+\begin{itemize}
+\tightlist
+\item
+  线性、微分、积分、位移、延迟、相似六类性质是把 \(t\) 域运算转化为
+  \(s\) 域代数运算的基本工具。
+\item
+  初值定理与终值定理：无需反变换即可由 \(F(s)\)
+  读初值与稳态值，但要确认条件。
+\item
+  卷积定理：\(\mathcal{L}[f*g]=F(s)G(s)\)，既可用于求变换，也可用于求逆变换。
+\item
+  周期函数：\(F(s)=\dfrac{1}{1-e^{-sT}}\int_0^T f(t)e^{-st}dt\)。
+\end{itemize}
+
+\section{8.3
+拉普拉斯逆变换}\label{ux62c9ux666eux62c9ux65afux9006ux53d8ux6362}
+
+\begin{quote}
+本节目标：掌握拉普拉斯逆变换的定义与反演公式，能利用部分分式法、卷积定理、留数法求有理分式函数的原函数，理解唯一性与可解性。
+重点：部分分式法求逆变换；反演（Bromwich）公式的思想；简单极点与重极点的处理。
+难点：部分分式系数的确定；复根与重根的逆变换；留数法求原函数。
+\end{quote}
+
+\subsection{8.3.1
+拉普拉斯逆变换的定义}\label{ux62c9ux666eux62c9ux65afux9006ux53d8ux6362ux7684ux5b9aux4e49}
+
+\textbf{定义 8.2（拉普拉斯逆变换）} 若 \(\mathcal{L}[f(t)]=F(s)\)，则称
+\(f(t)\) 为 \(F(s)\) 的\textbf{拉普拉斯逆变换}，记作
+
+\[
+f(t)=\mathcal{L}^{-1}[F(s)].
+\]
+
+\textbf{说明}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(\mathcal{L}^{-1}\)
+  是线性算子：\(\mathcal{L}^{-1}[\alpha F(s)+\beta G(s)]=\alpha f(t)+\beta g(t)\)。
+\item
+  \textbf{唯一性}：不同的原函数若只在可数个点（间断点）处不同，它们的拉普拉斯变换相同；因此在允许相差``零测集''的意义下，逆变换是唯一的。工程上通常只关心连续点处的取值。
+\item
+  常见的逆变换对应关系可由 8.1 节的\textbf{基本变换表}反向查得。
+\end{enumerate}
+
+\subsection{8.3.2
+反演定理（复反演公式）}\label{ux53cdux6f14ux5b9aux7406ux590dux53cdux6f14ux516cux5f0f}
+
+\textbf{定理 8.2（反演定理）} 设 \(F(s)\) 在
+\(\operatorname{Re}s>\sigma_c\) 上解析，且当 \(|s|\to\infty\) 时在
+\(\operatorname{Re}s>\sigma_c\) 内一致地趋于 \(0\)，则其原函数为
+
+\[
+f(t)=\frac{1}{2\pi i}\int_{\sigma-i\infty}^{\sigma+i\infty}F(s)e^{st}\,ds,\qquad t>0,
+\]
+
+其中 \(\sigma\) 为满足 \(\sigma>\sigma_c\) 的任意实数，积分路径是 \(s\)
+平面上沿竖直线 \(\operatorname{Re}s=\sigma\) 的直线（称为
+\textbf{Bromwich 积分}）。对 \(t=0\)，积分通常给出左、右极限的平均值；对
+\(t<0\) 有 \(f(t)=0\)。
+
+\textbf{说明}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  直接计算 Bromwich 积分通常困难，实际求逆变换主要用 8.3.4
+  以后的方法（部分分式、卷积、留数）。
+\item
+  该公式与傅里叶反演公式一脉相承，可用留数（约当辅助定理）把它化为左半平面奇点处的留数之和。
+\end{enumerate}
+
+\subsection{8.3.3
+基本逆变换公式}\label{ux57faux672cux9006ux53d8ux6362ux516cux5f0f}
+
+由 8.1 节的变换表反向即得常用公式（\(t\ge 0\)）：
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+象函数 \(F(s)\) & 原函数 \(f(t)\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\dfrac{1}{s}\) & \(1\) \\
+\(\dfrac{1}{s^n}\) & \(\dfrac{t^{n-1}}{(n-1)!}\) \\
+\(\dfrac{1}{s-a}\) & \(e^{at}\) \\
+\(\dfrac{1}{(s-a)^n}\) & \(\dfrac{t^{n-1}e^{at}}{(n-1)!}\) \\
+\(\dfrac{\omega}{s^2+\omega^2}\) & \(\sin\omega t\) \\
+\(\dfrac{s}{s^2+\omega^2}\) & \(\cos\omega t\) \\
+\(\dfrac{a}{s^2-a^2}\) & \(\operatorname{sh} at\) \\
+\(\dfrac{s}{s^2-a^2}\) & \(\operatorname{ch} at\) \\
+\(\dfrac{\omega}{(s-a)^2+\omega^2}\) & \(e^{at}\sin\omega t\) \\
+\(\dfrac{s-a}{(s-a)^2+\omega^2}\) & \(e^{at}\cos\omega t\) \\
+\end{longtable}
+}
+
+\subsection{8.3.4 部分分式法}\label{ux90e8ux5206ux5206ux5f0fux6cd5}
+
+设 \(F(s)=\dfrac{P(s)}{Q(s)}\) 为有理分式，且
+\(\deg P<\deg Q\)（否则先用多项式除法）。把 \(F(s)\)
+分解为部分分式，再利用基本公式逐项求逆。
+
+\textbf{（1）单极点情况} 设 \(Q(s)\) 有互异单极点 \(s_1,\ldots,s_n\)，则
+
+\[
+F(s)=\sum_{k=1}^{n}\frac{A_k}{s-s_k},\qquad
+A_k=\lim_{s\to s_k}(s-s_k)F(s),
+\]
+
+且
+
+\[
+\mathcal{L}^{-1}\left[\frac{A_k}{s-s_k}\right]=A_k e^{s_k t}.
+\]
+
+\textbf{（2）重极点情况} 设 \(s_0\) 为 \(n\) 阶极点，则部分分式中含
+
+\[
+\frac{A_n}{(s-s_0)^n}+\frac{A_{n-1}}{(s-s_0)^{n-1}}+\cdots+\frac{A_1}{s-s_0},
+\]
+
+其中
+
+\[
+A_j=\frac{1}{(n-j)!}\lim_{s\to s_0}\frac{d^{n-j}}{ds^{n-j}}\left[(s-s_0)^n F(s)\right],
+\]
+
+且
+
+\[
+\mathcal{L}^{-1}\left[\frac{1}{(s-s_0)^n}\right]=\frac{t^{n-1}e^{s_0 t}}{(n-1)!}.
+\]
+
+\textbf{（3）复极点（二次不可约因式）} 常通过\textbf{配方法}把分母写成
+\((s-a)^2+\omega^2\) 的形式，再对照
+\(e^{at}\sin\omega t\)、\(e^{at}\cos\omega t\) 求逆。
+
+\subsection{8.3.5 典型例题}\label{ux5178ux578bux4f8bux9898-6}
+
+\textbf{例 8.8} 求 \(\mathcal{L}^{-1}\left[\dfrac{1}{s(s+1)}\right]\)。
+
+\textbf{解} 分解为部分分式
+
+\[
+\frac{1}{s(s+1)}=\frac{1}{s}-\frac{1}{s+1}.
+\]
+
+因此
+
+\[
+\mathcal{L}^{-1}\left[\frac{1}{s(s+1)}\right]=1-e^{-t},\qquad t\ge 0 .
+\]
+
+\textbf{例 8.9} 求
+\(\mathcal{L}^{-1}\left[\dfrac{s+3}{(s-1)(s+2)}\right]\)。
+
+\textbf{解} 设
+
+\[
+\frac{s+3}{(s-1)(s+2)}=\frac{A}{s-1}+\frac{B}{s+2}.
+\]
+
+\[
+A=\frac{s+3}{s+2}\Bigr|_{s=1}=\frac{4}{3},\qquad
+B=\frac{s+3}{s-1}\Bigr|_{s=-2}=\frac{1}{-3}=-\frac{1}{3}.
+\]
+
+故
+
+\[
+\mathcal{L}^{-1}\left[\frac{s+3}{(s-1)(s+2)}\right]
+=\frac{4}{3}e^{t}-\frac{1}{3}e^{-2t}.
+\]
+
+\textbf{例 8.10} 求
+\(\mathcal{L}^{-1}\left[\dfrac{1}{s^2+2s+5}\right]\)。
+
+\textbf{解} 配方：
+
+\[
+s^2+2s+5=(s+1)^2+4=(s+1)^2+2^2.
+\]
+
+于是
+
+\[
+\frac{1}{s^2+2s+5}=\frac{1}{(s+1)^2+2^2},
+\]
+
+对照 \(\mathcal{L}[e^{-t}\sin 2t]=\dfrac{2}{(s+1)^2+2^2}\)，得
+
+\[
+\mathcal{L}^{-1}\left[\frac{1}{s^2+2s+5}\right]=\frac{1}{2}e^{-t}\sin 2t .
+\]
+
+\textbf{例 8.11} 求 \(\mathcal{L}^{-1}\left[\dfrac{1}{s^2+2s+5}\right]\)
+的重根版本，即 \(\mathcal{L}^{-1}\left[\dfrac{1}{(s^2+1)^2}\right]\)。
+
+\textbf{解}
+用卷积定理。\(\mathcal{L}^{-1}\left[\dfrac{1}{s^2+1}\right]=\sin t\)，故
+
+\[
+\frac{1}{(s^2+1)^2}=\frac{1}{s^2+1}\cdot\frac{1}{s^2+1}
+\]
+
+对应卷积
+
+\[
+f(t)=\int_0^{t}\sin\tau\,\sin(t-\tau)\,d\tau .
+\]
+
+由积化和差
+\(\sin\tau\sin(t-\tau)=\dfrac{1}{2}[\cos(2\tau-t)-\cos t]\)，积分得
+
+\[
+\int_0^{t}\sin\tau\sin(t-\tau)d\tau
+=\frac{1}{2}\left[\frac{\sin(2\tau-t)}{2}-\tau\cos t\right]_0^{t}
+=\frac{\sin t-t\cos t}{2}.
+\]
+
+所以
+
+\[
+\mathcal{L}^{-1}\left[\frac{1}{(s^2+1)^2}\right]=\frac{\sin t-t\cos t}{2}.
+\]
+
+\textbf{例 8.12} 用\textbf{留数法}求
+\(\mathcal{L}^{-1}\left[\dfrac{1}{s^2+1}\right]\)。
+
+\textbf{解} \(F(s)e^{st}=\dfrac{e^{st}}{(s-i)(s+i)}\) 有极点
+\(s=\pm i\)。按留数法（展开定理）
+
+\[
+f(t)=\sum_{k}\operatorname{Res}_{s=s_k}\left[F(s)e^{st}\right].
+\]
+
+对简单极点 \(s_k\)，留数为 \(\lim_{s\to s_k}(s-s_k)F(s)e^{st}\)。
+
+\[
+\operatorname{Res}_{s=i}=\frac{e^{it}}{i+i}=\frac{e^{it}}{2i},\qquad
+\operatorname{Res}_{s=-i}=\frac{e^{-it}}{-i-i}=\frac{e^{-it}}{-2i}.
+\]
+
+因此
+
+\[
+f(t)=\frac{e^{it}}{2i}-\frac{e^{-it}}{2i}=\frac{e^{it}-e^{-it}}{2i}=\sin t,
+\]
+
+与基本公式一致。
+
+\subsection{8.3.6
+留数法（展开定理）小结}\label{ux7559ux6570ux6cd5ux5c55ux5f00ux5b9aux7406ux5c0fux7ed3}
+
+若 \(F(s)\) 在 \(s\)
+平面除去有限个孤立奇点（通常为极点）\(s_1,\ldots,s_n\) 外解析，并且当
+\(|s|\to\infty\) 时 \(F(s)\to 0\)（在适当范围内一致），则对 \(t>0\) 有
+
+\[
+f(t)=\mathcal{L}^{-1}[F(s)]=\sum_{k=1}^{n}\operatorname{Res}_{s=s_k}\left[F(s)e^{st}\right].
+\]
+
+对简单极点 \(s_k\)：
+
+\[
+\operatorname{Res}_{s=s_k}[F(s)e^{st}]=\lim_{s\to s_k}(s-s_k)F(s)e^{st}.
+\]
+
+对 \(m\) 阶极点：
+
+\[
+\operatorname{Res}_{s=s_k}[F(s)e^{st}]=\frac{1}{(m-1)!}\lim_{s\to s_k}\frac{d^{m-1}}{ds^{m-1}}\left[(s-s_k)^m F(s)e^{st}\right].
+\]
+
+\begin{quote}
+配图：建议绘制 \(s\) 平面上的 Bromwich 竖直线
+\(\operatorname{Re}s=\sigma\)
+与左半平面极点，说明反演积分可向左闭合为留数之和。
+\end{quote}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-23}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{部分分式条件}：必须
+  \(\deg P<\deg Q\)，否则先作多项式除法；否则系数求错。
+\item
+  \textbf{重极点}：不要把重极点当作单极点，否则漏项、漏系数；重根逆变换为
+  \(t^{n-1}e^{at}/(n-1)!\)。
+\item
+  \textbf{复极点配方}：写成 \((s-a)^2+\omega^2\) 后再对照
+  \(\sin\)/\(\cos\)，不要把符号弄错。
+\item
+  \textbf{逆变换的线性}：\(\mathcal{L}^{-1}[F+G]=f+g\)，可以分开查表，但常数因子不要遗漏。
+\item
+  \textbf{收敛域/唯一性}：\(\mathcal{L}^{-1}\) 得到的是 \(t\ge 0\)
+  上的（连续点处）原函数；\(t<0\) 通常视为 \(0\)。
+\item
+  \textbf{延迟性质的逆}：若要逆变换含
+  \(e^{-as}\)，结果是带阶跃的延迟函数 \(f(t-a)u(t-a)\)，不要忘记
+  \(u(t-a)\)。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-23}
+
+\begin{itemize}
+\tightlist
+\item
+  逆变换
+  \(f(t)=\mathcal{L}^{-1}[F(s)]\)，是线性算子，在``相差零测集''意义下唯一。
+\item
+  反演定理给出 Bromwich
+  复积分，但实际求解主要靠查表、部分分式、卷积和留数。
+\item
+  部分分式法：单极点求 \(A_k\)，重极点求系数，复极点配方。
+\item
+  留数法：\(f(t)=\sum\operatorname{Res}[F(s)e^{st}]\)，适合有理分式与简单系统。
+\end{itemize}
+
+\section{8.4
+拉普拉斯变换的应用}\label{ux62c9ux666eux62c9ux65afux53d8ux6362ux7684ux5e94ux7528}
+
+\begin{quote}
+本节目标：掌握用拉普拉斯变换求解常系数线性常微分方程（初值问题）、微分方程组、卷积型积分方程，了解其在电路与线性系统中的应用，体会``把微分方程代数化''的思想。
+重点：微分方程初值问题的拉氏变换解法；部分分式求逆；传递函数与卷积。
+难点：取变换后代数方程的整理；初始条件的自动嵌入；用终值定理验证稳态；电路方程与系统函数的建立。
+\end{quote}
+
+\subsection{8.4.1
+解常系数线性微分方程（初值问题）}\label{ux89e3ux5e38ux7cfbux6570ux7ebfux6027ux5faeux5206ux65b9ux7a0bux521dux503cux95eeux9898}
+
+用拉普拉斯变换解 \(n\) 阶常系数线性微分方程初值问题的一般步骤：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  设 \(\mathcal{L}[y(t)]=Y(s)\)，对方程两边取拉普拉斯变换；
+\item
+  用\textbf{微分性质}把 \(\mathcal{L}[y'],\ \mathcal{L}[y''],\ldots\)
+  化为含 \(Y(s)\) 与初始值 \(y(0),y'(0),\ldots\) 的代数项，从而得到关于
+  \(Y(s)\) 的\textbf{代数方程}；
+\item
+  解出 \(Y(s)\)，通常写成有理分式；
+\item
+  对 \(Y(s)\) 作拉普拉斯逆变换（多用部分分式法）得 \(y(t)\)。
+\end{enumerate}
+
+这一方法的优点是把求通解再定常数的两步合并，初始条件在取变换时即已代入。
+
+\textbf{例 8.13} 求解初值问题
+
+\[
+y''+y=t,\qquad y(0)=1,\quad y'(0)=0 .
+\]
+
+\textbf{解} 设 \(\mathcal{L}[y]=Y(s)\)。对方程两边取拉氏变换，由
+\(\mathcal{L}[y'']=s^2Y(s)-sy(0)-y'(0)=s^2Y(s)-s\)，得
+
+\[
+s^2Y(s)-s+Y(s)=\frac{1}{s^2},
+\]
+
+即
+
+\[
+(s^2+1)Y(s)=s+\frac{1}{s^2},\qquad
+Y(s)=\frac{s}{s^2+1}+\frac{1}{s^2(s^2+1)}.
+\]
+
+分解
+
+\[
+\frac{1}{s^2(s^2+1)}=\frac{1}{s^2}-\frac{1}{s^2+1},
+\]
+
+于是
+
+\[
+Y(s)=\frac{s}{s^2+1}+\frac{1}{s^2}-\frac{1}{s^2+1}.
+\]
+
+逆变换得
+
+\[
+y(t)=\cos t+t-\sin t .
+\]
+
+（检验：\(y(0)=1\)，\(y'(0)=0\)，满足原方程。）
+
+\textbf{例 8.14} 求解初值问题
+
+\[
+y''-3y'+2y=4,\qquad y(0)=0,\quad y'(0)=1 .
+\]
+
+\textbf{解} 取拉氏变换：
+
+\[
+\mathcal{L}[y'']=s^2Y-0-1=s^2Y-1,\qquad
+\mathcal{L}[y']=sY-0=sY,
+\]
+
+于是
+
+\[
+(s^2Y-1)-3sY+2Y=\frac{4}{s},
+\]
+
+解得
+
+\[
+Y(s)=\frac{4/s+1}{s^2-3s+2}=\frac{s+4}{s(s-1)(s-2)} .
+\]
+
+部分分式分解：
+
+\[
+\frac{s+4}{s(s-1)(s-2)}=\frac{2}{s}-\frac{5}{s-1}+\frac{3}{s-2},
+\]
+
+所以
+
+\[
+y(t)=2-5e^{t}+3e^{2t}.
+\]
+
+（检验：\(y(0)=2-5+3=0\)，\(y'(0)=-5+6=1\)，满足方程。）
+
+\subsection{8.4.2
+解常系数线性微分方程组}\label{ux89e3ux5e38ux7cfbux6570ux7ebfux6027ux5faeux5206ux65b9ux7a0bux7ec4}
+
+对常系数线性微分方程组，可对每个方程取拉氏变换，把微分方程组化为关于各未知函数象函数
+\(X(s),Y(s),\ldots\) 的线性代数方程组，解出后再逐个求逆。
+
+\textbf{例 8.15} 求解
+
+\[
+\begin{cases}
+x'(t)=x(t)+y(t),\\
+y'(t)=4x(t)+y(t),
+\end{cases}
+\qquad x(0)=1,\ y(0)=0 .
+\]
+
+\textbf{解} 设
+\(\mathcal{L}[x]=X(s)\)，\(\mathcal{L}[y]=Y(s)\)。对方程两边取变换，利用
+\(\mathcal{L}[x']=sX-x(0)=sX-1\)、\(\mathcal{L}[y']=sY\)，得
+
+\[
+\begin{cases}
+sX-1=X+Y,\\
+sY=4X+Y,
+\end{cases}
+\quad\Longrightarrow\quad
+\begin{cases}
+(s-1)X-Y=1,\\
+-4X+(s-1)Y=0 .
+\end{cases}
+\]
+
+由第二式 \(4X=(s-1)Y\)，代入第一式得
+
+\[
+(s-1)\frac{s-1}{4}Y-Y=1
+\Rightarrow (s-1)^2Y-4Y=4
+\Rightarrow Y=\frac{4}{s^2-2s-3}=\frac{4}{(s-3)(s+1)}.
+\]
+
+部分分式：
+
+\[
+\frac{4}{(s-3)(s+1)}=\frac{1}{s-3}-\frac{1}{s+1},
+\]
+
+故 \(y(t)=e^{3t}-e^{-t}\)。再由 \(4X=(s-1)Y\)，得
+
+\[
+X=\frac{(s-1)Y}{4}=\frac{s-1}{(s-3)(s+1)}
+=\frac{1}{2}\cdot\frac{1}{s-3}+\frac{1}{2}\cdot\frac{1}{s+1},
+\]
+
+所以
+\(x(t)=\dfrac{1}{2}e^{3t}+\dfrac{1}{2}e^{-t}\)。（检验：\(x(0)=1\)，\(y(0)=0\)，满足方程。）
+
+\subsection{8.4.3 电路应用：串联 RL
+电路}\label{ux7535ux8defux5e94ux7528ux4e32ux8054-rl-ux7535ux8def}
+
+\textbf{例 8.16} 在串联 RL 电路中，电流 \(i(t)\) 满足
+
+\[
+L\frac{di}{dt}+Ri=E(t),\qquad i(0)=0 ,
+\]
+
+其中 \(L,R\) 为常数，\(E(t)=E_0\)（常直流电源），求 \(i(t)\)。
+
+\textbf{解} 设 \(\mathcal{L}[i]=I(s)\)。取拉氏变换：
+
+\[
+L\bigl(sI(s)-i(0)\bigr)+R I(s)=\frac{E_0}{s},
+\]
+
+因 \(i(0)=0\)，故
+
+\[
+(Ls+R)I(s)=\frac{E_0}{s}
+\Rightarrow I(s)=\frac{E_0}{s(Ls+R)} .
+\]
+
+部分分式：
+
+\[
+\frac{E_0}{s(Ls+R)}=\frac{E_0/R}{s}-\frac{E_0 L/R}{Ls+R}.
+\]
+
+又 \(\dfrac{L}{Ls+R}=\dfrac{1}{s+R/L}\)，故
+
+\[
+I(s)=\frac{E_0}{R}\left[\frac{1}{s}-\frac{1}{s+R/L}\right],
+\]
+
+逆变换得
+
+\[
+i(t)=\frac{E_0}{R}\left(1-e^{-(R/L)t}\right),\qquad t\ge 0 .
+\]
+
+\textbf{结果说明}：电流从 \(0\) 按指数规律趋向稳态值
+\(E_0/R\)，时间常数为
+\(\tau=L/R\)。这正是拉氏变换方法处理电路暂态问题的典型例子。
+
+\subsection{8.4.4
+卷积型积分方程}\label{ux5377ux79efux578bux79efux5206ux65b9ux7a0b}
+
+对形如
+
+\[
+f(t)=g(t)+\int_0^{t}K(t-\tau)f(\tau)\,d\tau
+\]
+
+的\textbf{卷积型（Volterra）积分方程}，两边取拉氏变换并用卷积定理，可将积分方程化为象函数的代数方程。
+
+\textbf{例 8.17} 求满足
+
+\[
+f(t)=t+\int_0^{t}\sin(t-\tau)f(\tau)\,d\tau
+\]
+
+的函数 \(f(t)\)。
+
+\textbf{解} 设 \(\mathcal{L}[f]=F(s)\)。取变换，由
+\(\mathcal{L}[t]=1/s^2\)，\(\mathcal{L}[\sin t]=1/(s^2+1)\) 及卷积定理得
+
+\[
+F(s)=\frac{1}{s^2}+\frac{1}{s^2+1}F(s).
+\]
+
+整理得
+
+\[
+F(s)\left(1-\frac{1}{s^2+1}\right)=\frac{1}{s^2}
+\Rightarrow F(s)=\frac{s^2+1}{s^4}=\frac{1}{s^2}+\frac{1}{s^4}.
+\]
+
+逆变换（注意 \(\mathcal{L}[t^3/6]=1/s^4\)）得
+
+\[
+f(t)=t+\frac{t^3}{6}.
+\]
+
+\subsection{8.4.5
+线性系统与传递函数}\label{ux7ebfux6027ux7cfbux7edfux4e0eux4f20ux9012ux51fdux6570}
+
+对常系数线性系统，设输入为 \(u(t)\)、输出为 \(y(t)\)，系统由微分方程
+
+\[
+a_n y^{(n)}+\cdots+a_0 y=b_m u^{(m)}+\cdots+b_0 u
+\]
+
+描述（初始条件为零）。两边取拉氏变换并假设初值为 \(0\)，得
+
+\[
+Y(s)=H(s)U(s),\qquad H(s)=\frac{B(s)}{A(s)}=\frac{b_m s^m+\cdots+b_0}{a_n s^n+\cdots+a_0},
+\]
+
+\(H(s)\) 称为\textbf{传递函数}。输出 \(y(t)\) 是输入与系统单位冲激响应
+\(h(t)=\mathcal{L}^{-1}[H(s)]\) 的卷积：
+
+\[
+y(t)=(h*u)(t)=\int_0^{t}h(t-\tau)u(\tau)\,d\tau .
+\]
+
+传递函数把系统输入-输出关系全部集中在 \(s\)
+域，是控制理论与信号处理的基本工具。
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-24}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{取变换漏掉初始值}：例如
+  \(\mathcal{L}[y'']=s^2Y-sy(0)-y'(0)\)，不要只写成 \(s^2Y\)。
+\item
+  \textbf{代数方程整理错误}：解出 \(Y(s)\)
+  后应核对部分分式分解是否正确，必要时用 \(s\to\) 极点值检验系数。
+\item
+  \textbf{忘记验证}：求出 \(y(t)\)
+  后应代回原方程与初始条件检验，尤其注意 \(t=0\) 处的值。
+\item
+  \textbf{终值定理/稳态}：若用终值定理求稳态，需先确认条件；对振荡或发散系统不能直接套用。
+\item
+  \textbf{延迟信号}：若输入含延迟（如 \(u(t-a)\)），取变换会产生
+  \(e^{-as}\)，求逆时记得带 \(u(t-a)\)。
+\item
+  \textbf{卷积型积分方程}：识别卷积积分的次序（\(K(t-\tau)\) 或
+  \(K(\tau)\) 要对应卷积定义），再正确使用卷积定理。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-24}
+
+\begin{itemize}
+\tightlist
+\item
+  拉氏变换解初值问题：微分方程 \(\to\) 代数方程 \(\to\) 求 \(Y(s)\)
+  \(\to\) 部分分式逆变换，初始条件自动嵌入。
+\item
+  解微分方程组：化为关于多个象函数的线性代数方程组。
+\item
+  电路应用：把 \(L\frac{di}{dt}+Ri=E\) 化为代数方程，得到暂态解。
+\item
+  卷积型积分方程：利用卷积定理把积分方程代数化。
+\item
+  线性系统：传递函数 \(H(s)=B(s)/A(s)\)，输出
+  \(y=(h*u)\)，是控制与信号处理的桥梁。
+\end{itemize}
+
+\newpage

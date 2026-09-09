@@ -1,0 +1,37 @@
+# ===== 生成物 PDF（由 CI/本地脚本重新生成，不入库） =====
+教材PDF/
+
+# ===== LaTeX 编译中间产物 =====
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.xdv
+*.blg
+*.bbl
+*.toc
+教材TeX/main.pdf
+教材TeX/_manual_backup/
+
+# ===== 构建缓存 / 临时 =====
+build/.texbook_cache.json
+build/.tex_emit_cache.json
+build/_tmp_*.md
+build/__pycache__/
+*.pyc
+
+# ===== 本地中间产物（页面截图/答案检索，不入库） =====
+_work/
+_research/
+
+# ===== 原始教材 PDF（版权考虑，不入库） =====
+原始资料/*.pdf
+/*.pdf
+
+# ===== 本机测试/检索临时文件 =====
+/*.zip
+/_cuc*
+/_quark*
+/_test*
+/_testmath.md

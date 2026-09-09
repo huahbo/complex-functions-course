@@ -1,0 +1,875 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{第 6 章 ·
+共形映射}\label{ux7b2c-6-ux7ae0-ux5171ux5f62ux6620ux5c04}
+
+\section{6.1 分式线性变换}\label{ux5206ux5f0fux7ebfux6027ux53d8ux6362}
+
+\begin{quote}
+本节目标：理解分式线性变换的定义及其``保广义圆、保交比、保角''等基本性质，掌握由三个对应点唯一确定分式线性变换的方法，并能把单位圆、上半平面、角域等简单区域互相映射。
+重点：分式线性变换的定义与分解；保广义圆定理；交比不变性；单位圆与上半平面互映。
+难点：无穷远点的处理；广义圆（圆与直线）的统一；交比的符号与使用；判断像曲线是圆还是直线。
+\end{quote}
+
+\subsection{6.1.1
+分式线性变换的定义}\label{ux5206ux5f0fux7ebfux6027ux53d8ux6362ux7684ux5b9aux4e49}
+
+\textbf{定义 6.1} 形如
+
+\[
+w = \frac{az+b}{cz+d},\qquad a,b,c,d \in \mathbb{C},\quad ad-bc \neq 0
+\]
+
+的函数称为\textbf{分式线性变换}（又称\textbf{双线性变换}或
+\textbf{Möbius 变换}），其中 \(z\) 与 \(w\) 都在扩充复平面
+
+\[
+\mathbb{C}_{\infty} = \mathbb{C}\cup\{\infty\}
+\]
+
+上取值。常数矩阵
+
+\[
+\begin{pmatrix} a & b \\ c & d \end{pmatrix}
+\]
+
+称为该变换的\textbf{矩阵}，它与原矩阵相差一个非零常数因子时对应同一个变换。
+
+几点说明：
+
+\begin{itemize}
+\tightlist
+\item
+  当 \(c=0\)
+  时，\(w=\dfrac{a}{d}z+\dfrac{b}{d}\)，是通常的\textbf{线性（整线性）变换}，即平移、旋转与伸缩的复合。
+\item
+  当 \(c\neq 0\) 时，分母为零的点 \(z=-\dfrac{d}{c}\) 映为无穷远点
+  \(\infty\)；而 \(z=\infty\) 则映为 \(w=\dfrac{a}{c}\)。
+\item
+  由于
+  \(ad-bc\neq 0\)，分式线性变换在扩充复平面上是\textbf{一一对应（双射）}，因而是单叶的：它把
+  \(\mathbb{C}_{\infty}\) 整个地且双方单值地映为自身。
+\end{itemize}
+
+\textbf{定义 6.2} 在扩充复平面 \(\mathbb{C}_{\infty}\)
+上，\textbf{圆}与\textbf{直线}统称为\textbf{广义圆}（也称``圆周''）。这是因为直线可以看成通过无穷远点
+\(\infty\) 的``半径为无穷大的圆''。
+
+\begin{quote}
+配图：建议绘制一条不经原点的直线与一个不经过原点的圆，再分别画出
+\(w=1/z\) 后的像，直观展示``直线映圆、圆映圆''的保广义圆性。
+\end{quote}
+
+\subsection{6.1.2
+分式线性变换的分解}\label{ux5206ux5f0fux7ebfux6027ux53d8ux6362ux7684ux5206ux89e3}
+
+\textbf{性质 6.1} 任一非恒等的分式线性变换
+\(w=\dfrac{az+b}{cz+d}\)（\(ad-bc\neq 0\)）都可分解为下列三类简单变换的复合：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{平移}：\(w=z+b\)；
+\item
+  \textbf{旋转与伸缩（相似变换）}：\(w=az\)，\(a\neq 0\)；
+\item
+  \textbf{反演}：\(w=\dfrac{1}{z}\)。
+\end{enumerate}
+
+具体地，当 \(c\neq 0\) 时，
+
+\[
+w = \frac{az+b}{cz+d}
+= \frac{a}{c} + \frac{bc-ad}{c}\cdot\frac{1}{cz+d}.
+\]
+
+若令
+\(w_1=cz+d\)（相似变换），\(w_2=\dfrac{1}{w_1}\)（反演），\(w_3=\dfrac{bc-ad}{c}w_2+\dfrac{a}{c}\)（伸缩加平移），则
+\(w=w_3\)。
+
+\textbf{结论}
+研究分式线性变换的几何性质，只需研究平移、旋转伸缩与反演这三种基本变换；这也为下述保广义圆性提供了证明思路。
+
+\subsection{6.1.3 保广义圆性}\label{ux4fddux5e7fux4e49ux5706ux6027}
+
+\textbf{定理 6.1（保广义圆性）} 分式线性变换把 \(\mathbb{C}_{\infty}\)
+上的广义圆映为广义圆。即：圆或直线经分式线性变换后仍是圆或直线。并且它把圆（或直线）的内部（或一侧半平面）映为像圆（或直线）的内部或外部（或另一侧半平面）。
+
+\textbf{证明思路} 平移与旋转伸缩显然把广义圆映为广义圆。因此只需证明反演
+\(w=1/z\) 保持广义圆。任取一个广义圆，其方程可写成
+
+\[
+A z\bar z + \bar B z + B \bar z + C = 0,\qquad A,C \in \mathbb{R},
+\]
+
+其中 \(A=0\) 时表示直线，\(A\neq 0\) 时表示圆。令
+\(z=\dfrac{1}{w}\)，代入并乘以 \(w\bar w\)，得
+
+\[
+A + \bar B \bar w + B w + C w\bar w = 0,
+\]
+
+仍是同类型的广义圆方程，故 \(w=1/z\) 保广义圆。由性质 6.1
+的分解，任一非恒等分式线性变换都保广义圆。\(\square\)
+
+\textbf{重要判别}
+一条直线经过分式线性变换后，何时仍为直线、何时变为圆？原则是：\textbf{若原直线（或圆）经过极点
+\(z=-d/c\)，则像为直线；否则像为圆}。更一般地，广义圆像的类型取决于极点是否落在该广义圆上。
+
+\subsection{6.1.4
+交比及其不变性}\label{ux4ea4ux6bd4ux53caux5176ux4e0dux53d8ux6027}
+
+\textbf{定义 6.3（交比）} 设 \(z_1,z_2,z_3,z_4\)
+是扩充复平面上四个互异的点，称
+
+\[
+(z_1,z_2;z_3,z_4)
+= \frac{z_1-z_3}{z_1-z_4}\Big/\frac{z_2-z_3}{z_2-z_4}
+= \frac{(z_1-z_3)(z_2-z_4)}{(z_1-z_4)(z_2-z_3)}
+\]
+
+为这四个点的\textbf{交比}。若其中有无穷远点，则按下列极限理解：
+
+\[
+(\infty, z_2; z_3, z_4)=\frac{z_2-z_4}{z_2-z_3},\qquad
+(z_1, \infty; z_3, z_4)=\frac{z_1-z_3}{z_1-z_4}.
+\]
+
+\textbf{定理 6.2（交比不变性）} 设 \(w=L(z)\)
+是一个分式线性变换，\(z_j\)（\(j=1,2,3,4\)）为四个点，\(w_j=L(z_j)\)，则
+
+\[
+(w_1,w_2;w_3,w_4) = (z_1,z_2;z_3,z_4).
+\]
+
+即\textbf{交比是分式线性变换下的不变量}。
+
+\textbf{证明思路} 由性质 6.1，只需对平移、旋转伸缩和反演 \(w=1/z\)
+逐一验证交比不变；直接代入交比定义即可。\(\square\)
+
+\textbf{性质 6.2（四点共圆的判据）} \(z_1,z_2,z_3,z_4\) 在
+\(\mathbb{C}_{\infty}\) 上共圆或共线的充要条件是：它们的交比
+\((z_1,z_2;z_3,z_4)\) 为实数。
+
+\textbf{说明}
+因为存在唯一的分式线性变换把前三点映为实轴上的三点，而交比不变；实轴上（共线）四点的交比为实数；反之亦然。这一判据是处理``四点共圆''类问题的重要工具。
+
+\subsection{6.1.5
+由三对对应点确定变换}\label{ux7531ux4e09ux5bf9ux5bf9ux5e94ux70b9ux786eux5b9aux53d8ux6362}
+
+\textbf{定理 6.3} 在扩充复平面上任意给定三个互异的点 \(z_1,z_2,z_3\)
+与三个互异的点 \(w_1,w_2,w_3\)，存在\textbf{唯一}的分式线性变换
+\(w=L(z)\)，使得
+
+\[
+L(z_1)=w_1,\qquad L(z_2)=w_2,\qquad L(z_3)=w_3 .
+\]
+
+并且该变换可由交比相等直接写出：
+
+\[
+\frac{w-w_1}{w-w_2}\cdot\frac{w_3-w_2}{w_3-w_1}
+=
+\frac{z-z_1}{z-z_2}\cdot\frac{z_3-z_2}{z_3-z_1}.
+\]
+
+若某点为无穷远点，则把含有该点的因子按``消去''处理（例如含 \(\infty\)
+的差项省略或取极限）。
+
+\textbf{证明思路} 上式右端是 \(z\) 的分式线性函数，且在
+\(z=z_1,z_2,z_3\) 时分别取 \(0,\infty,1\)，从而左端的 \(w\) 分别在
+\(w_1,w_2,w_3\) 处取相应值；由解的唯一性即得。\(\square\)
+
+\textbf{推论}
+分式线性变换把由三点确定的广义圆映为由对应三点确定的广义圆。
+
+\subsection{6.1.6
+单位圆与上半平面之间的映射}\label{ux5355ux4f4dux5706ux4e0eux4e0aux534aux5e73ux9762ux4e4bux95f4ux7684ux6620ux5c04}
+
+以下两个映射是本章最常用的``标准区域互映''：
+
+\textbf{上半平面到单位圆盘：}
+
+\[
+w = \frac{z-i}{z+i}
+\]
+
+把 \(\operatorname{Im}z>0\) 共形地映为 \(|w|<1\)，把实轴映为单位圆，且
+\(z=i\) 映为 \(w=0\)。
+
+\textbf{单位圆盘到上半平面：}
+
+\[
+w = i\frac{1+z}{1-z}
+\]
+
+把 \(|z|<1\) 共形地映为 \(\operatorname{Im}w>0\)，把单位圆映为实轴，且
+\(z=0\) 映为 \(w=i\)。
+
+\begin{quote}
+配图：建议在上半平面画一条水平直线（表示实轴）与半径为 1
+的圆，分别用箭头表示 \(w=(z-i)/(z+i)\) 与 \(w=i(1+z)/(1-z)\)
+的对应关系。
+\end{quote}
+
+\subsection{6.1.7 典型例题}\label{ux5178ux578bux4f8bux9898-2}
+
+\textbf{例 6.1} 求分式线性变换 \(w=L(z)\)，使
+\(L(0)=\infty\)，\(L(1)=i\)，\(L(\infty)=0\)。
+
+\textbf{解} 利用定理 6.3。取
+\(z_1=0,w_1=\infty\)；\(z_2=1,w_2=i\)；\(z_3=\infty,w_3=0\)。由交比相等
+
+\[
+(w,\infty;i,0)=(z,0;1,\infty),
+\]
+
+其中左端（因含 \(\infty\)，令 \(z_2\to\infty\) 取极限）为
+\(\dfrac{w-i}{w}\)，右端（令 \(z_4\to\infty\) 取极限）为
+\(\dfrac{z-1}{0-1}=1-z\)。于是
+
+\[
+\frac{w-i}{w}=1-z
+\quad\Longrightarrow\quad
+w-i=w(1-z)
+\quad\Longrightarrow\quad
+wz=i
+\quad\Longrightarrow\quad
+w=\frac{i}{z}.
+\]
+
+故所求变换为 \(w=\dfrac{i}{z}\)。验证：\(z=0\) 时 \(w=\infty\)；\(z=1\)
+时 \(w=i\)；\(z=\infty\) 时 \(w=0\)。\(\blacksquare\)
+
+\textbf{例 6.2} 求把单位圆盘 \(|z|<1\) 映射为上半平面
+\(\operatorname{Im}w>0\)，且把 \(z=0\) 映为 \(w=i\) 的分式线性变换。
+
+\textbf{解} 取
+
+\[
+w = i\frac{1+z}{1-z}.
+\]
+
+当 \(z=0\) 时，\(w=i\)，满足条件。下面验证它把单位圆映为实轴。设
+\(z=e^{i\theta}\)（\(|z|=1\)），则
+
+\[
+\frac{1+e^{i\theta}}{1-e^{i\theta}}
+= \frac{2\cos\frac{\theta}{2}\,e^{i\theta/2}}
+{-2i\sin\frac{\theta}{2}\,e^{i\theta/2}}
+= i\cot\frac{\theta}{2},
+\]
+
+于是
+
+\[
+w = i\cdot i\cot\frac{\theta}{2} = -\cot\frac{\theta}{2}\in \mathbb{R}.
+\]
+
+故单位圆映为实轴。又因 \(z=0\) 映为
+\(w=i\)（在上半平面），且分式线性变换是单叶双射，故单位圆盘内部映为上半平面。所求变换为
+
+\[
+\boxed{\;w=i\frac{1+z}{1-z}\;}.
+\]
+
+（若要求``上半平面到单位圆盘''，则可取
+\(w=\dfrac{z-i}{z+i}\)。）\(\blacksquare\)
+
+\textbf{例 6.3} 求 \(w=\dfrac{1}{z}\) 把直线 \(x=1\) 映成什么曲线。
+
+\textbf{解} 直线 \(x=1\) 上的点可写为
+\(z=1+iy\)（\(y\in\mathbb{R}\)）。于是
+
+\[
+w=\frac{1}{1+iy}=\frac{1-iy}{1+y^2}.
+\]
+
+令 \(w=u+iv\)，则
+
+\[
+u=\frac{1}{1+y^2},\qquad v=\frac{-y}{1+y^2}.
+\]
+
+消去 \(y\)：因为
+
+\[
+u^2+v^2=\frac{1+y^2}{(1+y^2)^2}=\frac{1}{1+y^2}=u,
+\]
+
+所以
+
+\[
+u^2+v^2=u
+\quad\Longleftrightarrow\quad
+\left(u-\frac12\right)^{2}+v^{2}=\left(\frac12\right)^{2}.
+\]
+
+即 \(w=\dfrac{1}{z}\) 把直线 \(x=1\) 映为以 \(\dfrac12\)
+为圆心、\(\dfrac12\) 为半径的圆。由于直线 \(x=1\) 不经过极点
+\(z=0\)，故像为圆而非直线。\(\blacksquare\)
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-18}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{忘记
+  \(ad-bc\neq 0\)}：若为零，变换退化（如分子分母成比例），不再是双射，不满足分式线性变换的要求。
+\item
+  \textbf{无穷远点的处理}：\(z=-d/c\) 映为 \(\infty\)，\(z=\infty\) 映为
+  \(a/c\)（\(c=0\) 时映为 \(\infty\)）。不要把 \(\infty\)
+  当普通复数值直接代入。
+\item
+  \textbf{``圆还是直线''的判断}：像曲线是圆还是直线，取决于极点
+  \(z=-d/c\) 是否在原广义圆上。必须养成先看极点位置的习惯。
+\item
+  \textbf{交比顺序}：交比 \((z_1,z_2;z_3,z_4)\)
+  对位置的顺序敏感，交换点会改变数值甚至变为倒数；使用时要保持一致。
+\item
+  \textbf{单位圆与上半平面映射不唯一}：只给``区域对应''不能唯一确定变换，还需再给``三个点对''之类条件（如
+  \(z=0\mapsto i\)）才能唯一确定。
+\item
+  \textbf{方向相反}：\(w=(z-i)/(z+i)\) 是``上半平面→单位圆''，而
+  \(w=i(1+z)/(1-z)\) 是``单位圆→上半平面''，不要颠倒。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-18}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{定义}：分式线性变换
+  \(w=\frac{az+b}{cz+d}\)（\(ad-bc\neq0\)）是扩充复平面上的单叶双射。
+\item
+  \textbf{分解}：平移、旋转伸缩与反演；由此可证``保广义圆''。
+\item
+  \textbf{保广义圆}：圆或直线映为圆或直线；判别像为圆还是直线看极点是否落在原曲线上。
+\item
+  \textbf{交比}：\((z_1,z_2;z_3,z_4)\)
+  在分式线性变换下不变；四点为实数交比当且仅当四点共圆或共线。
+\item
+  \textbf{三点定变换}：给定三对对应点唯一确定一个分式线性变换。
+\item
+  \textbf{标准映射}：\(w=\frac{z-i}{z+i}\)（上半平面→单位圆）、\(w=i\frac{1+z}{1-z}\)（单位圆→上半平面）。
+\end{itemize}
+
+\section{6.2 共形映射}\label{ux5171ux5f62ux6620ux5c04}
+
+\begin{quote}
+本节目标：理解导数的几何意义（伸缩率与旋转角），掌握共形映射（保角映射）的定义与判定，了解共形映射的局部单叶性、区域对应与边界对应等基本性质。
+重点：导数的几何意义；共形映射的定义与判定条件（\(f'(z)\neq 0\)）；共形映射的局部单叶性与可逆性。
+难点：夹角``大小与方向''的双重保持；导数零点处角度的``放大倍数''；单叶（一一）与局部共形的区别。
+\end{quote}
+
+\subsection{6.2.1
+曲线的切线与两曲线的夹角}\label{ux66f2ux7ebfux7684ux5207ux7ebfux4e0eux4e24ux66f2ux7ebfux7684ux5939ux89d2}
+
+设曲线 \(\Gamma\) 的参数方程为
+
+\[
+z=z(t)=x(t)+iy(t),\qquad a\le t\le b,
+\]
+
+且 \(z'(t_0)\neq 0\)。则 \(\Gamma\) 在 \(z_0=z(t_0)\) 处的切线方向向量为
+\(z'(t_0)\)，其方向角（切线的辐角）为
+
+\[
+\arg z'(t_0).
+\]
+
+设两条曲线 \(\Gamma_1,\Gamma_2\) 在 \(z_0=z_1(t_0)=z_2(t_0)\) 处相交，且
+\(z_1'(t_0)\neq 0\)，\(z_2'(t_0)\neq 0\)。规定它们的\textbf{夹角}为两切线方向的有向夹角：
+
+\[
+\angle(\Gamma_1,\Gamma_2) = \arg z_2'(t_0) - \arg z_1'(t_0).
+\]
+
+\begin{quote}
+配图：建议画出两条曲线在交点 \(z_0\) 处的切线，标明夹角
+\(\theta\)，以及映射后两条像曲线在 \(w_0=f(z_0)\) 处的夹角仍为
+\(\theta\)。
+\end{quote}
+
+\subsection{6.2.2
+导数的几何意义：伸缩率与旋转角}\label{ux5bfcux6570ux7684ux51e0ux4f55ux610fux4e49ux4f38ux7f29ux7387ux4e0eux65cbux8f6cux89d2}
+
+\textbf{定理 6.4（导数的几何意义）} 设 \(f(z)\) 在 \(z_0\) 处解析，且
+\(f'(z_0)\neq 0\)。过 \(z_0\) 的任意曲线 \(\Gamma\)（参数方程
+\(z=z(t)\)，\(z(t_0)=z_0\)，\(z'(t_0)\neq 0\)）在映射 \(w=f(z)\)
+下的像曲线 \(\Gamma'=f(\Gamma)\)，在 \(w_0=f(z_0)\) 处的切线方向满足
+
+\[
+\arg w'(t_0) = \arg f'(z_0) + \arg z'(t_0).
+\]
+
+由此得到两个与曲线形状无关的常数：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{伸缩率}：像曲线在 \(w_0\) 处的切向量长度为原曲线切向量长度的
+  \(|f'(z_0)|\) 倍，即 \[
+  |f'(z_0)| = \text{放大倍数},
+  \] 只与点 \(z_0\) 有关；
+\item
+  \textbf{旋转角}：每一条过 \(z_0\) 的曲线，其切线方向都旋转同一个角 \[
+  \arg f'(z_0),
+  \] 也与曲线形状无关。
+\end{enumerate}
+
+\textbf{证明} 由复合函数求导法则，像曲线为
+\(w=w(t)=f\bigl(z(t)\bigr)\)，故
+
+\[
+w'(t_0)=f'\bigl(z(t_0)\bigr)\,z'(t_0)=f'(z_0)\,z'(t_0).
+\]
+
+取辐角得 \(\arg w'(t_0)=\arg f'(z_0)+\arg z'(t_0)\)，取模得
+\(|w'(t_0)|=|f'(z_0)|\,|z'(t_0)|\)。\(\square\)
+
+\subsection{6.2.3
+共形映射的定义与判定}\label{ux5171ux5f62ux6620ux5c04ux7684ux5b9aux4e49ux4e0eux5224ux5b9a}
+
+\textbf{定义 6.4（共形映射）} 设 \(f(z)\) 在 \(z_0\)
+的一个邻域内解析。若映射 \(w=f(z)\) 在 \(z_0\)
+处保持两条曲线夹角的\textbf{大小}和\textbf{方向}不变，并且在该点有确定的伸缩率
+\(|f'(z_0)|\)，则称 \(w=f(z)\) 在 \(z_0\)
+处是\textbf{共形映射}（又称\textbf{保角映射}）。若 \(f\) 在区域 \(D\)
+内每一点都共形，则称 \(f\) 在 \(D\) 内是\textbf{共形映射}。
+
+由定理 6.4，当 \(f'(z_0)\neq 0\) 时，映射在 \(z_0\)
+处不仅保持夹角，而且伸缩率与旋转角均为常数，因此是共形的。
+
+\textbf{定理 6.5（共形映射的判定）} 设 \(f(z)\) 是区域 \(D\)
+内的单值解析函数。则 \(f\) 在 \(D\) 内共形的充要条件是
+
+\[
+f'(z)\neq 0,\qquad \forall\, z\in D .
+\]
+
+\textbf{性质 6.3（导数零点处不保角）} 若 \(f'(z_0)=0\)，则 \(w=f(z)\) 在
+\(z_0\) 处不是共形的。更一般地，若
+
+\[
+f(z)=(z-z_0)^{n}\,g(z),\qquad g(z_0)\neq 0,\quad n\ge 2,
+\]
+
+即 \(f\) 在 \(z_0\) 处有 \(n\) 阶零点，则映射在 \(z_0\)
+处把任意两条曲线的夹角放大为原来的 \(n\) 倍：
+
+\[
+\angle\left(f(\Gamma_1),f(\Gamma_2)\right)=n\,\angle(\Gamma_1,\Gamma_2).
+\]
+
+例如 \(w=z^2\) 在 \(z=0\) 处 \(f'(0)=0\)，夹角被放大为原来的 \(2\)
+倍，故 \(z=0\) 不是共形点。
+
+\textbf{说明}
+这里``共形''强调\textbf{保角}（保夹角的大小与方向）。若只保夹角大小而不保方向（如反演后取共轭），则称为``保角但反定向''；本书约定共形映射保持夹角方向不变。
+
+\subsection{6.2.4
+共形映射的主要性质}\label{ux5171ux5f62ux6620ux5c04ux7684ux4e3bux8981ux6027ux8d28}
+
+\textbf{定义 6.5（单叶函数）} 设 \(f(z)\) 在区域 \(D\) 内解析。若对任意
+\(z_1\neq z_2\in D\)，都有 \(f(z_1)\neq f(z_2)\)，则称 \(f\) 是 \(D\)
+上的\textbf{单叶函数}（又称一一解析函数）。
+
+\textbf{定理 6.6（局部单叶与解析反函数）} 设 \(f\) 在 \(z_0\) 处解析且
+\(f'(z_0)\neq 0\)，则存在 \(z_0\) 的邻域，使 \(f\)
+在该邻域内单叶，且反函数 \(z=f^{-1}(w)\) 在 \(w_0=f(z_0)\)
+的某邻域内解析，并且
+
+\[
+\left(f^{-1}\right)'(w_0)=\frac{1}{f'(z_0)} .
+\]
+
+因此 \(f^{-1}\) 在 \(w_0\) 处也是共形的。
+
+\textbf{证明要点} 由解析函数的反函数定理（或由 Cauchy--Riemann
+方程推得的雅可比行列式 \(J=|f'(z)|^{2}\)
+非零）即可得到局部单叶与反函数的解析性。\(\square\)
+
+\textbf{定理 6.7（开映射与区域对应）} 若 \(f\) 在区域 \(D\)
+内解析且不恒为常数，则 \(f(D)\)
+是开集（\textbf{开映射定理}），因此非恒常解析函数把区域映为区域。若
+\(f\) 是 \(D\) 上的单叶函数，则 \(f\) 把 \(D\)
+共形地、双方单值地映为区域 \(f(D)\)，且 \(f^{-1}\) 也在 \(f(D)\)
+上共形。
+
+\textbf{性质 6.4（边界对应）} 设 \(f\) 把一个简单的单连通区域 \(D\)
+共形地、单叶地映为另一个单连通区域 \(D'\)，且 \(f\) 可连续延拓到 \(D\)
+的边界
+\(\partial D\)，则边界点映为边界点，且边界的方向保持（保持边界定向）。这是解决``区域映射为简单区域''类问题的理论依据。
+
+\textbf{性质 6.5（复合的共形性）} 若 \(w=f(z)\) 在 \(z_0\)
+处共形，\(\zeta=g(w)\) 在 \(w_0=f(z_0)\) 处共形，则复合映射
+\(\zeta=g\bigl(f(z)\bigr)\) 在 \(z_0\) 处共形，且
+
+\[
+\bigl(g\circ f\bigr)'(z_0)=g'\bigl(f(z_0)\bigr)\,f'(z_0)\neq 0 .
+\]
+
+这说明共形映射可以``复合''，这也是 6.3
+节中把复杂区域逐级化为简单区域的基本手段。
+
+\subsection{6.2.5 典型例题}\label{ux5178ux578bux4f8bux9898-3}
+
+\textbf{例 6.4} 设 \(w=z^2\)。研究它在 \(z_0=1+i\)
+处的伸缩率与旋转角，并说明在 \(z=0\) 处是否共形。
+
+\textbf{解}
+
+\[
+f'(z)=2z,\qquad f'(1+i)=2(1+i)=2+2i .
+\]
+
+于是
+
+\[
+|f'(1+i)|=|2+2i|=2\sqrt2,\qquad
+\arg f'(1+i)=\arg(2+2i)=\frac{\pi}{4}.
+\]
+
+即映射 \(w=z^2\) 在 \(z_0=1+i\) 处的伸缩率为
+\(2\sqrt2\)，任何过该点的曲线其切线方向都旋转
+\(\dfrac{\pi}{4}\)（\(45^\circ\)）。又 \(f'(0)=0\)，故 \(w=z^2\) 在
+\(z=0\) 处不是共形的（夹角被放大为原来的 \(2\) 倍）。\(\blacksquare\)
+
+\textbf{例 6.5} 证明 \(w=\dfrac{1}{z}\) 在 \(z\neq 0\) 处处处共形。
+
+\textbf{解}
+
+\[
+f'(z)=-\frac{1}{z^{2}},\qquad z\neq 0 .
+\]
+
+对一切 \(z\neq 0\)，\(f'(z)\neq 0\)，且 \(f\) 在 \(z\neq 0\)
+处解析，故由定理 6.5，\(w=\dfrac{1}{z}\) 在 \(z\neq 0\)
+处处处共形。例如在 \(z_0=1+i\) 处，
+
+\[
+f'(1+i)=-\frac{1}{(1+i)^{2}}=-\frac{1}{2i}=\frac{i}{2},
+\]
+
+故伸缩率为 \(\left|\dfrac{i}{2}\right|=\dfrac12\)，旋转角为
+\(\arg\dfrac{i}{2}=\dfrac{\pi}{2}\)。\(\blacksquare\)
+
+\textbf{例 6.6} 求 \(w=z^2\) 把第一象限
+\(\left\{0<\arg z<\dfrac{\pi}{2}\right\}\)
+映射成的区域，并说明是否为共形的一一映射。
+
+\textbf{解} 设 \(z=re^{i\theta}\)，\(0<\theta<\dfrac{\pi}{2}\)，则
+
+\[
+w=z^{2}=r^{2}e^{i2\theta}.
+\]
+
+于是 \(\arg w=2\theta\in(0,\pi)\)，\(|w|=r^{2}>0\)。故像区域为上半平面
+
+\[
+\operatorname{Im}w>0 .
+\]
+
+由于在第一象限内 \(f'(z)=2z\neq 0\)，且扇形角
+\(\dfrac{\pi}{2}\le \pi\)，\(z^2\) 后角度为 \(\pi\)，仍在 \(2\pi\)
+范围内，故映射是单叶的，于是 \(w=z^2\)
+把第一象限共形地、一一地映为上半平面。\(\blacksquare\)
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-19}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{混淆``解析''与``共形''}：解析函数只有在导数不为零处才保角；\(w=z^2\)
+  在 \(z=0\) 解析但不共形。
+\item
+  \textbf{忽略旋转方向}：夹角是``有向''的，\(\angle(\Gamma_1,\Gamma_2)=\arg z_2'-\arg z_1'\)；方向颠倒则角度反号。
+\item
+  \textbf{把局部共形当作整体单叶}：\(f'(z)\neq 0\)
+  在全域成立只能保证``局部单叶''，不保证整体一一。例如 \(w=e^z\) 处处
+  \(f'\neq0\)，但不是整体单叶（有周期 \(2\pi i\)）。
+\item
+  \textbf{误用反函数导数}：\((f^{-1})'(w_0)=1/f'(z_0)\)，不要写成
+  \(f'(z_0)\)。
+\item
+  \textbf{混淆``角域''与``半平面''的映射}：通过复合把角域、带形区域化为上半平面或单位圆时，要逐步检查每一步是否共形、是否单叶。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-19}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{导数的几何意义}：\(|f'(z_0)|\) 为伸缩率，\(\arg f'(z_0)\)
+  为旋转角，二者均与曲线形状无关。
+\item
+  \textbf{共形映射}：保夹角大小与方向的映射；\(f\) 解析且 \(f'(z)\neq0\)
+  是共形的充要条件。
+\item
+  \textbf{导数零点}：\(n\) 阶零点处夹角放大 \(n\) 倍，不共形。
+\item
+  \textbf{重要性质}：局部单叶与解析反函数；开映射与区域对应；边界对应；复合共形。
+\item
+  \textbf{例题}：\(w=z^2\)、\(w=1/z\) 的共形性分析与区域映射。
+\end{itemize}
+
+\section{6.3
+几个初等函数所构成的映射}\label{ux51e0ux4e2aux521dux7b49ux51fdux6570ux6240ux6784ux6210ux7684ux6620ux5c04}
+
+\begin{quote}
+本节目标：掌握幂函数 \(w=z^n\) 与指数函数 \(w=e^z\)
+的共形性及其区域映射规律，能利用它们（常与分式线性变换复合）把角域、带形区域映射为半平面或单位圆。
+重点：幂函数把``角域→角域（角度放大 \(n\)
+倍）''；指数函数把``带形区域→角域、带形→半平面''；单叶条件与复合映射。
+难点：单叶（一一）区域的选取；周期性与分支问题；把复杂区域逐级化为简单区域。
+\end{quote}
+
+\subsection{\texorpdfstring{6.3.1 幂函数
+\(w=z^n\)}{6.3.1 幂函数 w=z\^{}n}}\label{ux5e42ux51fdux6570-wzn}
+
+\textbf{定理 6.8（幂函数的映射）} 设 \(n\) 为正整数，\(n\ge 2\)。幂函数
+
+\[
+w=z^{n}
+\]
+
+在全平面解析，且
+
+\[
+f'(z)=n z^{n-1}.
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  当 \(z\neq 0\) 时 \(f'(z)\neq 0\)，故 \(w=z^n\) 在 \(z\neq 0\)
+  处处处共形；在 \(z=0\) 处导数为零，不共形（夹角被放大 \(n\) 倍）。
+\item
+  \(w=z^n\) 把以原点为顶点的\textbf{角域}
+  \(\{0<\arg z<\alpha\}\)（\(0<\alpha<2\pi\)）共形地映为角域 \[
+  \{0<\arg w<n\alpha\},
+  \] 即把角度放大了 \(n\) 倍。
+\item
+  为了使 \(w=z^n\) 在角域上\textbf{单叶}（一一），必须取 \[
+  \alpha\le \frac{2\pi}{n}.
+  \] 特别地，\(w=z^n\) 把角域
+  \(\left\{0<\arg z<\dfrac{2\pi}{n}\right\}\) 单叶地映为整个 \(w\)
+  平面去掉正实轴（即 \(0<\arg w<2\pi\)）。
+\end{itemize}
+
+\textbf{例 6.7} 求 \(w=z^4\) 把角域
+\(\left\{0<\arg z<\dfrac{\pi}{4}\right\}\) 映射成的区域。
+
+\textbf{解} 设 \(z=re^{i\theta}\)，\(0<\theta<\dfrac{\pi}{4}\)。则
+
+\[
+w=z^{4}=r^{4}e^{i4\theta},\qquad \arg w=4\theta\in(0,\pi).
+\]
+
+故像区域为上半平面 \(\operatorname{Im}w>0\)。由于
+\(\dfrac{\pi}{4}\le\dfrac{2\pi}{4}=\dfrac{\pi}{2}\)，映射单叶，且在该角域内
+\(f'(z)=4z^{3}\neq 0\)，故为共形的一一映射。\(\blacksquare\)
+
+\begin{quote}
+配图：建议画出一个以原点为顶点的角域，以及其在 \(w=z^2\)（或
+\(w=z^4\)）下被``张开''后映成更大角域（或上半平面）的示意。
+\end{quote}
+
+\subsection{\texorpdfstring{6.3.2 指数函数
+\(w=e^z\)}{6.3.2 指数函数 w=e\^{}z}}\label{ux6307ux6570ux51fdux6570-wez}
+
+\textbf{定理 6.9（指数函数的映射）} 指数函数
+
+\[
+w=e^{z}=e^{x}(\cos y+i\sin y),\qquad z=x+iy,
+\]
+
+在全平面解析，且
+
+\[
+f'(z)=e^{z}\neq 0,
+\]
+
+故 \(w=e^z\) 在全平面处处共形。但它\textbf{不是一一的}，因为周期为
+\(2\pi i\)：
+
+\[
+e^{z+2\pi i}=e^{z}.
+\]
+
+水平带形区域与角域的对应关系如下：
+
+\[
+\left\{a<\operatorname{Im}z<b\right\}
+\xrightarrow{\ w=e^{z}\ }
+\left\{a<\arg w<b\right\},
+\]
+
+且当 \(b-a\le 2\pi\) 时，\(w=e^{z}\) 在该带形上单叶，映为角域。特别地：
+
+\begin{itemize}
+\tightlist
+\item
+  带形 \(\{0<\operatorname{Im}z<\pi\}\)
+  共形地、单叶地映为\textbf{上半平面} \(\operatorname{Im}w>0\)；
+\item
+  带形 \(\{-\pi<\operatorname{Im}z<\pi\}\) 映为整个 \(w\)
+  平面挖去负实轴（即 \(-\pi<\arg w<\pi\)）。
+\end{itemize}
+
+\textbf{性质 6.6（指数函数映线为线或圆）} \(w=e^z\) 把：
+
+\begin{itemize}
+\tightlist
+\item
+  水平线 \(\operatorname{Im}z=y_0\) 映为从原点出发的\textbf{射线}
+  \(\arg w=y_0\)；
+\item
+  竖直线 \(\operatorname{Re}z=x_0\) 映为以原点为圆心的\textbf{圆}
+  \(|w|=e^{x_0}\)。
+\end{itemize}
+
+因此竖直带形 \(\{a<\operatorname{Re}z<b\}\)（取一个周期
+\(0<\operatorname{Im}z<2\pi\) 时）映为\textbf{圆环域}
+\(e^{a}<|w|<e^{b}\)（或环形扇区）。
+
+\textbf{例 6.8} 求 \(w=e^{z}\) 把带形区域
+\(D=\{0<\operatorname{Im}z<\pi\}\)
+映射成的区域，并说明是否共形、是否单叶。
+
+\textbf{解} 设 \(z=x+iy\)，\(0<y<\pi\)，\(x\in\mathbb{R}\)。则
+
+\[
+w=e^{x}\,e^{iy}=e^{x}(\cos y+i\sin y),
+\]
+
+于是 \(|w|=e^{x}\)（当 \(x\) 取遍 \(\mathbb{R}\) 时取遍
+\((0,+\infty)\)），\(\arg w=y\in(0,\pi)\)。故像区域为
+
+\[
+\operatorname{Im}w>0 .
+\]
+
+又 \(f'(z)=e^{z}\neq 0\) 在 \(D\) 内处处成立，且带形宽度
+\(\pi<2\pi\)，所以 \(w=e^z\) 在 \(D\) 内单叶，从而把 \(D\)
+共形地、一一地映为上半平面 \(\operatorname{Im}w>0\)。\(\blacksquare\)
+
+\subsection{6.3.3
+复合映射：把复杂区域化为简单区域}\label{ux590dux5408ux6620ux5c04ux628aux590dux6742ux533aux57dfux5316ux4e3aux7b80ux5355ux533aux57df}
+
+在实际应用中，常常先通过\textbf{幂函数}、\textbf{指数函数}把角域或带形区域化为上半平面，再用\textbf{分式线性变换}把上半平面化为单位圆（或反过来），从而把边界值问题转化为单位圆内或上半平面上的标准问题。
+
+\textbf{例 6.9} 求把带形区域 \(D=\{0<\operatorname{Im}z<\pi\}\)
+共形地、单叶地映为单位圆盘 \(|w|<1\) 的映射。
+
+\textbf{解} 分两步。
+
+第一步：由例 6.8，令
+
+\[
+z_1=e^{z},
+\]
+
+把 \(D\) 映为上半平面 \(\operatorname{Im}z_1>0\)。
+
+第二步：由 6.1 节，令
+
+\[
+w=\frac{z_1-i}{z_1+i},
+\]
+
+把上半平面映为单位圆盘 \(|w|<1\)。
+
+两步均为共形、单叶映射，故复合
+
+\[
+\boxed{\;w=\frac{e^{z}-i}{e^{z}+i}\;}
+\]
+
+把带形 \(D=\{0<\operatorname{Im}z<\pi\}\) 共形地、单叶地映为单位圆盘
+\(|w|<1\)。\(\blacksquare\)
+
+\textbf{例 6.10} 求把扇形区域（第一象限）
+
+\[
+D=\left\{0<\arg z<\frac{\pi}{2}\right\}
+\]
+
+共形地、单叶地映为单位圆盘 \(|w|<1\) 的映射。
+
+\textbf{解} 分两步。
+
+第一步：令
+
+\[
+z_1=z^{2},
+\]
+
+把角域 \(0<\arg z<\dfrac{\pi}{2}\) 共形地、单叶地映为上半平面
+\(\operatorname{Im}z_1>0\)（见例 6.6）。
+
+第二步：令
+
+\[
+w=\frac{z_1-i}{z_1+i},
+\]
+
+把上半平面映为单位圆盘 \(|w|<1\)。
+
+故复合
+
+\[
+\boxed{\;w=\frac{z^{2}-i}{z^{2}+i}\;}
+\]
+
+把第一象限共形地、单叶地映为单位圆盘。这个例子说明``幂函数 +
+分式线性变换''是处理扇形、角域区域的基本套路。\(\blacksquare\)
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-20}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{单叶区间选取不当}：\(w=z^n\) 在角域上单叶要求角域宽度
+  \(\alpha\le\dfrac{2\pi}{n}\)；若 \(\alpha>\dfrac{2\pi}{n}\)，\(w\)
+  平面会``重叠''，映射不再是单叶。
+\item
+  \textbf{指数函数的周期性}：\(w=e^z\)
+  处处共形，但不是一一的；只有限制在宽度不超过 \(2\pi\) 的带形内才单叶。
+\item
+  \textbf{混淆水平带形与竖直带形}：\(e^z\)
+  把水平带形映为角域（对应辐角），把竖直带形映为圆环/环形扇区（对应模长），方向不要搞混。
+\item
+  \textbf{忘记分支与极点}：使用分式线性变换时，若原区域包含极点
+  \(z=-d/c\)，像会出现直线或无穷远；要结合 6.1 节判断。
+\item
+  \textbf{复合映射的``逐级''顺序}：一般步骤是``角域/带形
+  →（幂函数/指数函数）→ 半平面 →（分式线性变换）→ 单位圆''；不要跳步。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-20}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{幂函数 \(w=z^n\)}：除 \(z=0\) 外处处共形；把角域角度放大 \(n\)
+  倍；单叶条件为角域宽度
+  \(\alpha\le\dfrac{2\pi}{n}\)；用于把扇形映射为更大角域或半平面。
+\item
+  \textbf{指数函数 \(w=e^z\)}：全平面共形；周期
+  \(2\pi i\)；把水平带形映为角域（宽度 \(\pi\)
+  的带形映为上半平面）；用于把带形/条形区域映射为半平面或角域。
+\item
+  \textbf{复合映射}：幂函数 + 指数函数 +
+  分式线性变换，可把角域、带形、半圆等复杂区域逐级化为单位圆或上半平面。
+\item
+  \textbf{应用}：共形映射把偏微分方程（Laplace
+  方程）在复杂区域上的边值问题转化为简单区域上的标准问题。
+\end{itemize}
+
+\newpage

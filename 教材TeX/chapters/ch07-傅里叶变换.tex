@@ -1,0 +1,1090 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{第 7 章 ·
+傅里叶变换}\label{ux7b2c-7-ux7ae0-ux5085ux91ccux53f6ux53d8ux6362}
+
+\section{7.1 傅里叶变换}\label{ux5085ux91ccux53f6ux53d8ux6362}
+
+\begin{quote}
+本节目标：理解傅里叶积分的由来与傅里叶积分定理，掌握傅里叶变换与逆变换的定义、记号与频谱含义，并能计算几个基本初等函数的傅里叶变换。
+重点：傅里叶变换对 \(f(t)\leftrightarrow F(\omega)\)
+的定义；矩形脉冲、双边指数、单边指数等典型函数的变换。
+难点：从傅里叶级数到傅里叶积分的极限过渡；傅里叶积分定理的适用条件。
+\end{quote}
+
+\subsection{7.1.1
+傅里叶积分与傅里叶积分定理}\label{ux5085ux91ccux53f6ux79efux5206ux4e0eux5085ux91ccux53f6ux79efux5206ux5b9aux7406}
+
+周期函数可以用傅里叶级数展开成离散谐波的叠加。对于定义在整个实轴上的\textbf{非周期函数}，我们希望把它表示成频率连续变化的正弦波的``叠加''，这就是\textbf{傅里叶积分}。
+
+设 \(f_T(t)\) 是以 \(T\) 为周期的函数，其傅里叶级数的复数形式为
+
+\[
+f_T(t)=\sum_{n=-\infty}^{\infty} c_n e^{in\omega_0 t},
+\qquad
+c_n=\frac{1}{T}\int_{-T/2}^{T/2} f_T(\tau)e^{-in\omega_0\tau}\,d\tau,
+\]
+
+其中基频 \(\omega_0=\dfrac{2\pi}{T}\)。令
+\(\Delta\omega=\omega_0=\dfrac{2\pi}{T}\)，\(\omega_n=n\omega_0\)，并记
+
+\[
+F_T(\omega_n)=\int_{-T/2}^{T/2} f_T(\tau)e^{-i\omega_n\tau}\,d\tau,
+\]
+
+则
+
+\[
+f_T(t)=\frac{1}{2\pi}\sum_{n=-\infty}^{\infty} F_T(\omega_n)\,e^{i\omega_n t}\,\Delta\omega .
+\]
+
+令 \(T\to\infty\)（即
+\(\Delta\omega\to 0\)），在适当的收敛条件下，离散和趋于积分，得
+
+\[
+f(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\left[\int_{-\infty}^{\infty}f(\tau)e^{-i\omega\tau}\,d\tau\right]e^{i\omega t}\,d\omega .
+\]
+
+上式称为\textbf{傅里叶积分公式}。可以看到，非周期函数被``分解''成了频率
+\(\omega\) 连续变化的复指数 \(e^{i\omega t}\) 的积分（连续谱）。
+
+\textbf{定理 7.1（傅里叶积分定理）} 设函数 \(f(t)\) 满足：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(f(t)\) 在任一个有限区间上\textbf{分段光滑}，即 \(f(t)\)
+  只有有限个第一类间断点，且在相邻间断点之间具有连续导数；
+\item
+  \(f(t)\) 在 \((-\infty,\infty)\) 上\textbf{绝对可积}，即
+  \(\displaystyle\int_{-\infty}^{\infty}|f(t)|\,dt\) 收敛。
+\end{enumerate}
+
+则在 \(f\) 的\textbf{连续点} \(t\) 处，傅里叶积分公式收敛于
+\(f(t)\)；在\textbf{间断点} \(t\) 处，收敛于左右极限的平均值
+
+\[
+\frac{f(t+0)+f(t-0)}{2}.
+\]
+
+\begin{quote}
+说明：绝对可积是保证傅里叶积分收敛的\textbf{充分条件}，并非必要条件。像常数、单位阶跃、正弦等并不绝对可积，但仍可按``广义函数''的观点定义其傅里叶变换（见
+§7.2 与 §7.3）。
+\end{quote}
+
+\subsection{7.1.2
+傅里叶变换的定义}\label{ux5085ux91ccux53f6ux53d8ux6362ux7684ux5b9aux4e49}
+
+由傅里叶积分公式，内层积分与被积函数 \(f\) 及参数 \(\omega\)
+有关，外层积分再把该结果按
+\(e^{i\omega t}\)``合成''回原函数。这给出傅里叶变换对。
+
+\textbf{定义 7.1（傅里叶变换）} 设 \(f(t)\) 满足傅里叶积分定理的条件，称
+
+\[
+F(\omega)=\mathcal{F}[f(t)]=\int_{-\infty}^{\infty}f(t)e^{-i\omega t}\,dt
+\]
+
+为 \(f(t)\) 的\textbf{傅里叶变换}（或\textbf{像函数}），记为
+\(F(\omega)\) 或 \(\mathcal F[f]\)。
+
+\textbf{定义 7.2（傅里叶逆变换）} 称
+
+\[
+f(t)=\mathcal{F}^{-1}[F(\omega)]=\frac{1}{2\pi}\int_{-\infty}^{\infty}F(\omega)e^{i\omega t}\,d\omega
+\]
+
+为 \(F(\omega)\) 的\textbf{傅里叶逆变换}（或\textbf{像原函数}）。
+
+通常把 \(f(t)\) 与 \(F(\omega)\) 的对应关系记作
+
+\[
+f(t)\ \longleftrightarrow\ F(\omega),
+\]
+
+并称 \(f(t)\) 为\textbf{像原函数}，\(F(\omega)\)
+为\textbf{像函数}。在信号与系统课程中，\(F(\omega)\) 也称 \(f(t)\)
+的\textbf{频谱密度函数}（简称频谱），它表示信号中频率为 \(\omega\)
+的分量的``密度''。
+
+\begin{quote}
+关于符号约定：本书采用\textbf{正变换用 \(e^{-i\omega t}\)、逆变换用
+\(e^{i\omega t}\) 且逆变换带 \(\dfrac{1}{2\pi}\)}
+的约定。也有教材取相反约定，使用时必须以同一定义为准，否则结果会相差
+\(2\pi\) 的倍数。
+\end{quote}
+
+\subsection{7.1.3
+傅里叶变换的存在性}\label{ux5085ux91ccux53f6ux53d8ux6362ux7684ux5b58ux5728ux6027}
+
+由傅里叶积分定理，若 \(f(t)\) 分段光滑且绝对可积，则其傅里叶变换
+\(F(\omega)=\int_{-\infty}^{\infty}f(t)e^{-i\omega t}dt\) 存在且有界：
+
+\[
+|F(\omega)|\le \int_{-\infty}^{\infty}|f(t)|\,dt<\infty .
+\]
+
+这在物理上对应``信号能量有限且整体衰减''。许多工程上常用的信号（如周期信号、常数、阶跃信号）\textbf{不绝对可积}，其傅里叶变换必须借助单位脉冲函数
+\(\delta(t)\) 以广义函数（分布）的形式来理解，这正是 §7.2 的内容。
+
+\subsection{7.1.4
+常用函数的傅里叶变换表}\label{ux5e38ux7528ux51fdux6570ux7684ux5085ux91ccux53f6ux53d8ux6362ux8868}
+
+\begin{quote}
+表中 \(a>0\)；\(\delta(\cdot)\) 为单位脉冲函数（§7.2），\(u(t)\)
+为单位阶跃函数；\(\operatorname{sinc}x=\dfrac{\sin x}{x}\)。
+\end{quote}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+像原函数 \(f(t)\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+像函数 \(F(\omega)=\mathcal F[f(t)]\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\delta(t)\) & \(1\) \\
+\(1\) & \(2\pi\delta(\omega)\) \\
+\(e^{i\omega_0 t}\) & \(2\pi\delta(\omega-\omega_0)\) \\
+\(\cos\omega_0 t\) &
+\(\pi[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]\) \\
+\(\sin\omega_0 t\) &
+\(\dfrac{\pi}{i}[\delta(\omega-\omega_0)-\delta(\omega+\omega_0)]\) \\
+\(u(t)\) & \(\dfrac{1}{i\omega}+\pi\delta(\omega)\) \\
+\(e^{-at}u(t)\) & \(\dfrac{1}{a+i\omega}\) \\
+\(e^{-a|t|}\) & \(\dfrac{2a}{a^2+\omega^2}\) \\
+矩形脉冲 \(p_a(t)=\begin{cases}1,& |t|<a\\0,&|t|>a\end{cases}\) &
+\(\dfrac{2\sin a\omega}{\omega}=2a\operatorname{sinc}(a\omega)\) \\
+\end{longtable}
+}
+
+\subsection{7.1.5 典型例题}\label{ux5178ux578bux4f8bux9898-2}
+
+\textbf{例 7.1} 求矩形脉冲
+
+\[
+p_a(t)=
+\begin{cases}
+1, & |t|<a,\\
+0, & |t|>a,
+\end{cases}
+\qquad a>0
+\]
+
+的傅里叶变换。
+
+\textbf{解} 由定义
+
+\[
+\mathcal F[p_a(t)]=\int_{-a}^{a}e^{-i\omega t}\,dt
+=\frac{e^{-i\omega a}-e^{i\omega a}}{-i\omega}
+=\frac{2\sin a\omega}{\omega},
+\]
+
+即
+
+\[
+\mathcal F[p_a(t)]=\frac{2\sin a\omega}{\omega}=2a\operatorname{sinc}(a\omega).
+\]
+
+讨论：当 \(\omega\to 0\)
+时，\(\dfrac{2\sin a\omega}{\omega}\to 2a\)，这就是脉冲的面积；频谱沿
+\(\omega\) 正负半轴对称，在
+\(\omega=\dfrac{k\pi}{a}\ (k=\pm1,\pm2,\cdots)\) 处取值为零。
+
+\begin{quote}
+配图：建议绘制矩形脉冲 \(p_a(t)\)（时域宽 \(2a\)、高 \(1\)）与其频谱
+\(\dfrac{2\sin a\omega}{\omega}\)（频域曲线，主瓣位于 \(\omega=0\)
+附近，两侧有正负交替的旁瓣）。
+\end{quote}
+
+\textbf{例 7.2} 求双边指数函数
+\(f(t)=e^{-a|t|}\)（\(a>0\)）的傅里叶变换。
+
+\textbf{解} 将积分拆成两段：
+
+\[
+\begin{aligned}
+\mathcal F[f]
+&=\int_{-\infty}^{0}e^{at}e^{-i\omega t}\,dt+\int_{0}^{\infty}e^{-at}e^{-i\omega t}\,dt\\
+&=\int_{0}^{\infty}e^{-(a-i\omega)s}\,ds+\int_{0}^{\infty}e^{-(a+i\omega)t}\,dt\\
+&=\frac{1}{a-i\omega}+\frac{1}{a+i\omega}
+=\frac{2a}{a^2+\omega^2}.
+\end{aligned}
+\]
+
+因此
+
+\[
+e^{-a|t|}\ \longleftrightarrow\ \frac{2a}{a^2+\omega^2}.
+\]
+
+该变换是实的、偶函数，常用于描述``低通型''频谱，也常出现在概率论中（拉普拉斯分布的特征函数）。
+
+\textbf{例 7.3} 求单边衰减指数
+\(f(t)=e^{-at}u(t)\)（\(a>0\)）的傅里叶变换，其中 \(u(t)\)
+是单位阶跃函数。
+
+\textbf{解}
+
+\[
+\mathcal F[f]=\int_{0}^{\infty}e^{-at}e^{-i\omega t}\,dt
+=\int_{0}^{\infty}e^{-(a+i\omega)t}\,dt
+=\frac{1}{a+i\omega}.
+\]
+
+化为实部分量与虚部分量：
+
+\[
+\frac{1}{a+i\omega}=\frac{a}{a^2+\omega^2}-i\frac{\omega}{a^2+\omega^2}.
+\]
+
+故其频谱的模与辐角分别为
+
+\[
+|F(\omega)|=\frac{1}{\sqrt{a^2+\omega^2}},\qquad
+\arg F(\omega)=-\arctan\frac{\omega}{a}.
+\]
+
+\begin{quote}
+说明：\(f(t)\) 在 \(\omega\to\infty\)
+处衰减，幅频特性是典型的低通曲线，这与 §7.4
+卷积定理、以及后续拉普拉斯变换中的 \(1/(s+a)\) 形式一致。
+\end{quote}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-17}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{符号约定不统一}：正变换用 \(e^{-i\omega t}\) 还是
+  \(e^{i\omega t}\)，逆变换 \(\dfrac{1}{2\pi}\)
+  放哪里，必须全书一致；不同教材的``对称性''\,``卷积定理''常数会随之改变。
+\item
+  \textbf{绝对可积只是充分条件}：不要误以为``不绝对可积就无傅里叶变换''。常数、\(u(t)\)、\(\cos\omega_0 t\)
+  等借助 \(\delta\) 仍有广义傅里叶变换。
+\item
+  \textbf{矩形脉冲}：变换 \(\dfrac{2\sin a\omega}{\omega}\) 中分母是
+  \(\omega\)，不是 \(a\omega\)；主瓣宽度随 \(a\)
+  增大而变窄（时域越窄，频域越宽）。
+\item
+  \textbf{逆变换的系数 \(\dfrac{1}{2\pi}\)}：运用卷积定理、Parseval
+  等式时容易漏掉 \(2\pi\) 或 \(1/(2\pi)\)。
+\item
+  计算分段函数变换时，注意分段积分的变量替换与上下限，例如 \(e^{-a|t|}\)
+  要分 \(t<0\)、\(t>0\) 两段。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-17}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{傅里叶积分}：\(f(t)=\dfrac{1}{2\pi}\int_{-\infty}^{\infty}\left[\int_{-\infty}^{\infty}f(\tau)e^{-i\omega\tau}d\tau\right]e^{i\omega t}\,d\omega\)，是傅里叶级数在周期趋于无穷时的连续化。
+\item
+  \textbf{傅里叶变换对}：\(F(\omega)=\int_{-\infty}^{\infty}f(t)e^{-i\omega t}dt\)，\(f(t)=\dfrac{1}{2\pi}\int_{-\infty}^{\infty}F(\omega)e^{i\omega t}d\omega\)。
+\item
+  \textbf{傅里叶积分定理}：分段光滑 + 绝对可积 \(\Rightarrow\)
+  连续点收敛于 \(f(t)\)，间断点收敛于 \(\dfrac{f(t+0)+f(t-0)}{2}\)。
+\item
+  \textbf{基本变换}：矩形脉冲、双边指数、单边指数等；矩形脉冲给出
+  \(\operatorname{sinc}\) 型频谱，是理解``时域有限
+  \(\Longleftrightarrow\) 频域无限''的关键例子。
+\end{itemize}
+
+\section{7.2
+单位脉冲函数及其傅里叶变换}\label{ux5355ux4f4dux8109ux51b2ux51fdux6570ux53caux5176ux5085ux91ccux53f6ux53d8ux6362}
+
+\begin{quote}
+本节目标：理解单位脉冲函数 \(\delta(t)\)
+的物理背景与广义函数观点，掌握其筛选性质、尺度变换等基本性质，并能计算
+\(\delta(t)\)、\(u(t)\)、\(e^{i\omega_0 t}\) 等的傅里叶变换。
+重点：\(\delta(t)\)
+的定义与筛选性质；\(\mathcal F[\delta(t)]=1\)、\(\mathcal F[1]=2\pi\delta(\omega)\)；\(\mathcal F[u(t)]=\dfrac{1}{i\omega}+\pi\delta(\omega)\)。
+难点：\(\delta(t)\)
+不是普通函数，必须用``广义函数/分布''或极限过程理解；含 \(\delta\)
+的积分与频谱计算。
+\end{quote}
+
+\subsection{\texorpdfstring{7.2.1 单位脉冲函数 \(\delta(t)\)
+的引入}{7.2.1 单位脉冲函数 \textbackslash delta(t) 的引入}}\label{ux5355ux4f4dux8109ux51b2ux51fdux6570-deltat-ux7684ux5f15ux5165}
+
+在信号与物理问题中，常需要描述``瞬时作用的冲量''------例如在一个极短时间内施加一个很大的力，而总冲量为
+\(1\)。为此考虑一列矩形脉冲（宽度 \(\varepsilon\)，高度
+\(\dfrac{1}{\varepsilon}\)）：
+
+\[
+\delta_\varepsilon(t)=
+\begin{cases}
+\dfrac{1}{\varepsilon}, & |t|<\dfrac{\varepsilon}{2},\\
+0, & |t|>\dfrac{\varepsilon}{2},
+\end{cases}
+\qquad \int_{-\infty}^{\infty}\delta_\varepsilon(t)\,dt=1 .
+\]
+
+当 \(\varepsilon\to0\) 时，矩形越来越窄、越来越高，但面积始终为
+\(1\)。其``极限''称为\textbf{单位脉冲函数}（\textbf{狄拉克 \(\delta\)
+函数}），记作 \(\delta(t)\)。
+
+\textbf{定义 7.3（单位脉冲函数）} 单位脉冲函数 \(\delta(t)\)
+由以下两条性质``定义''：
+
+\[
+\delta(t)=0\quad (t\neq 0),
+\qquad
+\int_{-\infty}^{\infty}\delta(t)\,dt=1 .
+\]
+
+\begin{quote}
+严格地说，\(\delta(t)\) 不是普通函数（它在 \(t=0\)
+处取值``无穷''），而是一个\textbf{广义函数（分布）}。它可由连续函数序列（如
+\(\delta_\varepsilon\)、高斯脉冲
+\(\dfrac{1}{\varepsilon\sqrt{\pi}}e^{-t^2/\varepsilon^2}\)
+等）在积分意义下取极限得到。教学中先用``矩形脉冲序列极限''给出直观，再说明其积分意义。
+\end{quote}
+
+\subsection{7.2.2
+筛选（取样）性质}\label{ux7b5bux9009ux53d6ux6837ux6027ux8d28}
+
+\textbf{性质 7.1（筛选性质）} 若 \(f(t)\) 在 \(t=t_0\) 处连续，则
+
+\[
+\int_{-\infty}^{\infty} f(t)\,\delta(t-t_0)\,dt=f(t_0).
+\]
+
+特别地，
+
+\[
+\int_{-\infty}^{\infty} f(t)\,\delta(t)\,dt=f(0).
+\]
+
+\textbf{直观证明}：\(\delta(t-t_0)\) 只在 \(t_0\)
+附近一个``无限窄''的区间内非零。当该区间足够窄时，连续函数 \(f(t)\)
+在该区间内近似等于常数 \(f(t_0)\)，于是
+
+\[
+\int f(t)\delta(t-t_0)dt\approx f(t_0)\int\delta(t-t_0)dt=f(t_0).
+\]
+
+\textbf{推论}：\(\delta(t-t_0)\)
+作用于积分号内，相当于``取出''被积函数在 \(t_0\)
+点的值，故也称\textbf{取样（抽样）性质}。
+
+\subsection{\texorpdfstring{7.2.3 \(\delta(t)\)
+的基本性质}{7.2.3 \textbackslash delta(t) 的基本性质}}\label{deltat-ux7684ux57faux672cux6027ux8d28}
+
+\textbf{性质 7.2} 设 \(a\neq 0\)，则：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{偶函数}：\(\delta(-t)=\delta(t)\)，从而
+  \(\delta(t-a)=\delta(a-t)\)；
+\item
+  \textbf{尺度变换}：\(\delta(at)=\dfrac{1}{|a|}\delta(t)\)；
+\item
+  \textbf{与单位阶跃函数 \(u(t)\) 的关系}：
+  \[\dfrac{d}{dt}u(t)=\delta(t),\qquad u(t)=\int_{-\infty}^{t}\delta(\tau)\,d\tau ;\]
+\item
+  \textbf{导数 \(\delta'(t)\) 的筛选性质}：
+  \[\int_{-\infty}^{\infty}f(t)\delta'(t-t_0)\,dt=-f'(t_0).\]
+\end{enumerate}
+
+\textbf{说明}：性质 2 可理解为``对自变量作线性变换时脉冲强度不变、位置按
+\(at\) 压缩''，故除以 \(|a|\) 保持总积分为 \(1\)。性质 4
+可经分部积分得到（\(\delta\) 在端点处为 \(0\)）。
+
+\subsection{\texorpdfstring{7.2.4 \(\delta(t)\)
+及相关函数的傅里叶变换}{7.2.4 \textbackslash delta(t) 及相关函数的傅里叶变换}}\label{deltat-ux53caux76f8ux5173ux51fdux6570ux7684ux5085ux91ccux53f6ux53d8ux6362}
+
+\textbf{定理 7.2（\(\delta\) 与常数的傅里叶变换）}
+
+\[
+\mathcal F[\delta(t)]=\int_{-\infty}^{\infty}\delta(t)e^{-i\omega t}\,dt=1,
+\]
+
+而由逆变换公式与对称性，有
+
+\[
+\mathcal F[1]=2\pi\delta(\omega).
+\]
+
+\textbf{证明}：第一式由筛选性质直接得到（\(e^{-i\omega t}\) 在 \(t=0\)
+处取值 \(1\)）。第二式可由 \(\mathcal F[\delta]=1\) 与对称性
+\(F(t)\leftrightarrow 2\pi f(-\omega)\) 推出，也可视为广义积分
+
+\[
+\int_{-\infty}^{\infty}1\cdot e^{-i\omega t}dt=2\pi\delta(\omega)
+\]
+
+的分布意义。
+
+\textbf{定理 7.3（时移 \(\delta\) 与复指数）}
+
+\[
+\mathcal F[\delta(t-t_0)]=e^{-i\omega t_0},
+\qquad
+\mathcal F\left[e^{i\omega_0 t}\right]=2\pi\delta(\omega-\omega_0).
+\]
+
+\textbf{证明}：第一式即
+\(\int\delta(t-t_0)e^{-i\omega t}dt=e^{-i\omega t_0}\)。第二式可由
+\(\mathcal F[1]=2\pi\delta(\omega)\)
+与频移性质（§7.3）得到，即频率轴``平移 \(\omega_0\)''。
+
+\textbf{定理 7.4（单位阶跃函数的傅里叶变换）}
+
+\[
+\mathcal F[u(t)]=\frac{1}{i\omega}+\pi\delta(\omega).
+\]
+
+\textbf{说明}：利用
+\(u(t)=\dfrac{1}{2}+\dfrac{1}{2}\operatorname{sgn}(t)\)，其中
+\(\mathcal F\left[\dfrac{1}{2}\right]=\pi\delta(\omega)\)，而符号函数
+\(\operatorname{sgn}(t)\) 的傅里叶变换（在主值意义下）为
+\(\dfrac{2}{i\omega}\)，两项相加即得上式。\(\pi\delta(\omega)\)
+这一项体现了 \(u(t)\) 的``直流分量''。
+
+\subsection{7.2.5 典型例题}\label{ux5178ux578bux4f8bux9898-3}
+
+\textbf{例 7.4} 求 \(\mathcal F[e^{i\omega_0 t}]\)。
+
+\textbf{解} 因为 \(\mathcal F[1]=2\pi\delta(\omega)\)，由线性与频移
+
+\[
+\mathcal F\left[e^{i\omega_0 t}\right]=\mathcal F[1](\omega-\omega_0)=2\pi\delta(\omega-\omega_0).
+\]
+
+也可直接写成广义积分：\(\int_{-\infty}^{\infty}e^{i(\omega_0-\omega)t}dt=2\pi\delta(\omega-\omega_0)\)。
+
+\textbf{例 7.5} 求 \(\cos\omega_0 t\) 与 \(\sin\omega_0 t\)
+的傅里叶变换。
+
+\textbf{解}
+
+\[
+\cos\omega_0 t=\frac{e^{i\omega_0 t}+e^{-i\omega_0 t}}{2},
+\]
+
+故
+
+\[
+\mathcal F[\cos\omega_0 t]
+=\frac{1}{2}\left[2\pi\delta(\omega-\omega_0)+2\pi\delta(\omega+\omega_0)\right]
+=\pi\left[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)\right].
+\]
+
+同理，由
+\(\sin\omega_0 t=\dfrac{e^{i\omega_0 t}-e^{-i\omega_0 t}}{2i}\)，得
+
+\[
+\mathcal F[\sin\omega_0 t]
+=\frac{1}{2i}\left[2\pi\delta(\omega-\omega_0)-2\pi\delta(\omega+\omega_0)\right]
+=\frac{\pi}{i}\left[\delta(\omega-\omega_0)-\delta(\omega+\omega_0)\right].
+\]
+
+\textbf{例 7.6} 利用筛选性质计算
+\(\displaystyle\int_{-\infty}^{\infty}(t^2+\cos t)\delta(t-2)\,dt\)。
+
+\textbf{解} 由筛选性质，只要被积函数在 \(t=2\) 处连续，就有
+
+\[
+\int_{-\infty}^{\infty}(t^2+\cos t)\delta(t-2)dt=2^2+\cos 2=4+\cos 2.
+\]
+
+\begin{quote}
+配图：建议绘制 \(\delta_\varepsilon(t)\)（不同 \(\varepsilon\)
+的窄矩形脉冲，面积恒为 \(1\)）随 \(\varepsilon\to 0\) 趋于 \(\delta(t)\)
+的示意，以及 \(\delta(t)\) 集中谱 \(\mathcal F[\delta]=1\)（常数谱）和
+\(\mathcal F[1]=2\pi\delta(\omega)\)（\(\omega=0\) 处的脉冲谱）。
+\end{quote}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-18}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{\(\delta(t)\) 不是普通函数}：不能把 \(\delta(t)\)
+  当作``\(t=0\) 时取
+  \(\infty\)''的普通函数随意作四则运算；它只在积分（作为被测度）意义下使用。
+\item
+  \textbf{筛选性质}：\(\int f(t)\delta(t-t_0)dt=f(t_0)\) 要求 \(f\) 在
+  \(t_0\) 连续；若 \(t_0\) 是 \(f\) 的间断点，应取平均值
+  \(\dfrac{f(t_0+0)+f(t_0-0)}{2}\)。
+\item
+  \textbf{尺度变换}：\(\delta(at)=\dfrac{1}{|a|}\delta(t)\)，\(|a|\)
+  不能丢，否则违背``面积为 \(1\)''。
+\item
+  \textbf{\(\mathcal F[1]=2\pi\delta(\omega)\) 与
+  \(\mathcal F[\delta]=1\) 的两者系数}：一个是 \(1\)，一个是
+  \(2\pi\)，二者靠对称性互推，不能互相混淆。
+\item
+  \textbf{\(\mathcal F[u(t)]\) 的 \(\pi\delta(\omega)\)
+  项}常被遗忘；没有这一项，逆变换无法还原 \(u(t)\) 的``直流''部分。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-18}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\(\delta(t)\) 的定义}：\(t\neq0\) 时为 \(0\)，且
+  \(\int\delta(t)dt=1\)，是广义函数。
+\item
+  \textbf{筛选性质}：\(\int f(t)\delta(t-t_0)dt=f(t_0)\)；由此可得
+  \(\delta(-t)=\delta(t)\)、\(\delta(at)=\dfrac{1}{|a|}\delta(t)\)、\(\delta'(t)\)
+  的积分性质。
+\item
+  \textbf{关键变换对}： \[
+  \delta(t)\leftrightarrow 1,\qquad
+  1\leftrightarrow 2\pi\delta(\omega),\qquad
+  \delta(t-t_0)\leftrightarrow e^{-i\omega t_0},\qquad
+  e^{i\omega_0 t}\leftrightarrow 2\pi\delta(\omega-\omega_0).
+  \]
+\item
+  \textbf{单位阶跃}：\(\mathcal F[u(t)]=\dfrac{1}{i\omega}+\pi\delta(\omega)\)；这为不绝对可积函数的傅里叶变换提供了广义化途径，也为
+  §7.3 的性质推导与 §7.4 卷积定理的工程应用奠定基础。
+\end{itemize}
+
+\section{7.3
+傅里叶变换的性质}\label{ux5085ux91ccux53f6ux53d8ux6362ux7684ux6027ux8d28}
+
+\begin{quote}
+本节目标：掌握傅里叶变换的线性、位移、频移、尺度、对称、微分、积分与
+Parseval 等主要性质，并能熟练运用这些性质求较复杂函数的变换。
+重点：时移/频移、尺度变换、时域微分/频域微分、积分性质；用性质（而非直接积分）计算
+\(te^{-at}u(t)\)、调制信号等。 难点：微分性质的附加条件；积分性质中的
+\(\pi F(0)\delta(\omega)\) 项；各性质系数的记忆与符号约定。
+\end{quote}
+
+\begin{quote}
+以下均设
+\(f(t)\leftrightarrow F(\omega)\)，\(g(t)\leftrightarrow G(\omega)\)，\(a,b,\omega_0,t_0\)
+为实常数。
+\end{quote}
+
+\subsection{7.3.1 线性性质}\label{ux7ebfux6027ux6027ux8d28}
+
+\textbf{性质 7.3（线性）}
+
+\[
+\mathcal F[\alpha f(t)+\beta g(t)]=\alpha F(\omega)+\beta G(\omega),
+\qquad \alpha,\beta\in\mathbb C .
+\]
+
+\textbf{证明}：由傅里叶变换是线性积分直接得到。线性性质使变换与逆变换（以及后续卷积定理、解方程）都可按``叠加''处理。
+
+\subsection{7.3.2
+位移性质（时移）}\label{ux4f4dux79fbux6027ux8d28ux65f6ux79fb}
+
+\textbf{性质 7.4（时移）}
+
+\[
+\mathcal F[f(t-t_0)]=e^{-i\omega t_0}F(\omega).
+\]
+
+\textbf{证明}：令 \(u=t-t_0\)，则 \(t=u+t_0\)，\(dt=du\)，
+
+\[
+\int_{-\infty}^{\infty}f(t-t_0)e^{-i\omega t}dt
+=\int_{-\infty}^{\infty}f(u)e^{-i\omega(u+t_0)}du
+=e^{-i\omega t_0}F(\omega).
+\]
+
+\textbf{说明}：时域延迟 \(t_0\)，频域只乘一个\textbf{纯相位因子}
+\(e^{-i\omega t_0}\)，幅频谱 \(|F(\omega)|\) 不变。
+
+\subsection{7.3.3 频移性质}\label{ux9891ux79fbux6027ux8d28}
+
+\textbf{性质 7.5（频移）}
+
+\[
+\mathcal F\left[e^{i\omega_0 t}f(t)\right]=F(\omega-\omega_0).
+\]
+
+\textbf{证明}：
+
+\[
+\int e^{i\omega_0 t}f(t)e^{-i\omega t}dt
+=\int f(t)e^{-i(\omega-\omega_0)t}dt=F(\omega-\omega_0).
+\]
+
+\textbf{推论（调制定理）}
+
+\[
+\mathcal F[f(t)\cos\omega_0 t]=\frac{1}{2}\left[F(\omega-\omega_0)+F(\omega+\omega_0)\right],
+\]
+
+\[
+\mathcal F[f(t)\sin\omega_0 t]=\frac{1}{2i}\left[F(\omega-\omega_0)-F(\omega+\omega_0)\right].
+\]
+
+这是``频谱搬移''（调制）原理的数学基础。
+
+\subsection{7.3.4
+相似性质（尺度变换）}\label{ux76f8ux4f3cux6027ux8d28ux5c3aux5ea6ux53d8ux6362}
+
+\textbf{性质 7.6（尺度变换）} 设 \(a\neq 0\)，则
+
+\[
+\mathcal F[f(at)]=\frac{1}{|a|}F\left(\frac{\omega}{a}\right).
+\]
+
+\textbf{证明}：令 \(u=at\)。当 \(a>0\) 时
+\(dt=\dfrac{du}{a}\)，\(t=\dfrac{u}{a}\)，\(e^{-i\omega t}=e^{-i\frac{\omega}{a}u}\)，故
+
+\[
+\mathcal F[f(at)]=\frac{1}{a}\int f(u)e^{-i\frac{\omega}{a}u}du=\frac{1}{a}F\left(\frac{\omega}{a}\right).
+\]
+
+当 \(a<0\) 时，积分上下限交换，最终系数为 \(\dfrac{1}{|a|}\)。
+
+\textbf{说明}：时域压缩（\(|a|>1\)、波形变窄）\(\Rightarrow\)
+频域展宽；时域展宽（\(|a|<1\)）\(\Rightarrow\)
+频域压缩。这就是``\textbf{时域越窄，频域越宽}''的物理图像；矩形脉冲例
+7.1 正是其体现。当 \(a=-1\) 时得 \(\mathcal F[f(-t)]=F(-\omega)\)。
+
+\subsection{7.3.5 对称性质}\label{ux5bf9ux79f0ux6027ux8d28}
+
+\textbf{性质 7.7（对称性）} 若 \(f(t)\leftrightarrow F(\omega)\)，则
+
+\[
+\mathcal F[F(t)]=2\pi f(-\omega).
+\]
+
+\textbf{证明}：由逆变换公式
+\(f(t)=\dfrac{1}{2\pi}\int F(\omega)e^{i\omega t}d\omega\)，交换 \(t\)
+与 \(\omega\) 并整理即可。
+
+\textbf{推论}：若 \(f(t)\) 为偶函数，则 \(F(\omega)\) 也是偶函数，且
+
+\[
+\mathcal F[F(t)]=2\pi f(\omega).
+\]
+
+对称性是导出 \(\mathcal F[1]=2\pi\delta(\omega)\)（由
+\(\mathcal F[\delta]=1\)）以及计算偶函数变换的有力工具。
+
+\subsection{7.3.6 微分性质}\label{ux5faeux5206ux6027ux8d28}
+
+\textbf{性质 7.8（时域微分）} 若 \(f(t)\)
+及其导数满足傅里叶积分定理条件，且当 \(|t|\to\infty\) 时
+\(f(t)\to 0\)，则
+
+\[
+\mathcal F[f'(t)]=i\omega F(\omega).
+\]
+
+更一般地，
+
+\[
+\mathcal F\left[f^{(n)}(t)\right]=(i\omega)^n F(\omega).
+\]
+
+\textbf{证明}（一阶）：分部积分
+
+\[
+\int f'(t)e^{-i\omega t}dt=\left[f(t)e^{-i\omega t}\right]_{-\infty}^{\infty}+i\omega\int f(t)e^{-i\omega t}dt=i\omega F(\omega),
+\]
+
+其中利用了 \(|t|\to\infty\) 时 \(f(t)\to0\) 的边界条件。
+
+\textbf{性质 7.9（频域微分）}
+
+\[
+\mathcal F[t f(t)]=i\,F'(\omega),
+\qquad
+\mathcal F\left[t^n f(t)\right]=i^n F^{(n)}(\omega).
+\]
+
+\textbf{证明}：对 \(F(\omega)=\int f(t)e^{-i\omega t}dt\) 求导，
+
+\[
+F'(\omega)=\int f(t)(-it)e^{-i\omega t}dt=-i\,\mathcal F[t f(t)],
+\]
+
+故 \(\mathcal F[t f(t)]=iF'(\omega)\)。重复求导即得 \(n\) 阶形式。
+
+\subsection{7.3.7 积分性质}\label{ux79efux5206ux6027ux8d28}
+
+\textbf{性质 7.10（积分性质）} 若
+\(g(t)=\displaystyle\int_{-\infty}^{t}f(\tau)\,d\tau\)
+满足傅里叶变换条件，则
+
+\[
+\mathcal F[g(t)]=\frac{F(\omega)}{i\omega}+\pi F(0)\,\delta(\omega).
+\]
+
+\textbf{说明}：若 \(F(0)=0\)（即
+\(\int_{-\infty}^{\infty}f(\tau)d\tau=0\)），则简化为
+\(\mathcal F[g(t)]=\dfrac{F(\omega)}{i\omega}\)。这可由 \(g'(t)=f(t)\)
+与微分性质得到；由于 \(\dfrac{1}{i\omega}\) 在 \(\omega=0\)
+处奇异，需补上 \(\pi F(0)\delta(\omega)\) 以保持一致性（与 §7.2 中
+\(\mathcal F[u(t)]\) 的 \(\pi\delta(\omega)\) 项同源）。
+
+\subsection{7.3.8
+Parseval（能量）等式}\label{parsevalux80fdux91cfux7b49ux5f0f}
+
+\textbf{性质 7.11（Parseval 等式）}
+
+\[
+\int_{-\infty}^{\infty}|f(t)|^2\,dt=\frac{1}{2\pi}\int_{-\infty}^{\infty}|F(\omega)|^2\,d\omega .
+\]
+
+这表示\textbf{时域总能量等于频域总能量}（仅差 \(\dfrac{1}{2\pi}\)
+倍，取决于定义中 \(2\pi\)
+的分配），是信号处理中估算带宽与能量守恒的重要工具。
+
+\subsection{7.3.9 典型例题}\label{ux5178ux578bux4f8bux9898-4}
+
+\textbf{例 7.7} 求 \(f(t)=t e^{-at}u(t)\)（\(a>0\)）的傅里叶变换。
+
+\textbf{解} 已知
+\(\mathcal F\left[e^{-at}u(t)\right]=\dfrac{1}{a+i\omega}\)。由频域微分性质
+\(\mathcal F[t g(t)]=i\,dfrac{d}{d\omega}G(\omega)\)，令
+\(g(t)=e^{-at}u(t)\)：
+
+\[
+\frac{d}{d\omega}\frac{1}{a+i\omega}=-\frac{i}{(a+i\omega)^2},
+\]
+
+故
+
+\[
+\mathcal F\left[t e^{-at}u(t)\right]=i\left[-\frac{i}{(a+i\omega)^2}\right]=\frac{1}{(a+i\omega)^2}.
+\]
+
+\textbf{例 7.8} 求
+\(\mathcal F\left[e^{i\omega_0 t}p_a(t)\right]\)，其中 \(p_a(t)\)
+是宽度为 \(2a\) 的矩形脉冲。
+
+\textbf{解} 由频移性质
+\(\mathcal F\left[e^{i\omega_0 t}p_a(t)\right]=P_a(\omega-\omega_0)\)，而
+\(P_a(\omega)=\dfrac{2\sin a\omega}{\omega}\)，所以
+
+\[
+\mathcal F\left[e^{i\omega_0 t}p_a(t)\right]=\frac{2\sin[a(\omega-\omega_0)]}{\omega-\omega_0}.
+\]
+
+这就是``把低频矩形谱平移到载频 \(\omega_0\) 附近''，是 AM
+调制频谱的雏形。
+
+\textbf{例 7.9} 利用微分性质求 \(f(t)=\cos\omega_0 t\)
+的傅里叶变换（从而体会 \(\delta\) 的作用）。
+
+\textbf{解} 直接积分会发散。利用 §7.2 的
+\(\mathcal F[e^{i\omega_0 t}]=2\pi\delta(\omega-\omega_0)\)
+与线性/频移即可：
+
+\[
+\mathcal F[\cos\omega_0 t]=\frac{1}{2}\left(2\pi\delta(\omega-\omega_0)+2\pi\delta(\omega+\omega_0)\right)
+=\pi\left[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)\right].
+\]
+
+\textbf{例 7.10} 用微分性质验证：若
+\(f'(t)\leftrightarrow i\omega F(\omega)\)，则
+\(\mathcal F\left[\int_{-\infty}^{t}f(\tau)d\tau\right]\) 的形式。取
+\(g(t)=\int_{-\infty}^{t}f(\tau)d\tau\)，则 \(g'(t)=f(t)\)，由微分性质
+\(\mathcal F[g'(t)]=i\omega G(\omega)\)，即
+\(F(\omega)=i\omega G(\omega)\)，故当 \(F(0)=0\) 时
+\(G(\omega)=\dfrac{F(\omega)}{i\omega}\)（与性质 7.10 一致）。
+
+\begin{quote}
+配图：建议绘制时移/频移对波形与频谱的影响（矩形脉冲平移 \(t_0\)
+后相位线性变化但幅谱不变；调制后频谱搬移到 \(\omega_0\)
+两侧）；以及尺度变换``时域压缩 \(\Longleftrightarrow\)
+频域展宽''的对照图。
+\end{quote}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-19}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{系数 \(\dfrac{1}{|a|}\)
+  容易漏}：\(\mathcal F[f(at)]=\dfrac{1}{|a|}F\left(\dfrac{\omega}{a}\right)\)，\(a\)
+  为负时也要 \(|a|\)。
+\item
+  \textbf{时域微分要满足边界条件}：要求 \(|t|\to\infty\) 时
+  \(f(t)\to0\)（或函数``足够好''），否则公式中会额外出现 \(\delta\)
+  相关项。
+\item
+  \textbf{频域微分的方向}：\(\mathcal F[t f(t)]=iF'(\omega)\)，不要写成
+  \(-iF'(\omega)\)（这与正变换用 \(e^{-i\omega t}\) 的约定有关）。
+\item
+  \textbf{积分性质的 \(\pi F(0)\delta(\omega)\)}：当 \(F(0)\neq0\)
+  时不能只写 \(\dfrac{F(\omega)}{i\omega}\)，否则 \(\omega=0\)
+  处不成立。
+\item
+  \textbf{Parseval 等式与 \(2\pi\)}：若约定不同，\(\dfrac{1}{2\pi}\)
+  的位置会变，结果须与定义一致。
+\item
+  \textbf{对称性在``偶函数''时的 +\(\omega\)
+  符号}：\(\mathcal F[F(t)]=2\pi f(-\omega)\)，偶函数时才是
+  \(2\pi f(\omega)\)。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-19}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{线性、时移、频移、尺度、对称}：一组基本运算法则，其中时移/频移互为对偶，尺度变换体现``时宽-带宽''对偶。
+\item
+  \textbf{微分/积分性质}：把时域的微分、积分化为频域的乘法（乘以
+  \(i\omega\) 或除以
+  \(i\omega\)），是求解微分/积分方程、建立系统传递函数的工具；积分性质须补
+  \(\pi F(0)\delta(\omega)\)。
+\item
+  \textbf{Parseval 等式}：时域能量 = 频域能量（相差
+  \(\dfrac{1}{2\pi}\)）。
+\item
+  \textbf{运用性质比直接积分更高效}：典型``积''型函数
+  \(t^n e^{-at}u(t)\)、调制信号等，用频移、微分、线性组合即可快速得到。
+\end{itemize}
+
+\section{7.4 卷积}\label{ux5377ux79ef}
+
+\begin{quote}
+本节目标：掌握两个函数卷积的定义与代数性质，理解卷积定理（时域卷积
+\(\Longleftrightarrow\) 频域乘积；频域卷积 \(\Longleftrightarrow\)
+时域乘积），并能用卷积定理求变换、求卷积、分析线性系统。 重点：卷积定义
+\(f*g=\int f(\tau)g(t-\tau)d\tau\)；时域卷积定理
+\(\mathcal F[f*g]=F(\omega)G(\omega)\)；卷积与 \(\delta\) 的关系。
+难点：卷积积分上下限的确定（尤其分段函数）；卷积定理中的
+\(\dfrac{1}{2\pi}\)；用卷积运算理解线性时不变系统的冲激响应。
+\end{quote}
+
+\subsection{7.4.1 卷积的定义}\label{ux5377ux79efux7684ux5b9aux4e49}
+
+\textbf{定义 7.4（卷积）} 设 \(f(t)\) 与 \(g(t)\) 在
+\((-\infty,\infty)\) 上有定义且积分收敛，称
+
+\[
+(f*g)(t)=\int_{-\infty}^{\infty}f(\tau)\,g(t-\tau)\,d\tau
+\]
+
+为 \(f(t)\) 与 \(g(t)\) 的\textbf{卷积}（\textbf{卷积积分}）。
+
+\begin{quote}
+直观理解：\(g(t-\tau)\) 是把 \(g\) 翻转到 \(\tau\)
+轴（关于纵轴反射）再向右平移
+\(t\)；卷积积分可理解为``翻转---滑动---相乘（重叠求积）---求和''的过程。
+\end{quote}
+
+\begin{quote}
+配图：建议绘制卷积的``翻转---平移---重叠求积''三步示意：\(f(\tau)\)、\(g(t-\tau)\)（翻转并平移
+\(t\)）、以及重叠区间上乘积的积分（阴影面积）。
+\end{quote}
+
+\subsection{7.4.2 卷积的性质}\label{ux5377ux79efux7684ux6027ux8d28}
+
+\textbf{性质 7.12（卷积的代数性质）} 设 \(f,g,h\) 的卷积均存在，则
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{交换律}：\(f*g=g*f\)；
+\item
+  \textbf{结合律}：\((f*g)*h=f*(g*h)\)；
+\item
+  \textbf{分配律}：\(f*(g+h)=f*g+f*h\)；
+\item
+  \textbf{与 \(\delta\) 的卷积（恒等元）}：\(f*\delta=f\)，且
+  \(f*\delta(t-t_0)=f(t-t_0)\)；
+\item
+  \textbf{与 \(\delta'\) 的卷积}：\(f*\delta'=f'\)。
+\end{enumerate}
+
+\textbf{证明要点}：交换律令 \(\tau\to t-\tau\)（或
+\(\tau'=t-\tau\)）作变量替换；\(f*\delta=\int f(\tau)\delta(t-\tau)d\tau=f(t)\)（筛选性质）。其余由定义直接验证。
+
+\subsection{7.4.3 卷积定理}\label{ux5377ux79efux5b9aux7406}
+
+\textbf{定理 7.5（时域卷积定理）} 若 \(f,g\) 的傅里叶变换存在，则
+
+\[
+\mathcal F\left[(f*g)(t)\right]=F(\omega)\,G(\omega),
+\]
+
+其中 \(F(\omega)=\mathcal F[f(t)]\)，\(G(\omega)=\mathcal F[g(t)]\)。
+
+\textbf{证明}
+
+\[
+\begin{aligned}
+\mathcal F[f*g]
+&=\int_{-\infty}^{\infty}\left[\int_{-\infty}^{\infty}f(\tau)g(t-\tau)\,d\tau\right]e^{-i\omega t}dt\\
+&=\int_{-\infty}^{\infty}f(\tau)\left[\int_{-\infty}^{\infty}g(t-\tau)e^{-i\omega t}dt\right]d\tau\qquad(\text{令 }u=t-\tau)\\
+&=\int_{-\infty}^{\infty}f(\tau)e^{-i\omega\tau}d\tau\cdot\int_{-\infty}^{\infty}g(u)e^{-i\omega u}du\\
+&=F(\omega)\,G(\omega).
+\end{aligned}
+\]
+
+\textbf{定理 7.6（频域卷积定理）} 若 \(f,g\) 的傅里叶变换存在，则
+
+\[
+\mathcal F\left[f(t)\,g(t)\right]=\frac{1}{2\pi}\,(F*G)(\omega)
+=\frac{1}{2\pi}\int_{-\infty}^{\infty}F(\eta)\,G(\omega-\eta)\,d\eta .
+\]
+
+\textbf{证明要点}：由逆变换公式
+\(f(t)g(t)=\dfrac{1}{2\pi}\int F(\eta)e^{i\eta t}d\eta,\ g(t)=\dfrac{1}{2\pi}\int G(\zeta)e^{i\zeta t}d\zeta\)，代入并利用
+\(\int e^{i(\eta+\zeta-\omega)t}dt=2\pi\delta(\eta+\zeta-\omega)\)
+即可整理得到。
+
+\begin{quote}
+\textbf{注意
+\(\dfrac{1}{2\pi}\)}：时域卷积定理中频域是\textbf{直接相乘}（无系数）；频域卷积定理中乘积的变换带有
+\(\dfrac{1}{2\pi}\)。这与``\(2\pi\)
+在正、逆变换之间如何分配''的约定有关，不同教材表达式可能略有不同。
+\end{quote}
+
+\subsection{7.4.4
+卷积与线性时不变（LTI）系统}\label{ux5377ux79efux4e0eux7ebfux6027ux65f6ux4e0dux53d8ltiux7cfbux7edf}
+
+设一个线性时不变系统在零状态下，输入为 \(x(t)\)，单位冲激响应为
+\(h(t)\)，则输出
+
+\[
+y(t)=(x*h)(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)\,d\tau .
+\]
+
+由卷积定理，在频域有
+
+\[
+Y(\omega)=X(\omega)\,H(\omega),
+\]
+
+其中 \(H(\omega)=\mathcal F[h(t)]\)
+称为\textbf{频率响应}（传递函数）。因此，\textbf{卷积在时域描述系统的叠加响应，频谱乘积在频域描述系统的频率选择特性}，这是信号处理与电路/系统的核心结论。
+
+\subsection{7.4.5 典型例题}\label{ux5178ux578bux4f8bux9898-5}
+
+\textbf{例 7.11} 设
+\(f(t)=e^{-at}u(t)\)，\(g(t)=e^{-bt}u(t)\)，\(a,b>0\)，且
+\(a\neq b\)，求 \(f*g\)。
+
+\textbf{解} 因为两函数在 \(t<0\) 时为零，且卷积要求
+\(\tau\in[0,t]\)（\(t\ge0\)），故
+
+\[
+\begin{aligned}
+(f*g)(t)
+&=\int_{-\infty}^{\infty}e^{-a\tau}u(\tau)\,e^{-b(t-\tau)}u(t-\tau)\,d\tau\\
+&=e^{-bt}\int_{0}^{t}e^{(b-a)\tau}\,d\tau
+=e^{-bt}\cdot\frac{e^{(b-a)t}-1}{b-a}\\
+&=\frac{e^{-at}-e^{-bt}}{b-a}\qquad(t\ge0),
+\end{aligned}
+\]
+
+且 \((f*g)(t)=0\) 当 \(t<0\)。若 \(a=b\)，则 \(f*g=t e^{-at}u(t)\)。
+
+\textbf{例 7.12} 利用卷积定理求两个相同的矩形脉冲 \(p_a(t)*p_a(t)\)
+及其傅里叶变换。
+
+\textbf{解} 由定义，\(p_a(t)\)（\(|t|<a\) 时为
+\(1\)）与自身的卷积等于重叠区间长度：
+
+\[
+(p_a*p_a)(t)=
+\begin{cases}
+2a-|t|, & |t|<2a,\\
+0, & |t|>2a,
+\end{cases}
+\]
+
+即一个\textbf{三角形脉冲}（底宽 \(4a\)、高 \(2a\)）。由卷积定理
+
+\[
+\mathcal F[(p_a*p_a)(t)]=\left(\frac{2\sin a\omega}{\omega}\right)^2
+=\frac{4\sin^2 a\omega}{\omega^2}.
+\]
+
+这说明：两个矩形卷积的频谱是 sinc
+函数的平方，全是非负的（三角形脉冲的频谱是正、实的），同时体现了``时域变宽
+\(\Rightarrow\) 频域主瓣变窄''。
+
+\textbf{例 7.13} 求 \(f(t)=\operatorname{sinc}(at)\)（即
+\(\dfrac{\sin at}{at}\)）的傅里叶变换。
+
+\textbf{解} 由例 7.1，矩形脉冲
+\(p_{a}(t)\leftrightarrow \dfrac{2\sin a\omega}{\omega}\)。取合适的
+\(a\) 并利用对称性，可得
+
+\[
+\frac{\sin t}{t}\ \longleftrightarrow\ \pi\,\operatorname{rect}\left(\frac{\omega}{2}\right),
+\]
+
+即时域 \(\operatorname{sinc}\) 对应频域矩形（门函数），这正是``时域矩形
+\(\Longleftrightarrow\) 频域 sinc''的对偶；具体系数依赖对 sinc
+的自变量约定，本题只需理解这一对偶关系。
+
+\begin{quote}
+配图：建议绘制矩形脉冲 \(p_a\)
+与其自身卷积得到三角形脉冲的示意，并给出其频谱
+\(\dfrac{4\sin^2 a\omega}{\omega^2}\)（非负、主瓣更窄）；以及 LTI
+系统``输入×冲激响应 → 卷积 → 输出，频谱相乘''的框图。
+\end{quote}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-20}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{卷积积分变量的上下限}：对分段函数（如 \(e^{-at}u(t)\)）要由
+  \(u(\tau)\)、\(u(t-\tau)\) 确定 \(\tau\) 的有效范围，并分
+  \(t\ge0\)、\(t<0\) 讨论。
+\item
+  \textbf{\(f*g=g*f\)} 但不要理解为
+  \(f*g(t)=f(t)g(t)\)；卷积是积分运算，不是逐点乘积。
+\item
+  \textbf{时域卷积定理 vs 频域卷积定理}：前者
+  \(\mathcal F[f*g]=F\cdot G\)（无系数），后者
+  \(\mathcal F[f\, g]=\dfrac{1}{2\pi}(F*G)\)（有
+  \(\dfrac{1}{2\pi}\)），两者系数不同，不可互换。
+\item
+  \textbf{卷积与
+  \(\delta\)}：\(f*\delta=f\)，\(f*\delta(t-t_0)=f(t-t_0)\)；若误用
+  \(f\cdot\delta\) 则会``只取出 \(t=0\) 取值''，与卷积结果混淆。
+\item
+  \textbf{三角形卷积结果的高/底}：\(p_a*p_a\) 在 \(t=0\) 处为
+  \(2a\)（不是 \(a\)），底宽为 \(4a\)，这与``重叠长度''严格对应。
+\item
+  \textbf{使用卷积定理时先确认变换存在}；对不绝对可积函数要用广义形式，并注意
+  \(\delta\) 项。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-20}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{卷积定义}：\((f*g)(t)=\int f(\tau)g(t-\tau)d\tau\)，满足交换、结合、分配律，\(\delta\)
+  是单位元。
+\item
+  \textbf{卷积定理}：时域卷积 \(\Longleftrightarrow\)
+  频域相乘（\(\mathcal F[f*g]=F\,G\)）；时域乘积 \(\Longleftrightarrow\)
+  频域卷积（\(\mathcal F[fg]=\dfrac{1}{2\pi}F*G\)）。
+\item
+  \textbf{应用}：LTI 系统输出 \(y=x*h\)，频域
+  \(Y=XH\)；卷积定理给出``时域卷积''与``频谱乘积''的桥梁，可用于求变换、求卷积、理解滤波与调制。
+\item
+  \textbf{典型结论}：矩形脉冲的卷积为三角形脉冲，频谱是 sinc
+  的平方；指数脉冲的卷积可化为两指数之差（\(a=b\) 时为
+  \(te^{-at}u(t)\)）。
+\end{itemize}
+
+\newpage

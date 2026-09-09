@@ -1,0 +1,164 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{space}{xeCJK}
+\documentclass[
+]{ctexbook}
+\usepackage{xcolor}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Microsoft YaHei}
+  \setmonofont[]{Consolas}
+  \ifXeTeX
+    \usepackage{xeCJK}
+    \setCJKmainfont[]{Microsoft YaHei}
+  \fi
+  \ifLuaTeX
+    \usepackage[]{luatexja-fontspec}
+    \setmainjfont[]{Microsoft YaHei}
+  \fi
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% texbook.py 注入的页眉/页脚样式（生成物，勿手改）
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}复变函数与积分变换（教案）}
+\fancyhead[R]{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ===== 全局排版：行距/表格/图片/断行（M10 排版精修）=====
+\usepackage{setspace}
+\setstretch{1.15}
+\renewcommand{\arraystretch}{1.18}
+\setlength{\tabcolsep}{4pt}
+\emergencystretch=1.5em
+\clubpenalty=4000
+\widowpenalty=4000
+\RequirePackage{graphicx}
+\setkeys{Gin}{width=\textwidth,keepaspectratio}
+
+% 长表格用 \small 字体，减少列溢出
+\usepackage{longtable}
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+% ===== 用户自定义版式（generate 时不会覆盖；可手改）=====
+% 在此添加宏包、自定义命令、页眉页脚等。例如：
+% \usepackage{tcolorbox}
+% \newcommand{\keypoint}[1]{\paragraph{重点}#1}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={复变函数与积分变换（教案）},
+  pdfauthor={自用教案（依据《复变函数与积分变换》编写组第3版，北京邮电大学出版社）},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{复变函数与积分变换（教案）}
+\author{自用教案（依据《复变函数与积分变换》编写组第3版，北京邮电大学出版社）}
+\date{2026}
+
+
+\input{cover.tex}
+\begin{document}
+\bookcover{复变函数与积分变换（教案）}{复变函数与积分变换（第3版）· 教案化讲义与习题}{自用教案（依据《复变函数与积分变换》编写组第3版，北京邮电大学出版社）}{2026}
+\tableofcontents
+\chaptercover{1}{复数和复平面}
+\input{chapters/ch01-复数和复平面.tex}
+\chaptercover{2}{解析函数}
+\input{chapters/ch02-解析函数.tex}
+\chaptercover{3}{复变函数的积分}
+\input{chapters/ch03-复变函数的积分.tex}
+\chaptercover{4}{解析函数的级数表示法}
+\input{chapters/ch04-解析函数的级数表示法.tex}
+\chaptercover{5}{留数理论及其应用}
+\input{chapters/ch05-留数理论及其应用.tex}
+\chaptercover{6}{共形映射}
+\input{chapters/ch06-共形映射.tex}
+\chaptercover{7}{傅里叶变换}
+\input{chapters/ch07-傅里叶变换.tex}
+\chaptercover{8}{拉普拉斯变换}
+\input{chapters/ch08-拉普拉斯变换.tex}
+\chaptercover{9}{快速傅里叶变换}
+\input{chapters/ch09-快速傅里叶变换.tex}
+
+\appendix
+\input{chapters/chapp-01-习题1.tex}
+\input{chapters/chapp-02-习题2.tex}
+\input{chapters/chapp-03-习题3.tex}
+\input{chapters/chapp-04-习题4.tex}
+\input{chapters/chapp-05-习题5.tex}
+\input{chapters/chapp-06-习题6.tex}
+\input{chapters/chapp-07-习题7.tex}
+\input{chapters/chapp-08-习题8.tex}
+\input{chapters/chapp-09-习题9.tex}
+\end{document}

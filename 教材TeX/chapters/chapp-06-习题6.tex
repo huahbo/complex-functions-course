@@ -1,0 +1,119 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{习题6 参考答案}\label{ux4e60ux98986-ux53c2ux8003ux7b54ux6848}
+
+\begin{quote}
+说明：第6章（共形映射）主要习题与参考答案。
+\end{quote}
+
+\section{习题}\label{ux4e60ux9898-5}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  求分式线性变换 \(w=\dfrac{2z+1}{z-1}\) 将 \(z\) 平面上过点
+  \(0,1,\infty\) 的圆（实轴）映为何种曲线？
+\item
+  证明：分式线性变换将圆（或直线）映射为圆（或直线）。
+\item
+  求把上半平面 \(\operatorname{Im}z>0\) 映到单位圆 \(|w|<1\)，且将
+  \(z=i\) 映到 \(w=0\)、将 \(z=\infty\) 映到 \(w=1\) 的分式线性变换。
+\item
+  求把单位圆 \(|z|<1\) 映到上半平面 \(\operatorname{Im}w>0\)，且将
+  \(z=1\) 映到 \(w=\infty\) 的分式线性变换。
+\item
+  证明：分式线性变换在 \(z_0\)（不为奇点）处保持夹角（保角）。
+\item
+  求映射 \(w=z^2\) 下下列图形的像：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    射线 \(\arg z=\theta_0\)；
+  \item
+    以原点为顶点的角域 \(0<\arg z<\dfrac{\pi}{2}\)；
+  \item
+    上半平面 \(y>0\)。
+  \end{enumerate}
+\item
+  求映射 \(w=e^z\) 下下列图形的像：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    直线 \(\operatorname{Re}z=c\)；
+  \item
+    水平带 \(0<\operatorname{Im}z<\pi\)。
+  \end{enumerate}
+\item
+  求映射 \(w=\dfrac{z-a}{z+a}\)（\(a>0\)）将右半平面
+  \(\operatorname{Re}z>0\) 映为何区域？
+\item
+  求一个把圆盘 \(|z|<1\) 共形映射到圆盘 \(|w|<1\)，且把 \(z=0\) 映到
+  \(w=a\)（\(|a|<1\)）的映射。
+\item
+  说明为什么 \(w=\sqrt z\) 的单值分支在除去负实轴的平面上是共形映射。
+\end{enumerate}
+
+\section{参考答案}\label{ux53c2ux8003ux7b54ux6848-5}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \(w=\dfrac{2z+1}{z-1}\) 把实轴映为过 \(w(0)=-1\)、\(w(\infty)=2\)
+  的圆（因 \(z=1\) 映到 \(\infty\)，即直线），故像为过 \(-1\) 与 \(2\)
+  的直线（实轴本身被映为直线系中的一条直线）。若 \(z\) 沿实轴，\(w\)
+  沿过 \(-1,2\) 的直线（实轴）。
+\item
+  分式线性变换可分解为平移、旋转缩放与倒数
+  \(1/z\)；平移旋转缩放保圆，\(1/z\) 把圆/直线映为圆/直线，故结论成立。
+\item
+  由 \(z=i\mapsto0\) 且 \(z=\bar i\) 应映为 \(\infty\)（保持对称），取
+  \[
+  w=k\cdot\frac{z-i}{z+i},\qquad |k|=1 .
+  \] 令 \(z=\infty\) 对应 \(w=1\)，得 \(k=1\)，故
+  \(w=\dfrac{z-i}{z+i}\)。
+\item
+  取 \(w=i\dfrac{1+z}{1-z}\) 或
+  \(w=i\dfrac{1-z}{1+z}\)（方向不同）；常用 \[
+  w=i\frac{1+z}{1-z}
+  \] 将 \(|z|<1\) 映为 \(\operatorname{Im}w>0\)，且
+  \(z=1\mapsto\infty\)。也可取 \(w=\dfrac{1+z}{1-z}\) 再乘 \(-i\)
+  调整方位。
+\item
+  分式线性变换是解析函数且导数
+  \(\dfrac{ad-bc}{(cz+d)^2}\neq0\)，在非奇点处局部近似为相似变换（乘以非零复数），故保角。
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    射线 \(\arg z=\theta_0\) 映为射线 \(\arg w=2\theta_0\)；
+  \item
+    角域 \(0<\arg z<\pi/2\) 映为角域 \(0<\arg w<\pi\)；
+  \item
+    上半平面 \(y>0\)
+    映为去掉负实轴的平面（\(\mathbb{C}\setminus(-\infty,0]\)）。
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    直线 \(\operatorname{Re}z=c\) 映为圆 \(|w|=e^c\)；
+  \item
+    水平带 \(0<\operatorname{Im}z<\pi\) 映为上半平面
+    \(\operatorname{Im}w>0\)。
+  \end{enumerate}
+\item
+  \(w=\dfrac{z-a}{z+a}\) 将右半平面 \(\operatorname{Re}z>0\) 映为单位圆
+  \(|w|<1\)（验证：\(z=0\mapsto-1\)，\(z=a\mapsto0\)，\(z\to\infty\mapsto1\)
+  均在边界）。
+\item
+  \(w=e^{i\theta}\cdot\dfrac{z-a}{1-\bar a z}\)，其中 \(\theta\)
+  为任意实数（这样的映射保持圆盘并满足 \(0\mapsto a\)）。
+\item
+  \(\sqrt z\) 在除去负实轴的平面上可取单值解析分支，且
+  \(\dfrac{d}{dz}\sqrt z=\dfrac1{2\sqrt z}\neq0\)（除原点外），故保角；负实轴是主分支的割线，跨割线函数跳跃。
+\end{enumerate}

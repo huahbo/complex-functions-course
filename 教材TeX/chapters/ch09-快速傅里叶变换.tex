@@ -1,0 +1,1302 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{第 9 章 ·
+快速傅里叶变换}\label{ux7b2c-9-ux7ae0-ux5febux901fux5085ux91ccux53f6ux53d8ux6362}
+
+\section{9.1
+离散时间傅里叶变换}\label{ux79bbux6563ux65f6ux95f4ux5085ux91ccux53f6ux53d8ux6362}
+
+\begin{quote}
+本节目标：掌握离散时间傅里叶变换（DTFT）的定义、收敛条件与基本性质，理解
+DTFT 与连续傅里叶变换的联系，并能计算常用序列的 DTFT。 重点：DTFT
+定义、性质（时移、频移、卷积、调制、Parseval）与常用变换对。 难点：DTFT
+的周期性、收敛性（绝对可和/平方可和）以及``频谱混叠''的直觉理解。
+\end{quote}
+
+\subsection{9.1.1
+离散时间信号（序列）}\label{ux79bbux6563ux65f6ux95f4ux4fe1ux53f7ux5e8fux5217}
+
+在数字信号处理中，连续信号 \(x(t)\) 经取样（采样）后得到离散时间序列
+
+\[
+x[n] = x(nT),\qquad n = 0,\pm1,\pm2,\ldots,
+\]
+
+其中 \(T\) 为采样周期，\(f_s = 1/T\) 为采样频率。序列 \(x[n]\) 只在整数
+\(n\) 上有定义，它既可以是有限长也可以是无限长。本章把 \(x[n]\)
+视为定义在 \(\mathbb{Z}\) 上的复值序列。
+
+\begin{quote}
+配图：建议绘制``连续信号取样成序列''示意图，横轴 \(t\) 与
+\(n\)，纵轴包络与离散点。
+\end{quote}
+
+\subsection{9.1.2 DTFT 的定义}\label{dtft-ux7684ux5b9aux4e49}
+
+与连续时间傅里叶变换（CTFT）用积分不同，离散时间傅里叶变换用\textbf{求和}表示。设
+\(x[n]\) 为离散时间序列，其 DTFT 定义为
+
+\[
+\boxed{\;X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n]\,e^{-j\omega n},\qquad \omega \in \mathbb{R}.\;}
+\]
+
+其中 \(\omega\)
+称为\textbf{数字角频率}，单位是弧度/采样点（rad/sample），它与模拟角频率
+\(\Omega=2\pi f\) 的关系为
+
+\[
+\omega = \Omega T = 2\pi \frac{f}{f_s}.
+\]
+
+\textbf{定义 9.1} 若级数 \(\sum_{n=-\infty}^{\infty} |x[n]|\) 收敛，则称
+\(x[n]\) \textbf{绝对可和}；此时 DTFT 级数对一切 \(\omega\) 一致收敛，且
+\(X(e^{j\omega})\) 是 \(\omega\) 的连续、周期函数。
+
+\textbf{性质一（周期性）} \(X(e^{j\omega})\) 以 \(2\pi\) 为周期：
+
+\[
+X(e^{j(\omega+2\pi)}) = X(e^{j\omega}).
+\]
+
+因为
+\(e^{-j(\omega+2\pi)n}=e^{-j\omega n}e^{-j2\pi n}=e^{-j\omega n}\)。因此只需关注一个周期，通常取
+\([-\pi,\,\pi)\)。
+
+\textbf{收敛说明}： - 若 \(x[n]\) 绝对可和，则 \(X(e^{j\omega})\)
+一致收敛（连续）； - 若 \(x[n]\) 平方可和（能量有限），则
+\(X(e^{j\omega})\) 均方收敛； - 若 \(x[n]\) 不是绝对可和但满足 Dirichlet
+条件（如 \(\dfrac{1}{n}\sin(\omega_0 n)\) 型），DTFT 在间断点附近产生
+Gibbs 现象。
+
+\subsection{9.1.3 逆 DTFT（IDTFT）}\label{ux9006-dtftidtft}
+
+\textbf{定理 9.1（逆变换）} 若 \(X(e^{j\omega})\) 是序列 \(x[n]\) 的
+DTFT，则在均方意义下
+
+\[
+x[n] = \frac{1}{2\pi}\int_{-\pi}^{\pi} X(e^{j\omega})\,e^{j\omega n}\,d\omega .
+\]
+
+\textbf{证明思路}：把 \(X(e^{j\omega})=\sum_m x[m]e^{-j\omega m}\)
+代入右端，交换求和与积分，并利用
+\(\frac{1}{2\pi}\int_{-\pi}^{\pi} e^{j\omega(n-m)}d\omega = \delta_{n,m}\)（Kronecker
+delta），即得 \(x[n]\)。
+
+由于 \(X(e^{j\omega})\) 是周期的，积分限取任何长度 \(2\pi\) 的区间均可。
+
+\subsection{9.1.4 DTFT 的性质}\label{dtft-ux7684ux6027ux8d28}
+
+设
+\(x[n]\leftrightarrow X(e^{j\omega})\)，\(y[n]\leftrightarrow Y(e^{j\omega})\)。
+
+\textbf{性质 9.1（线性）}
+\(a x[n]+b y[n]\leftrightarrow a X(e^{j\omega})+b Y(e^{j\omega})\)。
+
+\textbf{性质 9.2（时移）}
+\(x[n-n_0]\leftrightarrow e^{-j\omega n_0}X(e^{j\omega})\)。
+
+\textbf{性质 9.3（频移/调制）}
+\(e^{j\omega_0 n}x[n]\leftrightarrow X(e^{j(\omega-\omega_0)})\)。
+
+\textbf{性质 9.4（时间反转）} \(x[-n]\leftrightarrow X(e^{-j\omega})\)。
+
+\textbf{性质 9.5（卷积定理）} 设
+\(y[n]=x[n]*h[n]=\sum_{k=-\infty}^{\infty}x[k]h[n-k]\)，则
+
+\[
+Y(e^{j\omega}) = X(e^{j\omega})\,H(e^{j\omega}).
+\]
+
+即时域卷积对应频域乘积。这在一般教材中称为 DTFT 的\textbf{卷积定理}。
+
+\textbf{性质 9.6（频域卷积/调制）} 对乘积有
+
+\[
+x[n]y[n] \leftrightarrow \frac{1}{2\pi}\int_{-\pi}^{\pi} X(e^{j\theta})\,Y(e^{j(\omega-\theta)})\,d\theta .
+\]
+
+\textbf{性质 9.7（Parseval 等式）}
+
+\[
+\sum_{n=-\infty}^{\infty} |x[n]|^2 = \frac{1}{2\pi}\int_{-\pi}^{\pi} |X(e^{j\omega})|^2\,d\omega .
+\]
+
+即时域能量等于频域（一个周期内）的谱能量。它由卷积定理与 \(x[n]\) 的取值
+\(x[n]=x[n]\delta[n]\) 推出。
+
+\textbf{性质 9.8（共轭对称）} 若 \(x[n]\) 为实序列，则
+
+\[
+X(e^{-j\omega}) = \overline{X(e^{j\omega})}.
+\]
+
+特别地，\(|X|\) 关于 \(\omega=0\) 偶对称，\(\arg X\) 关于 \(\omega=0\)
+奇对称。
+
+\subsection{9.1.5 常用 DTFT
+变换对}\label{ux5e38ux7528-dtft-ux53d8ux6362ux5bf9}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+序列 \(x[n]\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+DTFT \(X(e^{j\omega})\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+条件/说明
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\delta[n]\) & \(1\) & 单位脉冲 \\
+\(\delta[n-n_0]\) & \(e^{-j\omega n_0}\) & 时移 \\
+\(1\)（全 1 序列） &
+\(2\pi\sum_{k=-\infty}^{\infty}\delta(\omega-2\pi k)\) & 周期冲激串 \\
+\(a^n u[n]\), \(|a|<1\) & \(\dfrac{1}{1-a e^{-j\omega}}\) &
+单边指数衰减 \\
+\(e^{j\omega_0 n}\) & \(2\pi\sum_{k}\delta(\omega-\omega_0-2\pi k)\) &
+复指数 \\
+\(\cos(\omega_0 n)\) &
+\(\pi\sum_k[\delta(\omega-\omega_0-2\pi k)+\delta(\omega+\omega_0-2\pi k)]\)
+& 余弦 \\
+矩形窗 \(\operatorname{rect}_N[n]\) &
+\(\dfrac{\sin(\omega N/2)}{\sin(\omega/2)}e^{-j\omega(N-1)/2}\) & 长度为
+\(N\)、起点 \(n=0\) 的矩形脉冲 \\
+\end{longtable}
+}
+
+最后一行由几何级数求和得到：
+
+\[
+\sum_{n=0}^{N-1} e^{-j\omega n}
+= \frac{1-e^{-j\omega N}}{1-e^{-j\omega}}
+= \frac{\sin(\omega N/2)}{\sin(\omega/2)}\,e^{-j\omega(N-1)/2}.
+\]
+
+若矩形窗关于原点对称（\(n=-(N-1)/2,\ldots,(N-1)/2\)），则相位项消失，得到实函数
+\(\dfrac{\sin(\omega N/2)}{\sin(\omega/2)}\)，这正是 \textbf{Dirichlet
+核}。
+
+\subsection{9.1.6 典型例题}\label{ux5178ux578bux4f8bux9898-7}
+
+\textbf{例 9.1} 求 \(x[n]=a^n u[n]\)（\(|a|<1\)，\(a\) 为实数）的 DTFT。
+
+\textbf{解} 由定义：
+
+\[
+X(e^{j\omega}) = \sum_{n=0}^{\infty} a^n e^{-j\omega n}
+= \sum_{n=0}^{\infty} (a e^{-j\omega})^n .
+\]
+
+因 \(|a e^{-j\omega}|=|a|<1\)，几何级数收敛：
+
+\[
+X(e^{j\omega}) = \frac{1}{1-a e^{-j\omega}} .
+\]
+
+其幅值为 \(|X|=\dfrac{1}{\sqrt{1-2a\cos\omega+a^2}}\)，相位为
+\(\arg X=-\arctan\dfrac{a\sin\omega}{1-a\cos\omega}\)。这是一个典型的``低通/高通''谱分布，\(a\to-1\)
+时能量集中于 \(\omega=\pi\) 附近。
+
+\textbf{例 9.2} 求矩形脉冲
+
+\[
+x[n]=\begin{cases}1,& |n|\le N,\\ 0,& \text{其他},\end{cases}
+\]
+
+的 DTFT，并指出频谱零点。
+
+\textbf{解} 该序列关于原点对称，故
+
+\[
+X(e^{j\omega}) = \sum_{n=-N}^{N} e^{-j\omega n}
+= 1 + 2\sum_{n=1}^{N}\cos(\omega n)
+= \frac{\sin\bigl((2N+1)\omega/2\bigr)}{\sin(\omega/2)} .
+\]
+
+其中 \(2N+1\) 是序列长度。频谱在
+\(\omega = \dfrac{2\pi k}{2N+1}\)（\(k=1,2,\ldots,2N\)，\(k\neq\)
+使分母为 0 者）处为零；主瓣位于 \(\omega=0\)，宽度为
+\(\dfrac{4\pi}{2N+1}\)。序列越长，主瓣越窄，频谱越集中于低频，这体现了时域窗长与频域分辨率的对偶关系。
+
+\textbf{例 9.3} 设 \(h[n]\) 是某离散系统的单位脉冲响应，证明当输入为
+\(x[n]=e^{j\omega_0 n}\) 时，稳态输出为
+\(H(e^{j\omega_0})e^{j\omega_0 n}\)。
+
+\textbf{解} 输出为
+
+\[
+y[n]=\sum_k h[k] x[n-k] = \sum_k h[k] e^{j\omega_0(n-k)}
+= e^{j\omega_0 n}\sum_k h[k] e^{-j\omega_0 k}
+= H(e^{j\omega_0})\,e^{j\omega_0 n}.
+\]
+
+这说明复指数是 LTI 系统的特征函数，特征值为 \(H(e^{j\omega_0})\)。这正是
+DTFT 卷积定理（性质 9.5）的直观形式。
+
+\subsection{9.1.7 DTFT
+与连续傅里叶变换的关系}\label{dtft-ux4e0eux8fdeux7eedux5085ux91ccux53f6ux53d8ux6362ux7684ux5173ux7cfb}
+
+对连续信号 \(x(t)\) 以周期 \(T\) 采样得 \(x[n]=x(nT)\)，可以证明
+
+\[
+X(e^{j\omega}) \Big|_{\omega=\Omega T}
+= \frac{1}{T}\sum_{k=-\infty}^{\infty} X_c\Bigl(j\Omega-j\frac{2\pi k}{T}\Bigr).
+\]
+
+式中 \(X_c(j\Omega)\) 为 \(x(t)\)
+的连续傅里叶变换。它表明：离散序列的频谱是原连续频谱以采样频率 \(f_s\)
+为周期``复制''并叠加（频谱混叠）。当 \(x(t)\) 的最高频率
+\(f_{\max}<f_s/2\) 时各副本互不重叠，可由 \(X(e^{j\omega})\) 无失真重构
+\(x(t)\)------这就是 \textbf{Nyquist 采样定理} 的频域表述。
+
+\begin{quote}
+配图：建议绘制``连续频谱 → 周期延拓 → 混叠/无混叠''对照图。
+\end{quote}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-25}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{把 DTFT 写成积分}：DTFT 是\textbf{求和}（\(\sum\)），而 CTFT
+  是\textbf{积分}（\(\int\)）；初学者最常搞混。
+\item
+  \textbf{忘记周期性}：\(X(e^{j\omega})\) 以 \(2\pi\)
+  为周期，不能把它当作非周期频谱直接与 CTFT 等同。
+\item
+  \textbf{忽略收敛条件}：并非所有序列都绝对可和；遇到
+  \(u[n]\)、\(1\)、\(\cos\omega_0 n\) 等需用 \(\delta\)
+  函数（广义傅里叶变换）写成周期冲激形式。
+\item
+  \textbf{指数变化符号}：正变换用 \(e^{-j\omega n}\)，逆变换用
+  \(e^{+j\omega n}\)，且逆变换有因子 \(\dfrac{1}{2\pi}\)；二者不能互换。
+\item
+  \textbf{混淆数字角频率与模拟角频率}：\(\omega\) 是归一化的，范围常取
+  \([-\pi,\pi)\)，不等于 \(\Omega\)。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-25}
+
+\begin{itemize}
+\tightlist
+\item
+  DTFT：\(X(e^{j\omega})=\sum_n x[n]e^{-j\omega n}\)，周期
+  \(2\pi\)；逆变换：\(x[n]=\frac{1}{2\pi}\int_{-\pi}^{\pi}X e^{j\omega n}d\omega\)。
+\item
+  收敛：绝对可和（一致）、平方可和（均方）、广义（\(\delta\)）。
+\item
+  主要性质：线性、时移、频移、时间反转、卷积定理、频域卷积、Parseval、共轭对称。
+\item
+  常用对：\(\delta[n]\)、\(a^n u[n]\)、矩形窗/Dirichlet 核、单频复指数。
+\item
+  与连续变换的关系：采样导致频谱周期延拓，混叠由 Nyquist 条件控制。
+\end{itemize}
+
+\section{9.2 Z 变换简介}\label{z-ux53d8ux6362ux7b80ux4ecb}
+
+\begin{quote}
+本节目标：理解 Z 变换的定义、收敛域（ROC）与基本性质，掌握用 ROC
+判断序列类型，并能用部分分式法求逆 Z 变换。 重点：Z 变换定义、ROC
+的几何意义、常用变换对、部分分式求逆。 难点：双边 Z 变换 ROC
+的判定，以及 ROC 与极点、序列类型（因果/反因果/双边）的对应。
+\end{quote}
+
+\subsection{9.2.1 从 DTFT 到 Z
+变换}\label{ux4ece-dtft-ux5230-z-ux53d8ux6362}
+
+DTFT 要求序列绝对可和，很多重要序列（如
+\(u[n]\)、\(a^n u[n]\)（\(|a|\ge1\)））不满足绝对可和。为了像拉普拉斯变换之于傅里叶变换那样推广，引入复数变量
+\(z\)，用 \(z^n\) 代替 \(e^{j\omega n}\)，就得到 Z 变换。当
+\(z=e^{j\omega}\)（即 \(|z|=1\)）时，Z 变换退化为 DTFT。
+
+\subsection{9.2.2 Z 变换的定义}\label{z-ux53d8ux6362ux7684ux5b9aux4e49}
+
+\textbf{定义 9.2（双边 Z 变换）} 序列 \(x[n]\) 的双边 Z 变换定义为
+
+\[
+\boxed{\;X(z) = \sum_{n=-\infty}^{\infty} x[n]\,z^{-n}.\;}
+\]
+
+其中 \(z\) 为复变量。若 \(x[n]\) 只在 \(n\ge0\) 非零，则上式退化为单边 Z
+变换
+
+\[
+X(z) = \sum_{n=0}^{\infty} x[n]\,z^{-n}.
+\]
+
+单边 Z 变换常用于求解差分方程与描述因果系统。
+
+\textbf{定义 9.3（收敛域 ROC）} 使级数 \(\sum_{n} |x[n]| |z|^{-n}\)
+收敛的 \(z\) 的全体称为 \(X(z)\) 的\textbf{收敛域}（region of
+convergence, ROC）。由于幂级数在复平面上收敛于圆环或圆外/圆内部，ROC
+一般具有如下形式之一：
+
+\begin{itemize}
+\tightlist
+\item
+  \(|z|>R\)（因果序列）；
+\item
+  \(|z|<R'\)（反因果序列）；
+\item
+  \(R_1<|z|<R_2\)（双边序列）；
+\item
+  整个 \(z\) 平面（有限长序列，除 \(z=0\) 或 \(z=\infty\) 可能除外）。
+\end{itemize}
+
+\textbf{关键事实}：ROC 内\textbf{不含任何极点}，且 ROC
+的边界由极点决定；同一个 \(X(z)\) 表达式配上不同 ROC 对应不同序列。
+
+\subsection{9.2.3 ROC
+与序列类型}\label{roc-ux4e0eux5e8fux5217ux7c7bux578b}
+
+设 \(X(z)\) 是有理函数 \(P(z)/Q(z)\)，\(Q(z)\) 的根为极点。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+序列类型
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+ROC 形状
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+例子
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+右边（因果）序列 & 最外极点之外，\(|z|>R\) &
+\(a^n u[n] \leftrightarrow \frac{1}{1-az^{-1}}\), \(|z|>|a|\) \\
+左边（反因果）序列 & 最内极点之内，\(|z|<R'\) &
+\(-a^n u[-n-1] \leftrightarrow \frac{1}{1-az^{-1}}\), \(|z|<|a|\) \\
+双边序列 & 两极点之间，\(R_1<|z|<R_2\) & \(a^n u[n]+b^n u[-n-1]\) \\
+有限长序列 & 常为整个平面（去掉 \(z=0\) 或 \(\infty\)） &
+\(\delta[n-n_0] \leftrightarrow z^{-n_0}\) \\
+\end{longtable}
+}
+
+\textbf{例 9.4} 求 \(x[n]=a^n u[n]\) 的 Z 变换及其 ROC。
+
+\textbf{解}
+
+\[
+X(z)=\sum_{n=0}^{\infty}a^n z^{-n}=\sum_{n=0}^{\infty}(a z^{-1})^n=\frac{1}{1-a z^{-1}}=\frac{z}{z-a}.
+\]
+
+收敛条件为 \(|a z^{-1}|<1\)，即
+
+\[
+|z|>|a| .
+\]
+
+极点 \(z=a\)。当 \(a=1\)（\(x[n]=u[n]\)）时
+\(X(z)=\dfrac{z}{z-1}\)，\(|z|>1\)。
+
+\textbf{例 9.5} 求 \(x[n]=-a^n u[-n-1]\) 的 Z 变换。
+
+\textbf{解}
+
+\[
+X(z)=-\sum_{n=-\infty}^{-1}a^n z^{-n}
+=-\sum_{m=1}^{\infty} a^{-m}z^{m}
+=-\sum_{m=1}^{\infty}\Bigl(\frac{z}{a}\Bigr)^{m}
+= \frac{a^{-1}z}{1-z/a} = \frac{1}{1-a z^{-1}} =
+\frac{z}{z-a},
+\]
+
+要求 \(|z/a|<1\)，即 \(|z|<|a|\)。
+
+注意\textbf{同一个表达式} \(\dfrac{z}{z-a}\) 配上 \(|z|>|a|\)
+对应因果序列 \(a^n u[n]\)，配上 \(|z|<|a|\) 对应反因果序列
+\(-a^n u[-n-1]\)。这就是``\textbf{同一个 \(X(z)\)，不同
+ROC，不同序列}''。
+
+\subsection{9.2.4 Z 变换的性质}\label{z-ux53d8ux6362ux7684ux6027ux8d28}
+
+设 \(x[n]\leftrightarrow X(z)\)，ROC 为
+\(R_x\)，\(y[n]\leftrightarrow Y(z)\)，ROC 为 \(R_y\)。
+
+\textbf{性质 9.9（线性）}
+\(a x[n]+b y[n]\leftrightarrow a X(z)+b Y(z)\)，ROC 至少为
+\(R_x\cap R_y\)（可能扩大）。
+
+\textbf{性质 9.10（时移）}
+\(x[n-n_0]\leftrightarrow z^{-n_0}X(z)\)。单边 Z
+变换下时移需考虑初始值。
+
+\textbf{性质 9.11（\(z\) 域缩放/指数加权）}
+\(\alpha^{-n}x[n]\leftrightarrow X(z/\alpha)\)，ROC 变为
+\(|\alpha|R_x\)。取 \(\alpha=e^{j\omega_0}\) 得频移。
+
+\textbf{性质 9.12（时间反转）} \(x[-n]\leftrightarrow X(1/z)\)，ROC 变为
+\(1/R_x\)。
+
+\textbf{性质 9.13（卷积定理）}
+\(x[n]*y[n]\leftrightarrow X(z)Y(z)\)，ROC 至少为 \(R_x\cap R_y\)。
+
+\textbf{性质 9.14（\(z\) 域微分）}
+\(n\,x[n]\leftrightarrow -z\dfrac{d}{dz}X(z)\)，ROC
+不变（可能边界除外）。
+
+\textbf{性质 9.15（求和/累加）}
+\(\sum_{k=-\infty}^{n}x[k]\leftrightarrow \dfrac{X(z)}{1-z^{-1}}\)。
+
+\textbf{性质 9.16（初值定理，单边）} 若 \(x[n]\) 为因果序列，则
+
+\[
+x[0]=\lim_{z\to\infty} X(z).
+\]
+
+\subsection{9.2.5 常用 Z
+变换对}\label{ux5e38ux7528-z-ux53d8ux6362ux5bf9}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+序列
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Z 变换
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+ROC
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\delta[n]\) & \(1\) & 全平面（含 \(z=\infty\)） \\
+\(\delta[n-n_0]\) & \(z^{-n_0}\) & 全平面，\(n_0>0\) 时除 \(z=0\) \\
+\(u[n]\) & \(\dfrac{z}{z-1}=\dfrac{1}{1-z^{-1}}\) & \(|z|>1\) \\
+\(a^n u[n]\) & \(\dfrac{z}{z-a}=\dfrac{1}{1-a z^{-1}}\) & \(|z|>|a|\) \\
+\(n a^n u[n]\) & \(\dfrac{az}{(z-a)^2}\) & \(|z|>|a|\) \\
+\(\cos(\omega_0 n)\,u[n]\) &
+\(\dfrac{z(z-\cos\omega_0)}{z^2-2z\cos\omega_0+1}\) & \(|z|>1\) \\
+\(\sin(\omega_0 n)\,u[n]\) &
+\(\dfrac{z\sin\omega_0}{z^2-2z\cos\omega_0+1}\) & \(|z|>1\) \\
+\end{longtable}
+}
+
+其中 \(n a^n u[n]\) 由 \(a^n u[n]\leftrightarrow\dfrac{z}{z-a}\) 对
+\(z\) 求导（性质 9.14）并乘以 \(-z\) 得到：
+
+\[
+- z\frac{d}{dz}\frac{z}{z-a} = -z\frac{-a}{(z-a)^2} = \frac{az}{(z-a)^2}.
+\]
+
+\subsection{9.2.6 逆 Z 变换}\label{ux9006-z-ux53d8ux6362}
+
+逆 Z 变换可表示为围线积分（Cauchy 积分）：
+
+\[
+x[n]=\frac{1}{2\pi j}\oint_C X(z) z^{n-1}\,dz,
+\]
+
+其中 \(C\) 是位于 ROC 内、包围原点的一条闭合围线。实际计算常用三类方法：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{幂级数展开（长除法）}：把 \(X(z)\) 展开为 \(z^{-1}\)
+  的幂级数，直接读出 \(x[n]\)。
+\item
+  \textbf{部分分式展开}：把 \(X(z)\) 写成
+  \(\dfrac{A_1}{1-p_1 z^{-1}}+\cdots\)，再查表。常用的基本对为
+  \(\dfrac{1}{1-p z^{-1}}\leftrightarrow p^n u[n]\)（\(|z|>|p|\)）。
+\item
+  \textbf{留数法}：\(x[n]=\sum \operatorname{Res}\bigl[X(z)z^{n-1},\ z=z_k\bigr]\)，对各极点取留数。
+\end{enumerate}
+
+\textbf{例 9.6} 已知
+
+\[
+X(z)=\frac{1}{(1-\tfrac{1}{2}z^{-1})(1-\tfrac{1}{4}z^{-1})},\qquad |z|>\frac{1}{2},
+\]
+
+求 \(x[n]\)。
+
+\textbf{解} 部分分式分解：
+
+\[
+X(z)=\frac{A}{1-\tfrac12 z^{-1}}+\frac{B}{1-\tfrac14 z^{-1}} .
+\]
+
+通分配置：
+
+\[
+A\Bigl(1-\tfrac14 z^{-1}\Bigr)+B\Bigl(1-\tfrac12 z^{-1}\Bigr)=1 .
+\]
+
+比较 \(z^{-1}\)
+的系数：\(\tfrac14 A+\tfrac12 B = 0\)；常数项：\(A+B=1\)。解得
+\(A=2,\ B=-1\)。故
+
+\[
+X(z)=\frac{2}{1-\tfrac12 z^{-1}}-\frac{1}{1-\tfrac14 z^{-1}} .
+\]
+
+ROC \(|z|>\tfrac12\) 位于所有极点之外，对应因果序列：
+
+\[
+x[n]=2\Bigl(\tfrac12\Bigr)^{n}u[n]-\Bigl(\tfrac14\Bigr)^{n}u[n] .
+\]
+
+\subsection{9.2.7 Z 变换与 DTFT
+的关系}\label{z-ux53d8ux6362ux4e0e-dtft-ux7684ux5173ux7cfb}
+
+\textbf{定理 9.2} 设 \(X(z)\) 的 ROC 包含单位圆 \(|z|=1\)，则令
+\(z=e^{j\omega}\) 得 DTFT：
+
+\[
+X(e^{j\omega}) = X(z)\Big|_{z=e^{j\omega}} .
+\]
+
+这说明 DTFT 是 Z 变换在单位圆上的取值。若单位圆不在 ROC 内（例如极点
+\(|p|>1\) 的因果序列），则 DTFT 不存在（除非用广义 \(\delta\)
+表示）。这一视角把``\(z\) 平面''与``频率轴
+\(\omega\)''联系起来：\(z=e^{j\omega}\)
+是单位圆上的点，频率就是单位圆上的角度。
+
+\begin{quote}
+配图：建议绘制 \(z\) 平面，标出极点 \(p\)、ROC（圆外）与单位圆
+\(|z|=1\)，并标注 \(z=e^{j\omega}\) 与频率 \(\omega\) 的对应。
+\end{quote}
+
+\subsection{9.2.8 用 Z
+变换求解差分方程（简介）}\label{ux7528-z-ux53d8ux6362ux6c42ux89e3ux5deeux5206ux65b9ux7a0bux7b80ux4ecb}
+
+对常系数线性差分方程（单边 Z 变换）取 Z
+变换，可利用时移性质把差分方程变成代数方程，解出 \(Y(z)\) 后再逆变换得到
+\(y[n]\)。这是数字滤波器设计与系统分析的基础，也是 Z
+变换在``积分变换''课程中的主要用途之一。
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-26}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{ROC 是 Z 变换不可缺少的一部分}：同一个 \(X(z)\)
+  表达式可对应不同序列，必须同时给出 ROC 才能唯一确定 \(x[n]\)。
+\item
+  \textbf{混淆``右边''与``因果''}：右边序列指 \(n\ge N\)
+  后才非零，不一定从 \(n=0\) 开始；但通常教材把 ROC
+  在最外极点之外的称为``因果型''。
+\item
+  \textbf{ROC 不含极点}：ROC 内绝不能有极点，判断 ROC 时以极点为边界。
+\item
+  \textbf{单位圆与可变换}：只有 ROC 含单位圆时才有 DTFT；否则只能做 Z
+  变换，不能直接代入 \(z=e^{j\omega}\)。
+\item
+  \textbf{部分分式系数错误}：对 \(\dfrac{z}{z-a}\)
+  形式的处理要小心，常先把 \(X(z)/z\) 分解再乘回 \(z\)，或统一用
+  \(z^{-1}\) 的多项式形式较不易错。
+\item
+  \textbf{单双边的符号}：双边 \(n\in\mathbb{Z}\)，单边
+  \(n\ge0\)；差分方程常用单边。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-26}
+
+\begin{itemize}
+\tightlist
+\item
+  Z 变换：\(X(z)=\sum_n x[n]z^{-n}\)，是 DTFT 在复平面上的推广。
+\item
+  DTFT = Z 变换在单位圆上的取值（ROC 含单位圆时）。
+\item
+  ROC 由极点分界：最外极点之外 / 最内极点之内 / 两极点之间 / 全平面。
+\item
+  性质：线性、时移、\(z\) 域缩放、时反、卷积、微分、累加、初值定理。
+\item
+  常用对：\(\delta[n]\)、\(a^n u[n]\)、\(n a^n u[n]\)、正余弦序列。
+\item
+  逆变换方法：幂级数、部分分式、留数法。
+\end{itemize}
+
+\section{9.3
+离散傅里叶变换}\label{ux79bbux6563ux5085ux91ccux53f6ux53d8ux6362}
+
+\begin{quote}
+本节目标：掌握离散傅里叶变换（DFT）与逆变换（IDFT）的定义、矩阵表示与基本性质，理解
+DFT 是对 DTFT 在单位圆上的等间隔采样，并会计算简单序列的 DFT
+与圆周卷积。 重点：DFT/IDFT
+定义、性质（时移、频移、圆周卷积、Parseval）、圆周卷积与线性卷积的关系。
+难点：圆周卷积与线性卷积的区别与联系，以及有限长序列周期延拓带来的``环绕''效应。
+\end{quote}
+
+\subsection{9.3.1 从 DTFT 到 DFT}\label{ux4ece-dtft-ux5230-dft}
+
+DTFT 的频谱 \(X(e^{j\omega})\)
+是连续、周期的，无法直接在计算机上存储和计算。把 \(\omega\) 离散化：在
+\([0,\,2\pi)\) 内取 \(N\) 个等间隔点
+
+\[
+\omega_k = \frac{2\pi k}{N},\qquad k=0,1,\ldots,N-1,
+\]
+
+并代入 DTFT，便得到 DFT。直观上，DFT 是对 DTFT 一个周期内的 \(N\)
+个均匀采样。
+
+设 \(x[n]\) 是长度为 \(N\) 的有限长序列（定义在
+\(n=0,1,\ldots,N-1\)）。为消除求和范围混叠，把 \(x[n]\) 作为周期为 \(N\)
+的周期序列的主值序列（以 \(N\) 为周期延拓）。于是 DFT 的定义如下。
+
+\textbf{定义 9.4（DFT）} 长度为 \(N\) 的序列 \(x[n]\) 的离散傅里叶变换为
+
+\[
+\boxed{\;X[k] = \sum_{n=0}^{N-1} x[n]\,W_N^{kn},\qquad k=0,1,\ldots,N-1,\; W_N = e^{-j\frac{2\pi}{N}}.\;}
+\]
+
+\(W_N\) 称为 \textbf{\(N\) 点旋转因子（twiddle factor）}，它满足
+\(W_N^N=1\)（\(N\) 次单位根）以及周期性、对称性：
+
+\[
+W_N^{k+N}=W_N^{k},\qquad W_N^{k+N/2}=-W_N^{k},\qquad W_N^{N-k}=\overline{W_N^{k}}=W_N^{-k}.
+\]
+
+\textbf{定义 9.5（IDFT）} 逆离散傅里叶变换为
+
+\[
+\boxed{\;x[n] = \frac{1}{N}\sum_{k=0}^{N-1} X[k]\,W_N^{-kn},\qquad n=0,1,\ldots,N-1.\;}
+\]
+
+IDFT 与 DFT 的区别仅在于旋转因子指数符号相反，并多一个因子
+\(\dfrac{1}{N}\)。
+
+\textbf{定理 9.3（正交性）}
+
+\[
+\frac{1}{N}\sum_{k=0}^{N-1} W_N^{k(n-m)} = \delta_{n,m},
+\qquad
+\sum_{n=0}^{N-1} W_N^{k(n-l)} = N\,\delta_{k,l},
+\]
+
+其中 \(\delta_{n,m}\) 为 Kronecker delta。此性质保证了 DFT 与 IDFT
+互逆，也说明 \(W_N\) 构成的矩阵是正交（酉）的。
+
+\subsection{9.3.2 DFT
+的矩阵形式}\label{dft-ux7684ux77e9ux9635ux5f62ux5f0f}
+
+把 DFT 写成矩阵形式：令
+
+\[
+\mathbf{x}=[x[0],\ldots,x[N-1]]^{\mathsf{T}},\qquad
+\mathbf{X}=[X[0],\ldots,X[N-1]]^{\mathsf{T}},
+\]
+
+则
+
+\[
+\mathbf{X} = \mathbf{W}_N \mathbf{x},
+\qquad
+\mathbf{W}_N =
+\begin{bmatrix}
+1 & 1 & 1 & \cdots & 1 \\
+1 & W_N^1 & W_N^2 & \cdots & W_N^{N-1} \\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & W_N^{N-1} & W_N^{2(N-1)} & \cdots & W_N^{(N-1)^2}
+\end{bmatrix}.
+\]
+
+相应地，\(\mathbf{x} = \dfrac{1}{N}\mathbf{W}_N^{\mathsf{H}}\mathbf{X}\)（共轭转置）。因此
+DFT 是一个线性变换，其矩阵 \(\mathbf{W}_N\)
+是酉矩阵（\(\mathbf{W}_N^{\mathsf{H}}\mathbf{W}_N = N\mathbf{I}\)）。
+
+\textbf{例 9.7} 写出 \(N=4\) 的 DFT 矩阵，并计算
+\(x=[1,0,0,0]^{\mathsf{T}}\) 与 \(x=[1,1,1,1]^{\mathsf{T}}\) 的 DFT。
+
+\textbf{解} \(W_4=e^{-j\pi/2}=-j\)，故
+
+\[
+\mathbf{W}_4=
+\begin{bmatrix}
+1 & 1 & 1 & 1\\
+1 & W_4 & W_4^2 & W_4^3\\
+1 & W_4^2 & W_4^4 & W_4^6\\
+1 & W_4^3 & W_4^6 & W_4^9
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1 & 1\\
+1 & -j & -1 & j\\
+1 & -1 & 1 & -1\\
+1 & j & -1 & -j
+\end{bmatrix}.
+\]
+
+（因为 \(W_4^2=-1\)，\(W_4^3=j\) 等。）
+
+\begin{itemize}
+\tightlist
+\item
+  当 \(x=[1,0,0,0]^{\mathsf{T}}\)：\(\mathbf{X}=\mathbf{W}_4\) 的第一列
+  \(=[1,1,1,1]^{\mathsf{T}}\)，即 \(\delta[n]\leftrightarrow 1\)。
+\item
+  当 \(x=[1,1,1,1]^{\mathsf{T}}\)：逐项求和得
+\end{itemize}
+
+\[
+X[k]=\sum_{n=0}^{3} W_4^{kn}=1+W_4^k+W_4^{2k}+W_4^{3k}
+=\begin{cases}4,& k=0,\\ 0,& k=1,2,3,\end{cases}
+\]
+
+即 \(X=[4,0,0,0]^{\mathsf{T}}\)。这对应``\(N\)
+点常值序列的频谱为单个冲激''。
+
+\subsection{9.3.3 DFT 的性质}\label{dft-ux7684ux6027ux8d28}
+
+以下设 \(x[n],\ y[n]\) 为 \(N\) 点序列，其 \(N\) 点 DFT 为
+\(X[k],\ Y[k]\)。
+
+\textbf{性质 9.17（线性）}
+\(a x[n]+b y[n] \leftrightarrow a X[k]+b Y[k]\)。
+
+\textbf{性质 9.18（圆周时移）} 若 \(y[n]=x[(n-m)\bmod N]\)（把 \(x\) 以
+\(N\) 为周期延拓后循环左移 \(m\)），则
+
+\[
+Y[k] = W_N^{km} X[k].
+\]
+
+\textbf{性质 9.19（圆周频移/调制）}
+\(W_N^{-mn}x[n]\leftrightarrow X[(k-m)\bmod N]\)。
+
+\textbf{性质 9.20（对偶/频域周期）}
+\(X[(k-m)\bmod N]\leftrightarrow W_N^{-mn}x[n]\)，且 \(X[k]\) 以 \(N\)
+为周期：\(X[k+N]=X[k]\)。
+
+\textbf{性质 9.21（圆周卷积）} 定义 \(N\) 点\textbf{圆周卷积}
+
+\[
+y[n] = x[n]\circledast_N h[n]
+= \sum_{m=0}^{N-1} x[m]\,h[(n-m)\bmod N],
+\]
+
+则
+
+\[
+Y[k] = X[k]\,H[k].
+\]
+
+即时域圆周卷积对应频域乘积。注意这里的下标取模 \(N\)，与线性卷积不同。
+
+\textbf{性质 9.22（频域圆周卷积）}
+\(x[n]h[n]\leftrightarrow \dfrac{1}{N}\bigl(X\circledast_N H\bigr)[k]\)。
+
+\textbf{性质 9.23（Parseval/帕塞瓦尔）}
+
+\[
+\sum_{n=0}^{N-1} |x[n]|^2 = \frac{1}{N}\sum_{k=0}^{N-1} |X[k]|^2 .
+\]
+
+这是 DFT 的能量守恒式。
+
+\textbf{性质 9.24（共轭与对称）} 若 \(x[n]\) 为实序列，则
+
+\[
+X[N-k]=\overline{X[k]},\qquad X[0]=\sum_{n=0}^{N-1}x[n],\qquad X[N/2]=\sum_{n=0}^{N-1}(-1)^n x[n].
+\]
+
+因此实序列的 \(N\) 点 DFT 只需要计算 \(\lfloor N/2\rfloor+1\)
+个独立分量。
+
+\subsection{9.3.4
+圆周卷积与线性卷积}\label{ux5706ux5468ux5377ux79efux4e0eux7ebfux6027ux5377ux79ef}
+
+\textbf{定理 9.4} 设 \(x[n]\) 长为 \(N_1\)，\(h[n]\) 长为
+\(N_2\)，其线性卷积 \(y_L=x*h\) 长为 \(N_1+N_2-1\)。若把它们都补零到长度
+\(N\ge N_1+N_2-1\)，则 \(N\) 点圆周卷积等于线性卷积：
+
+\[
+x[n]\circledast_N h[n] = x[n]*h[n],\qquad N\ge N_1+N_2-1 .
+\]
+
+\textbf{证明思路}：圆周卷积相当于把线性卷积结果以 \(N\)
+为周期延拓后取主值。当 \(N\ge\)
+线性卷积长度时，各周期副本互不重叠，主值即线性卷积；当 \(N\)
+不足时发生``时间混叠''（环绕）。
+
+此定理是``\textbf{用 FFT 快速计算线性卷积}''的理论基础：取
+\(N\ge N_1+N_2-1\) 的 2 的幂，对 \(x,h\) 补零，求一次 \(N\) 点
+FFT、对应相乘、再 IFFT 即可。
+
+\textbf{例 9.8} 设 \(x=[1,2,3]\)，\(h=[1,1]\)，求它们的线性卷积与
+\(N=3\)、\(N=4\) 的圆周卷积。
+
+\textbf{解} 线性卷积（\(N_1+N_2-1=4\) 点）：
+
+\[
+y_L = [1,\; 3,\; 5,\; 3].
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(N=3\)（\(<4\)）：圆周卷积会出现``环绕''。计算
+  \(y[n]=\sum_{m=0}^{2}x[m]h[(n-m)\bmod 3]\)：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(n=0\)：\(1\cdot h[0]+2\cdot h[2]+3\cdot h[1]=1\cdot1+2\cdot0+3\cdot1=4\)；
+  \item
+    \(n=1\)：\(1\cdot h[1]+2\cdot h[0]+3\cdot h[2]=1+2+0=3\)；
+  \item
+    \(n=2\)：\(1\cdot h[2]+2\cdot h[1]+3\cdot h[0]=0+2+3=5\)。 得
+    \([4,3,5]\)，与线性卷积 \([1,3,5,3]\) 不同。
+  \end{itemize}
+\item
+  \(N=4\)（\(\ge4\)）：补零后
+  \(x'=[1,2,3,0]\)，\(h'=[1,1,0,0]\)，圆周卷积等于线性卷积，仍得
+  \([1,3,5,3]\)。
+\end{itemize}
+
+这直观说明：选 \(N\) 足够大（\(\ge N_1+N_2-1\)）可避免时间混叠。
+
+\subsection{9.3.5 DFT 与 DTFT、Z
+变换的关系}\label{dft-ux4e0e-dtftz-ux53d8ux6362ux7684ux5173ux7cfb}
+
+设 \(x[n]\) 为 \(N\) 点有限长序列，则
+
+\[
+X[k] = X(e^{j\omega})\Big|_{\omega=\frac{2\pi k}{N}}
+= X(z)\Big|_{z=e^{j2\pi k/N}} .
+\]
+
+即：\textbf{DFT 是有限长序列的 Z 变换在单位圆上 \(N\)
+个等间隔点的采样，等价于其 DTFT 一个周期内的 \(N\) 个等间隔采样。}
+采样在频域引入周期延拓，因此频域采样对应时域以 \(N\)
+为周期的延拓（这就是 DFT 隐含周期性、引出圆周卷积的原因）。
+
+\begin{quote}
+配图：建议绘制单位圆上 \(N=8\) 的采样点与 \(z=e^{j2\pi k/N}\) 标注。
+\end{quote}
+
+\subsection{9.3.6 典型例题}\label{ux5178ux578bux4f8bux9898-8}
+
+\textbf{例 9.9} 求 \(N\) 点序列
+\(x[n]=\delta[n-n_0]\)（\(0\le n_0<N\)）的 DFT。
+
+\textbf{解}
+
+\[
+X[k]=\sum_{n=0}^{N-1}\delta[n-n_0]W_N^{kn}=W_N^{k n_0}=e^{-j\frac{2\pi k n_0}{N}} .
+\]
+
+其模恒为 1，相位线性变化。特例 \(n_0=0\) 得 \(X[k]=1\)。
+
+\textbf{例 9.10} 设 \(x=[1,\,1,\,0,\,0]\)，求其 \(N=4\) 点 DFT；再用
+IDFT 验证。
+
+\textbf{解} \(W_4=-j\)：
+
+\[
+\begin{aligned}
+X[0]&=1+1+0+0=2,\\
+X[1]&=1+W_4+0+0=1-j,\\
+X[2]&=1+W_4^2+0+0=1-1=0,\\
+X[3]&=1+W_4^3+0+0=1+j.
+\end{aligned}
+\]
+
+故 \(\mathbf{X}=[2,\;1-j,\;0,\;1+j]^{\mathsf{T}}\)。
+
+验证 IDFT 的 \(n=0\)：
+
+\[
+x[0]=\frac14\bigl[2+(1-j)+0+(1+j)\bigr]=\frac{4}{4}=1 .
+\]
+
+其余点同理可得 \([1,1,0,0]\)，成立。
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-27}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{DFT 的周期隐式性}：DFT 假定序列以 \(N\)
+  为周期延拓，因此下标运算都要``取模 \(N\)''；做圆周卷积时不要忘记模
+  \(N\)。
+\item
+  \textbf{线性卷积≠圆周卷积}：只有补零使 \(N\ge N_1+N_2-1\)
+  时二者才相等；否则圆周卷积会``环绕''出错误结果。
+\item
+  \textbf{IDFT 的因子 \(1/N\)}：DFT 无因子，IDFT 有因子
+  \(\dfrac{1}{N}\)，且指数符号相反；两者极易写反。
+\item
+  \textbf{旋转因子方向}：DFT 用 \(W_N=e^{-j2\pi/N}\)；若用
+  \(e^{+j2\pi/N}\) 会使结果取共轭/移位。
+\item
+  \textbf{归一化}：有些资料把 \(1/\sqrt{N}\) 同时放进 DFT 与
+  IDFT（对称形式），教材约定 \(1/N\) 在 IDFT，需与讲义一致。
+\item
+  \textbf{\(X[k]\) 的共轭对称}：实序列的 \(X[N-k]=\overline{X[k]}\)
+  用于减少计算量，但不能把 \(X[k]\) 当作与 \(k\) 无关。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-27}
+
+\begin{itemize}
+\tightlist
+\item
+  DFT：\(X[k]=\sum_{n=0}^{N-1}x[n]W_N^{kn}\)，IDFT：\(x[n]=\frac1N\sum_k X[k]W_N^{-kn}\)。
+\item
+  DFT 是 Z 变换/DTFT 在单位圆上的 \(N\) 点均匀采样。
+\item
+  性质：线性、圆周时移/频移、圆周卷积、频域圆周卷积、Parseval、共轭对称。
+\item
+  圆周卷积与线性卷积：补零到 \(N\ge N_1+N_2-1\) 时相等。
+\item
+  应用：用 FFT 快速实现卷积、谱分析、滤波。
+\end{itemize}
+
+\section{9.4
+快速傅里叶变换}\label{ux5febux901fux5085ux91ccux53f6ux53d8ux6362}
+
+\begin{quote}
+本节目标：掌握基-2 时域抽取（DIT）FFT 的基本思想与蝶形运算，理解 DFT
+复杂度 \(O(N^2)\) 到 FFT \(O(N\log N)\) 的改进，能画出并计算 8 点（或 4
+点）蝶形图。 重点：按奇偶分解、蝶形因子
+\(W_N^k\)、复数乘加次数比较、位反转（bit-reversal）排序。
+难点：蝶形图中``同一蝶形两个输出''的加减计算，以及输入/输出重排的顺序。
+\end{quote}
+
+\subsection{9.4.1 为什么要
+FFT：运算量}\label{ux4e3aux4ec0ux4e48ux8981-fftux8fd0ux7b97ux91cf}
+
+直接按 DFT 定义计算一个 \(N\) 点 DFT，需要 \(N^2\) 次复数乘法和
+\(N(N-1)\) 次复数加法。当 \(N\) 很大时计算量急剧增长（例如 \(N=1024\)
+时约 \(10^6\) 次复数乘）。FFT（Fast Fourier Transform）是一族利用
+\(W_N\) 的周期性、对称性把复杂度降到 \(O(N\log_2 N)\)
+的快速算法，其中最著名的是 \textbf{Cooley--Tukey 基-2 算法}。
+
+\textbf{关键性质（复用）}
+
+\[
+W_N^N=1,\qquad W_N^{k+N/2}=-W_N^{k},\qquad W_N^{2k}=W_{N/2}^{k}.
+\]
+
+因子 \(W_N^N=1\) 表明指数可约去 \(N\)；\(W_N^{k+N/2}=-W_N^k\)
+使蝶形能合并两次复数乘为一次；\(W_N^{2k}=W_{N/2}^{k}\) 使 \(N\)
+点可分解为两个 \(N/2\) 点。
+
+\textbf{定义 9.6（快速傅里叶变换 FFT）} 凡利用旋转因子 \(W_N\)
+的周期性（\(W_N^N=1\)）与对称性（\(W_N^{k+N/2}=-W_N^k\)），把 \(N\) 点
+DFT 的计算从直接定义的 \(O(N^2)\) 次复数乘减少为 \(O(N\log N)\)
+次的一类高效算法的统称，称为\textbf{快速傅里叶变换（FFT）}。当 \(N=2^M\)
+时，最常用的是 Cooley--Tukey 基-2 算法，它把 \(N\) 点 DFT 递归分解为两个
+\(N/2\) 点 DFT。
+
+\subsection{9.4.2 基-2
+时域抽取（DIT）推导}\label{ux57fa-2-ux65f6ux57dfux62bdux53d6ditux63a8ux5bfc}
+
+设 \(N\) 为 2 的幂（\(N=2^M\)，\(M=\log_2 N\)）。把 \(x[n]\)
+按\textbf{偶数下标}和\textbf{奇数下标}分成两组：
+
+\[
+x_e[n]=x[2n],\qquad x_o[n]=x[2n+1],\qquad n=0,1,\ldots,N/2-1 .
+\]
+
+\textbf{定理 9.5（DIT 分解）} 对 \(N\) 点序列 \(x[n]\)，
+
+\[
+\begin{aligned}
+X[k] &= \sum_{n=0}^{N-1}x[n]W_N^{nk}\\
+&= \sum_{n=0}^{N/2-1}x[2n]W_N^{2nk} + \sum_{n=0}^{N/2-1}x[2n+1]W_N^{(2n+1)k}\\
+&= \sum_{n=0}^{N/2-1}x_e[n]W_{N/2}^{nk} + W_N^{k}\sum_{n=0}^{N/2-1} x_o[n]W_{N/2}^{nk}\\
+&= X_e[k] + W_N^{k}\,X_o[k],\qquad k=0,1,\ldots,N-1 ,
+\end{aligned}
+\]
+
+其中 \(X_e[k],\ X_o[k]\) 是两组 \(N/2\) 点 DFT（以 \(N/2\) 为周期）。由
+\(W_N^{k+N/2}=-W_N^k\) 以及 \(X_e,X_o\) 的周期性，对 \(0\le k<N/2\)：
+
+\[
+\boxed{
+\begin{aligned}
+X[k] &= X_e[k]+W_N^k X_o[k],\\
+X\bigl[k+\tfrac N2\bigr] &= X_e[k]-W_N^k X_o[k].
+\end{aligned}}
+\]
+
+这称为\textbf{蝶形（butterfly）运算}：一对输入 \((X_e[k],X_o[k])\) 经乘
+\(W_N^k\) 后做一次加、一次减，产生一对输出 \(X[k]\) 与
+\(X[k+N/2]\)。把一个 \(N\) 点 DFT 分解成两个 \(N/2\) 点 DFT 加 \(N/2\)
+个蝶形；再对每个 \(N/2\) 点递归分解，直到 1 点 DFT（即序列本身）。
+
+\subsection{9.4.3
+蝶形运算与算法流程}\label{ux8776ux5f62ux8fd0ux7b97ux4e0eux7b97ux6cd5ux6d41ux7a0b}
+
+\textbf{蝶形单元}：输入 \((a,b)\)，旋转因子 \(W\)，则输出
+
+\[
+c = a + W b,\qquad d = a - W b .
+\]
+
+画成图时，\(c\) 在左上，\(d\) 在左下，\(b\) 从下方接入经 \(W\)
+后参与加减。通常用``---•---→''表示加法、用``---→''表示减法。
+
+对 \(N=8\) 的基-2 DIT FFT，算法分 \(M=\log_2 8=3\) 级（level）：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{级 1}：把 8 点序列按奇偶递归分解为 8 个 1
+  点序列（即自然排序的位反转排列）。实际上先做\textbf{输入位反转重排}：把
+  \(n\) 的二进制位倒序得到新位置。
+\item
+  \textbf{级 2}：两两合成 4 点 DFT（每个蝶形旋转因子为
+  \(W_2=1\)、\(W_2^0..\)）。
+\item
+  \textbf{级 3}：合成 8 点 DFT，各蝶形使用
+  \(W_8^0,W_8^1,W_8^2,\ldots,W_8^3\) 等。
+\end{enumerate}
+
+\begin{quote}
+配图：建议绘制 \(N=8\) 基-2 DIT 蝶形图：左边输入按位反转排列
+\(x[0],x[4],x[2],x[6],x[1],x[5],x[3],x[7]\)，经过 3 级蝶形，右边输出顺序
+\(X[0],\ldots,X[7]\)；每级标出 \(W_8^k\) 因子。
+\end{quote}
+
+\textbf{位反转（bit-reversal）}：对 \(N=8\)，用 3 位二进制表示下标。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+自然序 & 二进制 & 位反转 & 反转序 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 000 & 000 & 0 \\
+1 & 001 & 100 & 4 \\
+2 & 010 & 010 & 2 \\
+3 & 011 & 110 & 6 \\
+4 & 100 & 001 & 1 \\
+5 & 101 & 101 & 5 \\
+6 & 110 & 011 & 3 \\
+7 & 111 & 111 & 7 \\
+\end{longtable}
+}
+
+因此在 DIT FFT 中，输入要做位反转，而输出保持自然序（DIF 算法则相反）。
+
+\subsection{9.4.4 运算量分析}\label{ux8fd0ux7b97ux91cfux5206ux6790}
+
+一个 \(N=2^M\) 点基-2 FFT 共有 \(M=\log_2 N\) 级，每级有 \(N/2\)
+个蝶形，每蝶形一次复数乘、两次复数加。故
+
+\[
+\text{复数乘法次数} = \frac{N}{2}\log_2 N,\qquad
+\text{复数加法次数} = N\log_2 N .
+\]
+
+（对实数输入还可利用对称性进一步减半。）
+
+\textbf{性质 9.25（运算量）} 对 \(N=2^M\) 点基-2 FFT，复数乘法次数为
+\(\dfrac{N}{2}\log_2 N\)，复数加法次数为 \(N\log_2 N\)；而直接 DFT 需要
+\(N^2\) 次复数乘法与 \(N(N-1)\) 次复数加法。
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+\(N\) & DFT 复数乘 & FFT 复数乘 & 加速比 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+16 & 256 & 32 & 8 \\
+64 & 4096 & 192 & 21 \\
+256 & 65536 & 1024 & 64 \\
+1024 & 1,048,576 & 5120 & 205 \\
+4096 & 16,777,216 & 24,576 & 683 \\
+\end{longtable}
+}
+
+当 \(N=1024\) 时，FFT 使复数乘数从约 \(10^6\) 降到约
+\(5\times10^3\)，速度提高约 200 倍。这正是``快速''的含义。
+
+\subsection{9.4.5 基-2
+频域抽取（DIF）简介}\label{ux57fa-2-ux9891ux57dfux62bdux53d6difux7b80ux4ecb}
+
+与 DIT 对偶，还有\textbf{频域抽取（Decimation-in-Frequency）}算法：先把
+\(X[k]\)
+按偶数/奇数下标分组，同样得到蝶形结构，只是输入为自然序、输出为位反转序。其蝶形单元为
+
+\[
+c=a+b,\qquad d=(a-b)W^k,
+\]
+
+即先加减再乘旋转因子。DIT 与 DIF 的运算量相同，只是重排与蝶形顺序不同。
+
+\subsection{9.4.6 逆 FFT（IFFT）}\label{ux9006-fftifft}
+
+IDFT 可用 FFT 的框架计算。一种方法是利用共轭：
+
+\[
+x[n]=\frac{1}{N}\Bigl[\operatorname{FFT}\bigl(X[k]\bigr)^{*}\Bigr]^{*}\Big|_{\text{对 } k}.
+\]
+
+具体做法：对 \(X[k]\) 取共轭、送入与正变换相同的 FFT
+蝶形、再对输出取共轭并除以 \(N\)，即得 \(x[n]\)。因此实现 FFT
+的代码几乎可直接用于 IFFT。
+
+\subsection{9.4.7 典型例题}\label{ux5178ux578bux4f8bux9898-9}
+
+\textbf{例 9.11} 用基-2 DIT 蝶形计算 \(x=[1,\,1,\,0,\,0]\) 的 4 点
+DFT，并与直接 DFT 结果比较。
+
+\textbf{解} \(N=4=2^2\)，\(M=2\) 级。
+
+先位反转排序（\(N=4\)，2 位二进制）：
+
+\[
+x[0]\to0,\quad x[1]\to2,\quad x[2]\to1,\quad x[3]\to3,
+\]
+
+即输入序列重排为 \([x[0],x[2],x[1],x[3]]=[1,0,1,0]\)。
+
+\textbf{级 1：} 两个蝶形，旋转因子 \(W_2^0=1\)(等价 \(W_4^0=1\))。
+
+\begin{itemize}
+\tightlist
+\item
+  蝶形 1（\(a=1,b=0\)）：\(\Rightarrow 1,\;1\)。
+\item
+  蝶形 2（\(a=1,b=0\)）：\(\Rightarrow 1,\;1\)。
+\end{itemize}
+
+得中间向量 \([1,1,1,1]\)。\textbf{级 2：} 旋转因子
+\(W_4^0=1,\;W_4^1=-j\)。
+
+\begin{itemize}
+\tightlist
+\item
+  蝶形 3（\(a=1,b=1\)，\(W=1\)）：输出 \(1+1=2,\;1-1=0\)；
+\item
+  蝶形 4（\(a=1,b=1\)，\(W=-j\)）：\(W\cdot b=-j\)，输出 \(1-j,\;1+j\)。
+\end{itemize}
+
+按自然序输出 \(X=[2,\;1-j,\;0,\;1+j]\)，与例 9.10 直接计算一致。
+
+\textbf{例 9.12} 用 4 点 FFT 计算 \(x=[1,\,2,\,3,\,4]\) 的 DFT。
+
+\textbf{解} 位反转排序：\([x[0],x[2],x[1],x[3]]=[1,3,2,4]\)。
+
+级 1（\(W_2^0=1\)）： - 蝶形 \((1,3)\)：\(4,\;-2\)； - 蝶形
+\((2,4)\)：\(6,\;-2\)。
+
+中间 \([4,-2,6,-2]\)。
+
+级 2：\(W_4^0=1,W_4^1=-j\)。 - 蝶形 \((4,6)\;W=1\)：\(10,\;-2\)； - 蝶形
+\((-2,-2)\;W=-j\)：\(-2+(-j)(-2)=-2+2j\)，\(-2-(-j)(-2)=-2-2j\)。
+
+故
+
+\[
+X=[10,\;-2+2j,\;-2,\;-2-2j].
+\]
+
+（可验证直接计算 \(X[k]=\sum_n x[n]W_4^{kn}\) 相同。）
+
+\textbf{例 9.13（运算量比较）} 计算 \(N=256\) 时直接 DFT 与基-2 FFT
+各需多少次复数乘法，并求加速比。
+
+\textbf{解} DFT：\(N^2=256^2=65536\)
+次；FFT：\(\dfrac{N}{2}\log_2 N = 128\times8=1024\) 次。加速比
+
+\[
+\frac{65536}{1024}=64 .
+\]
+
+即 FFT 约快 64 倍。
+
+\subsection{9.4.8 FFT 的应用}\label{fft-ux7684ux5e94ux7528}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{频谱分析与谱估计}：对信号取其 \(N\) 点
+  FFT，得到幅度谱、相位谱、功率谱（周期图法）。
+\item
+  \textbf{快速卷积与相关}：补零后用 FFT 算圆周卷积，得到线性卷积，用于
+  FIR 滤波、匹配滤波、相关检测。
+\item
+  \textbf{快速相关/自相关}：利用 Parseval 与卷积实现。
+\item
+  \textbf{数字滤波器设计}：频域采样法、叠加法等。
+\item
+  \textbf{OFDM / 通信系统}：OFDM 用 IFFT/FFT 实现多载波调制与解调。
+\item
+  \textbf{图像处理}：二维 FFT 用于滤波、压缩、卷积。
+\end{enumerate}
+
+\subsection{常见错误与注意点}\label{ux5e38ux89c1ux9519ux8befux4e0eux6ce8ux610fux70b9-28}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{位反转顺序搞错}：基-2 DIT
+  要求\textbf{输入}位反转、输出自然序；DIF
+  则相反。整张蝶形图若顺序错，结果全错。
+\item
+  \textbf{旋转因子 \(W_N^k\) 的符号}：\(W_N=e^{-j2\pi/N}\)；蝶形是``乘
+  \(W\) 后加/减''，不要写成 \(e^{+j2\pi/N}\)。
+\item
+  \textbf{蝶形图中``加/减''的两条路径}：\(X[k]=X_e+WX_o\)，\(X[k+N/2]=X_e-WX_o\)；加/减的对象是``经
+  \(W\) 旋转后的奇数项''，不要把 \(W\) 乘到两项上。
+\item
+  \textbf{递归分解的分组}：DIT
+  按\textbf{时间下标奇偶}分组（因此输入要重排）；DIF
+  按\textbf{频域下标奇偶}分组。
+\item
+  \textbf{复杂度的化简}：FFT 约为 \(\frac{N}{2}\log_2 N\)
+  次复乘，不要把``\(N\log_2 N\)''直接当作复乘次数（那对应复加）；更不要把
+  DFT 复乘记成 \(N(N-1)\) 之类。
+\item
+  \textbf{只对 \(N=2^M\) 适用}：基-2 FFT 要求 \(N\) 为 2
+  的幂；若不是，可用补零或混合基/库利-图基推广。
+\item
+  \textbf{IFFT 忘除以 \(N\)}：逆变换还要除以 \(N\)
+  并（若用共轭法）取共轭。
+\end{enumerate}
+
+\subsection{本节小结}\label{ux672cux8282ux5c0fux7ed3-28}
+
+\begin{itemize}
+\tightlist
+\item
+  FFT 的核心：利用 \(W_N\) 的周期性与对称性，把 \(N\) 点 DFT 递归分解为
+  \(N/2\) 点子问题。
+\item
+  基-2 DIT
+  蝶形：\(X[k]=X_e[k]+W_N^k X_o[k]\)，\(X[k+N/2]=X_e[k]-W_N^k X_o[k]\)。
+\item
+  复杂度：复乘 \(\frac{N}{2}\log_2 N\)，复加 \(N\log_2 N\)，比直接 DFT
+  的 \(O(N^2)\) 显著改进。
+\item
+  输入位反转、输出自然序（DIT）；DIF 相反。
+\item
+  IFFT 复用 FFT 蝶形，最后取共轭并除以 \(N\)。
+\item
+  应用：快速卷积、频谱分析、OFDM、图像处理等。
+\end{itemize}
+
+\newpage

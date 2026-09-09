@@ -1,0 +1,162 @@
+%% 由 build/emit_tex.py 生成（生成物，勿手改）；定制请放 user_style.tex / user_meta.yaml
+\chapter{习题8 参考答案}\label{ux4e60ux98988-ux53c2ux8003ux7b54ux6848}
+
+\begin{quote}
+说明：第8章（拉普拉斯变换）主要习题与参考答案。约定
+\(\mathcal L[f(t)]=F(s)=\int_0^{+\infty}f(t)e^{-st}dt\)，\(s=\sigma+i\omega\)。
+\end{quote}
+
+\section{习题}\label{ux4e60ux9898-7}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  求下列函数的拉氏变换（并用查表验证）：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(f(t)=\sin2t\)； (2) \(f(t)=e^{-2t}\)； (3) \(f(t)=t^2\)；
+  \item
+    \(f(t)=\sin t\cos t\)； (5) \(f(t)=\sinh kt\)； (6)
+    \(f(t)=\cosh kt\)；
+  \item
+    \(f(t)=\cos^2 t\)； (8) \(f(t)=t^2\cos t\)。
+  \end{enumerate}
+\item
+  求下列分段函数与含阶跃函数的拉氏变换：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(f(t)=\begin{cases}3,&0\le t<2\\1,&t\ge2\end{cases}\)；
+  \item
+    \(f(t)=u(t-1)\cos t\)；
+  \item
+    \(f(t)=5e^{-2t}+\delta(t)\)；
+  \item
+    \(f(t)=\delta(t)\cos t-u(t)\sin t\)。
+  \end{enumerate}
+\item
+  设 \(f(t)\) 是以 \(2\pi\) 为周期的函数，一个周期内
+  \(f(t)=\begin{cases}\sin t,&0<t<\pi\\0,&\pi<t<2\pi\end{cases}\)，求
+  \(\mathcal L[f(t)]\)。
+\item
+  求下列各图所示周期函数的拉氏变换：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    周期为 \(b\)，一个周期内 \(f(t)=t\ (0\le t<b)\)；
+  \item
+    周期为
+    \(2b\)：\(f(t)=\begin{cases}1,&0\le t<b\\-1,&b\le t<2b\end{cases}\)。
+  \end{enumerate}
+\item
+  求下列函数的拉氏逆变换：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(F(s)=\dfrac{1}{s(s+1)}\)； (2) \(F(s)=\dfrac{2}{s^2+4}\)； (3)
+    \(F(s)=\dfrac{1}{(s-2)^3}\)；
+  \item
+    \(F(s)=\dfrac{s+1}{s^2+2s+5}\)； (5) \(F(s)=\dfrac{1}{s^2(s+1)}\)。
+  \end{enumerate}
+\item
+  用拉氏变换解微分方程：
+
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(y''+4y=0,\ y(0)=0,\ y'(0)=2\)；
+  \item
+    \(y''-y=t,\ y(0)=0,\ y'(0)=1\)；
+  \item
+    微分方程组 \(\begin{cases}x'+2y=0\\y'-x=0\end{cases}\)，初始条件
+    \(x(0)=1,\ y(0)=0\)。
+  \end{enumerate}
+\item
+  利用卷积定理证明： \[
+  \mathcal L\left[\int_0^t f(\tau)d\tau\right]=\dfrac{F(s)}{s}.
+  \]
+\end{enumerate}
+
+\section{参考答案}\label{ux53c2ux8003ux7b54ux6848-7}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\dfrac{2}{s^2+4}\)； (2) \(\dfrac{1}{s+2}\)； (3)
+    \(\dfrac{2}{s^3}\)； (4) \(\dfrac{1}{s^2+4}\)；
+  \item
+    \(\dfrac{k}{s^2-k^2}\)； (6) \(\dfrac{s}{s^2-k^2}\)； (7)
+    \(\dfrac{s^2+2}{s(s^2+4)}\)； (8) 用 \(t^2\)
+    乘余弦：\(\dfrac{2s(s^2-12)}{(s^2+4)^3}\)。
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\dfrac{3}{s}-\dfrac{2e^{-2s}}{s}\)；
+  \item
+    \(\dfrac{s e^{-s}}{s^2+1}\)；
+  \item
+    \(\dfrac{5}{s+2}+1\)；
+  \item
+    \(\dfrac{s}{s^2+1}-\dfrac{1}{s^2+1}=\dfrac{s-1}{s^2+1}\)（广义意义下）。
+  \end{enumerate}
+\item
+  利用周期函数公式
+  \(\mathcal L[f]=\dfrac{1}{1-e^{-2\pi s}}\int_0^{2\pi}f(t)e^{-st}dt\)，得
+  \[
+  \mathcal L[f]=\dfrac{s}{(s^2+1)(1-e^{-2\pi s})} .
+  \]
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(\dfrac{1}{s^2}\cdot\dfrac{1-e^{-bs}(1+bs)}{1-e^{-bs}}\)（也可化为
+    \(\dfrac{1}{s^2}-\dfrac{b e^{-bs}}{s(1-e^{-bs})}\)）；
+  \item
+    \(\dfrac{1}{s}\tanh\dfrac{bs}{2}\)。
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(1-e^{-t}\)； (2) \(\sin2t\)； (3) \(\dfrac12t^2e^{2t}\)； (4)
+    \(e^{-t}\cos2t\)； (5) \(-1+t+e^{-t}\)。
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumii{(\arabic{enumii})}
+  \tightlist
+  \item
+    \(y(t)=\sin2t\)；
+  \item
+    \(y(t)=\sinh t+t\)；
+  \item
+    \(x(t)=\cos\sqrt2 t\)，\(y(t)=\dfrac1{\sqrt2}\sin\sqrt2 t\)（由特征方程
+    \(\lambda^2+2=0\)）。
+  \end{enumerate}
+\item
+  由定义交换积分次序即可： \[
+  \mathcal L\left[\int_0^t f(\tau)d\tau\right]
+  =\int_0^\infty\left(\int_0^t f(\tau)d\tau\right)e^{-st}dt
+  =\int_0^\infty f(\tau)\left(\int_\tau^\infty e^{-st}dt\right)d\tau
+  =\dfrac{F(s)}{s}.
+  \]
+\end{enumerate}

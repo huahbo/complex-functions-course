@@ -2,6 +2,8 @@ name: Build Book (Complex Functions Course)
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'chapters/**'
       - '附录/**'
@@ -9,6 +11,10 @@ on:
       - '.github/workflows/build.yml'
       - 'README.md'
   workflow_dispatch:
+
+concurrency:
+  group: build-book
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -55,3 +61,21 @@ jobs:
             教材TeX/README.md
             复变函数与积分变换_教案.md
           if-no-files-found: error
+
+  publish:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download built PDFs
+        uses: actions/download-artifact@v4
+        with:
+          name: curriculum-pdfs
+          path: _pdfs
+
+      - name: Publish PDFs to single-commit pdf branch
+        run: python build/publish_pdfs.py --pdf-dir _pdfs
